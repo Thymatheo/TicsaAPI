@@ -28,17 +28,17 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        [ProducesResponseType(typeof(IEnumerable<Gammes>), 200)]
-        [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<IEnumerable<Gammes>>> GetAllGamme()
+        [ProducesResponseType(typeof(Response<IEnumerable<Gammes>>), 200)]
+        [ProducesResponseType(typeof(Response<Exception>), 500)]
+        public async Task<ActionResult<Response<IEnumerable<Gammes>>>> GetAllGamme()
         {
             try
             {
-                return Ok(await _bsGamme.GetAllGamme());
+                return Ok(new Response<IEnumerable<Gammes>>() { Error = "", Data = await _bsGamme.GetAllGamme(), Succes = true });
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
 
@@ -50,18 +50,20 @@ namespace TicsaAPI.Controllers
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
-        [Route("type/{id}")]
-        [ProducesResponseType(typeof(IEnumerable<Gammes>), 200)]
-        [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<IEnumerable<Gammes>>> GetGammeByType([FromRoute] int idType)
+        [Route("type/{idType}")]
+        [ProducesResponseType(typeof(Response<IEnumerable<Gammes>>), 200)]
+        [ProducesResponseType(typeof(Response<Exception>), 500)]
+        public async Task<ActionResult<Response<IEnumerable<Gammes>>>> GetGammeByType([FromRoute] int idType)
         {
             try
             {
-                return Ok(await _bsGamme.GetGammesByIdType(idType));
+                if (idType == 0)
+                    throw new Exception("IdType can't be equal to 0");
+                return Ok(new Response<IEnumerable<Gammes>>() { Error = "", Data = await _bsGamme.GetGammesByIdType(idType), Succes = true });
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
 
@@ -73,18 +75,20 @@ namespace TicsaAPI.Controllers
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id}")]
-        [ProducesResponseType(typeof(Gammes), 200)]
-        [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<Gammes>> GetGammeById([FromRoute] int idGamme)
+        [Route("{idGamme}")]
+        [ProducesResponseType(typeof(Response<Gammes>), 200)]
+        [ProducesResponseType(typeof(Response<Exception>), 500)]
+        public async Task<ActionResult<Response<Gammes>>> GetGammeById([FromRoute] int idGamme)
         {
             try
             {
-                return Ok(await _bsGamme.GetGammeById(idGamme));
+                if (idGamme == 0)
+                    throw new Exception("IdGamme can't be equal to 0");
+                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.GetGammeById(idGamme), Succes = true });
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
 
@@ -97,17 +101,17 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("update")]
-        [ProducesResponseType(typeof(Gammes), 200)]
-        [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<Gammes>> UpdateGamme([FromBody] Gammes gamme)
+        [ProducesResponseType(typeof(Response<Gammes>), 200)]
+        [ProducesResponseType(typeof(Response<Exception>), 500)]
+        public async Task<ActionResult<Response<Gammes>>> UpdateGamme([FromBody] Gammes gamme)
         {
             try
             {
-                return Ok(await _bsGamme.UpdateGamme(gamme));
+                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.UpdateGamme(gamme), Succes = true });
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
 
@@ -120,17 +124,17 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("update")]
-        [ProducesResponseType(typeof(Gammes), 200)]
-        [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<Gammes>> removeGamme([FromBody] Gammes gamme)
+        [ProducesResponseType(typeof(Response<Gammes>), 200)]
+        [ProducesResponseType(typeof(Response<Exception>), 500)]
+        public async Task<ActionResult<Response<Gammes>>> removeGamme([FromBody] Gammes gamme)
         {
             try
             {
-                return Ok(await _bsGamme.RemoveGamme(gamme));
+                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.RemoveGamme(gamme), Succes = true });
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
 
@@ -143,17 +147,17 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("update")]
-        [ProducesResponseType(typeof(Gammes), 200)]
-        [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<Gammes>> AddGamme([FromBody] Gammes gamme)
+        [ProducesResponseType(typeof(Response<Gammes>), 200)]
+        [ProducesResponseType(typeof(Response<Exception>), 500)]
+        public async Task<ActionResult<Response<Gammes>>> AddGamme([FromBody] Gammes gamme)
         {
             try
             {
-                return Ok(await _bsGamme.AddGamme(gamme));
+                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.AddGamme(gamme), Succes = true });
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
     }
