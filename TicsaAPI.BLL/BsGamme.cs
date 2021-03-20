@@ -18,7 +18,7 @@ namespace TicsaAPI.BLL
 
         public async Task<IEnumerable<Gammes>> GetAllGamme()
         {
-            return await _dpGamme.GetAllGamme();
+            return await _dpGamme.GetAll();
         }
 
         public async Task<IEnumerable<Gammes>> GetGammesByIdType(int idType)
@@ -28,22 +28,22 @@ namespace TicsaAPI.BLL
 
         public async Task<Gammes> GetGammeById(int idGamme)
         {
-            return await _dpGamme.GetGammeById(idGamme);
+            return await _dpGamme.GetById(idGamme);
         }
 
         public async Task<Gammes> UpdateGamme(Gammes gamme)
         {
-            return await _dpGamme.UpdateGamme(gamme);
+            return await _dpGamme.Update(gamme);
         }
 
         public async Task<Gammes> RemoveGamme(Gammes gamme)
         {
-            return await _dpGamme.RemoveGamme(gamme);
+            return await _dpGamme.Remove(gamme);
         }
 
         public async Task<Gammes> AddGamme(Gammes gamme)
         {
-            return await _dpGamme.AddGamme(gamme);
+            return await _dpGamme.Add(gamme);
         }
     }
 }

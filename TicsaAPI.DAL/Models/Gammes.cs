@@ -13,7 +13,6 @@ namespace TicsaAPI.DAL.Models
         {
             OrderContent = new HashSet<OrderContent>();
         }
-
         public string Label { get; set; }
         public string Description { get; set; }
         public string CostHisto { get; set; }

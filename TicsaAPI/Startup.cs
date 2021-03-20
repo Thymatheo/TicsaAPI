@@ -12,7 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using TicsaAPI.BLL;
+using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL;
+using TicsaAPI.DAL.DataProvider;
+using TicsaAPI.DAL.DataProvider.Interface;
 
 namespace TicsaAPI
 {
@@ -32,6 +36,8 @@ namespace TicsaAPI
             services.AddControllers();
             services.AddDbContext<TicsaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TicsaContext")));
             services.AddSwaggerGen();
+            services.AddScoped<IBsGamme, BsGamme>();
+            services.AddScoped<IDpGamme, DpGamme>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
