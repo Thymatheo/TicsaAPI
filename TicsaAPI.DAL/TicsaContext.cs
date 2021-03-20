@@ -30,7 +30,8 @@ namespace TicsaAPI.DAL
         {
             modelBuilder.Entity<Clients>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -62,7 +63,8 @@ namespace TicsaAPI.DAL
 
             modelBuilder.Entity<GammeTypes>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.Label)
                     .IsRequired()
@@ -72,7 +74,8 @@ namespace TicsaAPI.DAL
 
             modelBuilder.Entity<Gammes>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.CostHisto).HasColumnType("text");
 
@@ -96,7 +99,8 @@ namespace TicsaAPI.DAL
 
             modelBuilder.Entity<OrderContent>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.HasKey(e => e.Id);
 
                 entity.HasOne(d => d.IdGammeNavigation)
                     .WithMany(p => p.OrderContent)
@@ -113,7 +117,8 @@ namespace TicsaAPI.DAL
 
             modelBuilder.Entity<Orders>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.OrderDate).HasColumnType("date");
 
