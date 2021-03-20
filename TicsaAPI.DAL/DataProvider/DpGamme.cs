@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicsaAPI.DAL.DataProvider.Interface;
-using TicsaAPI.DAL.Model;
+using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.DAL.DataProvider
 {
@@ -16,36 +16,36 @@ namespace TicsaAPI.DAL.DataProvider
         {
             _db = db;
         }
-        public async Task<IEnumerable<Gamme>> GetAllGamme()
+        public async Task<IEnumerable<Gammes>> GetAllGamme()
         {
             return await _db.Gammes.ToListAsync();
         }
 
-        public async Task<IEnumerable<Gamme>> GetGammesByIdType(int idType)
+        public async Task<IEnumerable<Gammes>> GetGammesByIdType(int idType)
         {
             return await _db.Gammes.Where(x => x.IdType == idType).ToListAsync();
         }
 
-        public async Task<Gamme> GetGammeById(int idGamme)
+        public async Task<Gammes> GetGammeById(int idGamme)
         {
-            return await _db.Gammes.Where(x => x.IdGamme == idGamme).FirstOrDefaultAsync();
+            return await _db.Gammes.Where(x => x.Id == idGamme).FirstOrDefaultAsync();
         }
 
-        public async Task<Gamme> UpdateGamme(Gamme gamme)
+        public async Task<Gammes> UpdateGamme(Gammes gamme)
         {
             var result = _db.Gammes.Update(gamme);
             await _db.SaveChangesAsync();
             return result.Entity;
         }
 
-        public async Task<Gamme> RemoveGamme(Gamme gamme)
+        public async Task<Gammes> RemoveGamme(Gammes gamme)
         {
             var result = _db.Gammes.Remove(gamme);
             await _db.SaveChangesAsync();
             return result.Entity;
         }
 
-        public async Task<Gamme> AddGamme(Gamme gamme)
+        public async Task<Gammes> AddGamme(Gammes gamme)
         {
             var result = _db.Gammes.Add(gamme);
             await _db.SaveChangesAsync();

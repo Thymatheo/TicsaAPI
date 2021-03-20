@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace TicsaAPI.DAL.Model
+namespace TicsaAPI.DAL.Models
 {
     public abstract class BasicElement
     {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using TicsaAPI.BLL.BS.Interface;
-using TicsaAPI.DAL.Model;
+using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.Controllers
 {
@@ -28,9 +28,9 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        [ProducesResponseType(typeof(IEnumerable<Gamme>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<Gammes>), 200)]
         [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<IEnumerable<Gamme>>> GetAllGamme()
+        public async Task<ActionResult<IEnumerable<Gammes>>> GetAllGamme()
         {
             try
             {
@@ -45,14 +45,15 @@ namespace TicsaAPI.Controllers
         /// <summary>
         /// Recupère les Gammes ayant le type souhaité
         /// </summary>
+        /// <param name="idType"></param> 
         /// <response code="200">Succes / Retourne toutes les Gammes</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
         [Route("type/{id}")]
-        [ProducesResponseType(typeof(IEnumerable<Gamme>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<Gammes>), 200)]
         [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<IEnumerable<Gamme>>> GetGammeByType([FromRoute] int idType)
+        public async Task<ActionResult<IEnumerable<Gammes>>> GetGammeByType([FromRoute] int idType)
         {
             try
             {
@@ -67,14 +68,15 @@ namespace TicsaAPI.Controllers
         /// <summary>
         /// Recupère une Gamme en fonction de son Id
         /// </summary>
+        /// <param name="idGamme"></param>  
         /// <response code="200">Succes / Retourne toutes les Gammes</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        [ProducesResponseType(typeof(Gamme), 200)]
+        [ProducesResponseType(typeof(Gammes), 200)]
         [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<Gamme>> GetGammeById([FromRoute] int idGamme)
+        public async Task<ActionResult<Gammes>> GetGammeById([FromRoute] int idGamme)
         {
             try
             {
@@ -89,14 +91,15 @@ namespace TicsaAPI.Controllers
         /// <summary>
         /// Met a jour une Gamme
         /// </summary>
+        /// <param name="gamme"></param>  
         /// <response code="200">Succes / Retourne toutes les Gammes</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpPut]
         [Route("update")]
-        [ProducesResponseType(typeof(Gamme), 200)]
+        [ProducesResponseType(typeof(Gammes), 200)]
         [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<Gamme>> UpdateGamme([FromBody] Gamme gamme)
+        public async Task<ActionResult<Gammes>> UpdateGamme([FromBody] Gammes gamme)
         {
             try
             {
@@ -111,14 +114,15 @@ namespace TicsaAPI.Controllers
         /// <summary>
         /// Supprime une Gamme
         /// </summary>
+        /// <param name="gamme"></param>  
         /// <response code="200">Succes / Retourne toutes les Gammes</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpDelete]
         [Route("update")]
-        [ProducesResponseType(typeof(Gamme), 200)]
+        [ProducesResponseType(typeof(Gammes), 200)]
         [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<Gamme>> removeGamme([FromBody] Gamme gamme)
+        public async Task<ActionResult<Gammes>> removeGamme([FromBody] Gammes gamme)
         {
             try
             {
@@ -133,14 +137,15 @@ namespace TicsaAPI.Controllers
         /// <summary>
         /// Ajoute une Gamme
         /// </summary>
+        /// <param name="gamme"></param>       
         /// <response code="200">Succes / Retourne toutes les Gammes</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpPost]
         [Route("update")]
-        [ProducesResponseType(typeof(Gamme), 200)]
+        [ProducesResponseType(typeof(Gammes), 200)]
         [ProducesResponseType(typeof(Exception), 500)]
-        public async Task<ActionResult<Gamme>> AddGamme([FromBody] Gamme gamme)
+        public async Task<ActionResult<Gammes>> AddGamme([FromBody] Gammes gamme)
         {
             try
             {
