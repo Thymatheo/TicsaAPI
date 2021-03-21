@@ -4,6 +4,50 @@
         <name>TicsaAPI</name>
     </assembly>
     <members>
+        <member name="M:TicsaAPI.Controllers.ClientController.GetAllClient">
+            <summary>
+            Recupère toute les Clients
+            </summary>
+            <response code="200">Succes / Retourne toutes les Clients</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.ClientController.GetClientById(System.Int32)">
+            <summary>
+            Recupère un Client en fonction de son Id
+            </summary>
+            <param name="idClient"></param>  
+            <response code="200">Succes / Retourne un Client</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.ClientController.UpdateClient(TicsaAPI.DAL.Models.Clients)">
+            <summary>
+            Met a jour un Client
+            </summary>
+            <param name="client"></param>  
+            <response code="200">Succes / Retourne le Client modifié</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.ClientController.RemoveClient(TicsaAPI.DAL.Models.Clients)">
+            <summary>
+            Supprime un Client
+            </summary>
+            <param name="client"></param>  
+            <response code="200">Succes / Retourne le Client supprimé</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.ClientController.AddClient(TicsaAPI.DAL.Models.Clients)">
+            <summary>
+            Ajoute un Client
+            </summary>
+            <param name="client"></param>       
+            <response code="200">Succes / Retourne le Client ajouté</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
         <member name="M:TicsaAPI.Controllers.GammeController.GetAllGamme">
             <summary>
             Recupère toute les Gammes
@@ -17,7 +61,7 @@
             Recupère les Gammes ayant le type souhaité
             </summary>
             <param name="idType"></param> 
-            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="200">Succes / Retourne une Gamme</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -26,7 +70,7 @@
             Recupère une Gamme en fonction de son Id
             </summary>
             <param name="idGamme"></param>  
-            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="200">Succes / Retourne une Gamme</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -35,16 +79,16 @@
             Met a jour une Gamme
             </summary>
             <param name="gamme"></param>  
-            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="200">Succes / Retourne la Gamme modifié</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeController.removeGamme(TicsaAPI.DAL.Models.Gammes)">
+        <member name="M:TicsaAPI.Controllers.GammeController.RemoveGamme(TicsaAPI.DAL.Models.Gammes)">
             <summary>
             Supprime une Gamme
             </summary>
             <param name="gamme"></param>  
-            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="200">Succes / Retourne la Gamme supprimé</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -53,7 +97,7 @@
             Ajoute une Gamme
             </summary>
             <param name="gamme"></param>       
-            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="200">Succes / Retourne la Gamme ajouté</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -70,7 +114,7 @@
             Recupère un Type de Gamme en fonction de son Id
             </summary>
             <param name="idType"></param>  
-            <response code="200">Succes / Retourne toutes le Type de Gamme</response>
+            <response code="200">Succes / Retourne toutes un Type de Gamme</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -79,7 +123,7 @@
             Met a jour un Type de Gamme
             </summary>
             <param name="type"></param>  
-            <response code="200">Succes / Retourne le type de gamme modifié</response>
+            <response code="200">Succes / Retourne le Type de Gamme modifié</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -88,7 +132,7 @@
             Supprime un Type de Gamme
             </summary>
             <param name="type"></param>  
-            <response code="200">Succes / Retourne le type de gamme supprimé</response>
+            <response code="200">Succes / Retourne le Type de Gamme supprimé</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -97,7 +141,7 @@
             Ajoute un Type de Gamme
             </summary>
             <param name="gamme"></param>       
-            <response code="200">Succes / Retourne le type de gamme ajouté</response>
+            <response code="200">Succes / Retourne le Type de Gamme ajouté</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
