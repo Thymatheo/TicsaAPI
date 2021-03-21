@@ -13,10 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TicsaAPI.BLL;
+using TicsaAPI.BLL.BS;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL;
 using TicsaAPI.DAL.DataProvider;
 using TicsaAPI.DAL.DataProvider.Interface;
+using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI
 {
@@ -38,6 +40,8 @@ namespace TicsaAPI
             services.AddSwaggerGen();
             services.AddScoped<IBsGamme, BsGamme>();
             services.AddScoped<IDpGamme, DpGamme>();
+            services.AddScoped<IBsGammeType, BsGammeType>();
+            services.AddScoped<IDpGammeType, DpGammeType>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

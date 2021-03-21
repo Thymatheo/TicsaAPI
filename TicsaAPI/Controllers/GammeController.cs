@@ -34,7 +34,7 @@ namespace TicsaAPI.Controllers
         {
             try
             {
-                return Ok(new Response<IEnumerable<Gammes>>() { Error = "", Data = await _bsGamme.GetAllGamme(), Succes = true });
+                return Ok(new Response<IEnumerable<Gammes>>() { Error = "", Data = await _bsGamme.GetAll(), Succes = true });
             }
             catch (Exception e)
             {
@@ -84,7 +84,7 @@ namespace TicsaAPI.Controllers
             {
                 if (idGamme == 0)
                     throw new Exception("IdGamme can't be equal to 0");
-                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.GetGammeById(idGamme), Succes = true });
+                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.GetById(idGamme), Succes = true });
             }
             catch (Exception e)
             {
@@ -107,7 +107,7 @@ namespace TicsaAPI.Controllers
         {
             try
             {
-                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.UpdateGamme(gamme), Succes = true });
+                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.Update(gamme), Succes = true });
             }
             catch (Exception e)
             {
@@ -123,14 +123,14 @@ namespace TicsaAPI.Controllers
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpDelete]
-        [Route("update")]
+        [Route("remove")]
         [ProducesResponseType(typeof(Response<Gammes>), 200)]
         [ProducesResponseType(typeof(Response<Exception>), 500)]
         public async Task<ActionResult<Response<Gammes>>> removeGamme([FromBody] Gammes gamme)
         {
             try
             {
-                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.RemoveGamme(gamme), Succes = true });
+                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.Remove(gamme), Succes = true });
             }
             catch (Exception e)
             {
@@ -146,14 +146,14 @@ namespace TicsaAPI.Controllers
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpPost]
-        [Route("update")]
+        [Route("add")]
         [ProducesResponseType(typeof(Response<Gammes>), 200)]
         [ProducesResponseType(typeof(Response<Exception>), 500)]
         public async Task<ActionResult<Response<Gammes>>> AddGamme([FromBody] Gammes gamme)
         {
             try
             {
-                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.AddGamme(gamme), Succes = true });
+                return Ok(new Response<Gammes>() { Error = "", Data = await _bsGamme.Add(gamme), Succes = true });
             }
             catch (Exception e)
             {

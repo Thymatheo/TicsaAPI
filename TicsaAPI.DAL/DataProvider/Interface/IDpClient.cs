@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using TicsaAPI.DAL.Models;
 
-namespace TicsaAPI.BLL.BS.Interface
+namespace TicsaAPI.DAL.DataProvider.Interface
 {
-    public interface IBsGammeType : IBasicBs<GammeTypes>
+    public interface IDpClient : IBasicDp<Clients>
     {
     }
 }
