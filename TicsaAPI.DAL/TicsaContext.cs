@@ -89,30 +89,12 @@ namespace TicsaAPI.DAL
                 entity.Property(e => e.StockHisto)
                     .IsRequired()
                     .HasColumnType("text");
-
-                entity.HasOne(d => d.IdTypeNavigation)
-                    .WithMany(p => p.Gammes)
-                    .HasForeignKey(d => d.IdType)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Gammes__IdType__4BAC3F29");
             });
 
             modelBuilder.Entity<OrderContent>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
                 entity.HasKey(e => e.Id);
-
-                entity.HasOne(d => d.IdGammeNavigation)
-                    .WithMany(p => p.OrderContent)
-                    .HasForeignKey(d => d.IdGamme)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OrderCont__IdGam__5441852A");
-
-                entity.HasOne(d => d.IdOrderNavigation)
-                    .WithMany(p => p.OrderContent)
-                    .HasForeignKey(d => d.IdOrder)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OrderCont__IdOrd__534D60F1");
             });
 
             modelBuilder.Entity<Orders>(entity =>
@@ -121,12 +103,6 @@ namespace TicsaAPI.DAL
                 entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.OrderDate).HasColumnType("date");
-
-                entity.HasOne(d => d.IdClientNavigation)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.IdClient)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Orders__IdClient__5070F446");
             });
 
             OnModelCreatingPartial(modelBuilder);
