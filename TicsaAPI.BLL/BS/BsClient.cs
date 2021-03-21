@@ -9,8 +9,10 @@ namespace TicsaAPI.BLL.BS
 {
     public class BsClient : BasicBs<Clients>, IBsClient
     {
-        public BsClient(IBasicDp<Clients> dp) : base(dp)
+        private IDpClient _dpGamme { get; set; }
+        public BsClient(IDpClient dp) : base(dp)
         {
+            _dpGamme = dp;
         }
     }
 }

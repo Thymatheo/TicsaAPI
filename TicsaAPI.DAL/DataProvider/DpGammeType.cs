@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TicsaAPI.DAL.DataProvider.Interface;
@@ -8,8 +9,6 @@ namespace TicsaAPI.DAL.DataProvider
 {
     public class DpGammeType : BasicDp<GammeTypes>, IDpGammeType
     {
-        public DpGammeType(TicsaContext db) : base(db.GammeTypes, db)
-        {
-        }
+        public DpGammeType(TicsaContext db) : base(db.GammeTypes, db) { }
     }
 }

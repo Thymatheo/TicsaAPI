@@ -145,6 +145,102 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
+        <member name="M:TicsaAPI.Controllers.OrderContentController.GetAllOrderContent">
+            <summary>
+            Recupère tout les Contenus de toutes les Commandes
+            </summary>
+            <response code="200">Succes / Retourne toutes les Contenus de toute les Commandes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderContentController.GetOrderContentByIdOrder(System.Int32)">
+            <summary>
+            Recupère tout les Contenus d'une Commandes     
+            </summary>
+            <response code="200">Succes / Retourne toutes les Contenus de Commandes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderContentController.GetOrderById(System.Int32)">
+            <summary>
+            Recupère un Contenu de Commande en fonction de son Id
+            </summary>
+            <param name="idOrderContent"></param>  
+            <response code="200">Succes / Retourne un Contenu de Commande</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderContentController.UpdateOrderContent(TicsaAPI.DAL.Models.OrderContent)">
+            <summary>
+            Met a jour un Contenu de Commande
+            </summary>
+            <param name="orderContent"></param>  
+            <response code="200">Succes / Retourne le Contenu de Commande modifié</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderContentController.RemoveOrderContent(TicsaAPI.DAL.Models.OrderContent)">
+            <summary>
+            Supprime un Contenu de Commande
+            </summary>
+            <param name="orderContent"></param>  
+            <response code="200">Succes / Retourne la Commande supprimé</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderContentController.AddOrderContent(TicsaAPI.DAL.Models.OrderContent)">
+            <summary>
+            Ajoute un Contenu de Commande
+            </summary>
+            <param name="orderContent"></param>       
+            <response code="200">Succes / Retourne la Commande ajouté</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderController.GetAllOrder">
+            <summary>
+            Recupère toute les Commandes
+            </summary>
+            <response code="200">Succes / Retourne toutes les Commandes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderController.GetOrderById(System.Int32)">
+            <summary>
+            Recupère une Commande en fonction de son Id
+            </summary>
+            <param name="idOrder"></param>  
+            <response code="200">Succes / Retourne une Commande</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderController.UpdateOrder(TicsaAPI.DAL.Models.Orders)">
+            <summary>
+            Met a jour une Commande
+            </summary>
+            <param name="order"></param>  
+            <response code="200">Succes / Retourne la Commande modifié</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderController.RemoveOrder(TicsaAPI.DAL.Models.Orders)">
+            <summary>
+            Supprime une Commande
+            </summary>
+            <param name="order"></param>  
+            <response code="200">Succes / Retourne la Commande supprimé</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderController.AddOrder(TicsaAPI.DAL.Models.Orders)">
+            <summary>
+            Ajoute une Commande
+            </summary>
+            <param name="order"></param>       
+            <response code="200">Succes / Retourne la Commande ajouté</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
         <member name="P:TicsaAPI.Response`1.Succes">
             <summary>
             Define if the query was a succes or a failure

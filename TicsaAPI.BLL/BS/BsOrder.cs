@@ -9,8 +9,10 @@ namespace TicsaAPI.BLL.BS
 {
     public class BsOrder : BasicBs<Orders>, IBsOrder
     {
-        public BsOrder(IBasicDp<Orders> dp) : base(dp)
+        public IDpOrder _dpOrder { get; set; }
+        public BsOrder(IDpOrder dp) : base(dp)
         {
+            _dpOrder = dp;
         }
     }
 }

@@ -9,8 +9,6 @@ namespace TicsaAPI.DAL.DataProvider
 {
     public class DpClient : BasicDp<Clients>, IDpClient
     {
-        public DpClient(DbSet<Clients> table, TicsaContext db) : base(table, db)
-        {
-        }
+        public DpClient(TicsaContext db) : base(db.Clients, db) { }
     }
 }

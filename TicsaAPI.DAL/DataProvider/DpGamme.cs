@@ -11,14 +11,11 @@ namespace TicsaAPI.DAL.DataProvider
 {
     public class DpGamme : BasicDp<Gammes>, IDpGamme
     {
-        public DpGamme(TicsaContext db) : base(db.Gammes, db)
-        {
-            
-        }
+        public DpGamme(TicsaContext db) : base(db.Gammes, db) { }
 
         public async Task<IEnumerable<Gammes>> GetGammesByIdType(int idType)
         {
-            return await db.Gammes.Where(x => x.IdType == idType).ToListAsync();
+            return await Table.Where(x => x.IdType == idType).ToListAsync();
         }
 
     }

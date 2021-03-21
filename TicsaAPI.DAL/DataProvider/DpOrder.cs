@@ -9,8 +9,6 @@ namespace TicsaAPI.DAL.DataProvider
 {
     public class DpOrder : BasicDp<Orders>, IDpOrder
     {
-        public DpOrder(DbSet<Orders> table, TicsaContext db) : base(table, db)
-        {
-        }
+        public DpOrder(TicsaContext db) : base(db.Orders, db) { }
     }
 }
