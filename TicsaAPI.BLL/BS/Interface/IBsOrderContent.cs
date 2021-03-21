@@ -5,7 +5,7 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.BLL.BS.Interface
 {
-    public interface IOrderContent : IBasicBs<OrderContent>
+    public interface IBsOrderContent : IBasicBs<OrderContent>
     {
     }
 }

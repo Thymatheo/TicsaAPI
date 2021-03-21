@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TicsaAPI</name>
+    </assembly>
+    <members>
+        <member name="M:TicsaAPI.Controllers.GammeController.GetAllGamme">
+            <summary>
+            Recupère toute les Gammes
+            </summary>
+            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeController.GetGammeByType(System.Int32)">
+            <summary>
+            Recupère les Gammes ayant le type souhaité
+            </summary>
+            <param name="idType"></param> 
+            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeController.GetGammeById(System.Int32)">
+            <summary>
+            Recupère une Gamme en fonction de son Id
+            </summary>
+            <param name="idGamme"></param>  
+            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeController.UpdateGamme(TicsaAPI.DAL.Models.Gammes)">
+            <summary>
+            Met a jour une Gamme
+            </summary>
+            <param name="gamme"></param>  
+            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeController.removeGamme(TicsaAPI.DAL.Models.Gammes)">
+            <summary>
+            Supprime une Gamme
+            </summary>
+            <param name="gamme"></param>  
+            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeController.AddGamme(TicsaAPI.DAL.Models.Gammes)">
+            <summary>
+            Ajoute une Gamme
+            </summary>
+            <param name="gamme"></param>       
+            <response code="200">Succes / Retourne toutes les Gammes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.GetAllGammeType">
+            <summary>
+            Recupère toute les Types de Gamme
+            </summary>
+            <response code="200">Succes / Retourne toutes les Types de Gammes</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.GetGammeTypeById(System.Int32)">
+            <summary>
+            Recupère un Type de Gamme en fonction de son Id
+            </summary>
+            <param name="idType"></param>  
+            <response code="200">Succes / Retourne toutes le Type de Gamme</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.UpdateGammeType(TicsaAPI.DAL.Models.GammeTypes)">
+            <summary>
+            Met a jour un Type de Gamme
+            </summary>
+            <param name="type"></param>  
+            <response code="200">Succes / Retourne le type de gamme modifié</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.RemoveGammeType(TicsaAPI.DAL.Models.GammeTypes)">
+            <summary>
+            Supprime un Type de Gamme
+            </summary>
+            <param name="type"></param>  
+            <response code="200">Succes / Retourne le type de gamme supprimé</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.AddGammeType(TicsaAPI.DAL.Models.GammeTypes)">
+            <summary>
+            Ajoute un Type de Gamme
+            </summary>
+            <param name="gamme"></param>       
+            <response code="200">Succes / Retourne le type de gamme ajouté</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="P:TicsaAPI.Response`1.Succes">
+            <summary>
+            Define if the query was a succes or a failure
+            </summary>
+        </member>
+        <member name="P:TicsaAPI.Response`1.Error">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="P:TicsaAPI.Response`1.Data">
+            <summary>
+            Data of the response query
+            </summary>
+        </member>
+    </members>
+</doc>

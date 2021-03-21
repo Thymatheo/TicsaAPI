@@ -9,13 +9,7 @@ namespace TicsaAPI.DAL.Models
 {
     public partial class GammeTypes : BasicElement
     {
-        public GammeTypes()
-        {
-            Gammes = new HashSet<Gammes>();
-        }
 
         public string Label { get; set; }
-
-        public virtual ICollection<Gammes> Gammes { get; set; }
     }
 }

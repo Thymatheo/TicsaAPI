@@ -20,7 +20,7 @@ namespace TicsaAPI.Controllers
         }
 
         /// <summary>
-        /// Recupère toute les Gammes
+        /// Recupère toute les Types de Gamme
         /// </summary>
         /// <response code="200">Succes / Retourne toutes les Types de Gammes</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
@@ -45,11 +45,11 @@ namespace TicsaAPI.Controllers
         /// Recupère un Type de Gamme en fonction de son Id
         /// </summary>
         /// <param name="idType"></param>  
-        /// <response code="200">Succes / Retourne toutes le Type de Gamme/response>
+        /// <response code="200">Succes / Retourne toutes le Type de Gamme</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
-        [Route("{idGamme}")]
+        [Route("{idType}")]
         [ProducesResponseType(typeof(Response<GammeTypes>), 200)]
         [ProducesResponseType(typeof(Response<Exception>), 500)]
         public async Task<ActionResult<Response<GammeTypes>>> GetGammeTypeById([FromRoute] int idType)

@@ -9,14 +9,7 @@ namespace TicsaAPI.DAL.Models
 {
     public partial class Orders : BasicElement
     {
-        public Orders()
-        {
-            OrderContent = new HashSet<OrderContent>();
-        }
         public DateTime OrderDate { get; set; }
         public int IdClient { get; set; }
-
-        public virtual Clients IdClientNavigation { get; set; }
-        public virtual ICollection<OrderContent> OrderContent { get; set; }
     }
 }

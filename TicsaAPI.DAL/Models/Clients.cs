@@ -9,10 +9,6 @@ namespace TicsaAPI.DAL.Models
 {
     public partial class Clients : BasicElement
     {
-        public Clients()
-        {
-            Orders = new HashSet<Orders>();
-        }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string CompagnieName { get; set; }
@@ -20,7 +16,5 @@ namespace TicsaAPI.DAL.Models
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public int PostalCode { get; set; }
-
-        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

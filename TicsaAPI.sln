@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicsaAPI.DAL", "TicsaAPI.DA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicsaAPI", "TicsaAPI\TicsaAPI.csproj", "{6BCC58C9-8F5D-44BF-93AE-D2F3DCFF5DE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicsaAPI.BLL", "TicsaAPI.BLL\TicsaAPI.BLL.csproj", "{32573FA5-E169-4F7B-8208-CB3E47BA3DAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicsaAPI.BLL", "TicsaAPI.BLL\TicsaAPI.BLL.csproj", "{32573FA5-E169-4F7B-8208-CB3E47BA3DAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B06F9342-C3C2-4CF3-B3E7-E3307A91BCD4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

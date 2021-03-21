@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -37,11 +38,23 @@ namespace TicsaAPI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers();
             services.AddDbContext<TicsaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TicsaContext")));
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo());
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+            services.AddScoped<IBsOrder, BsOrder>();
+            services.AddScoped<IDpOrder, DpOrder>();
             services.AddScoped<IBsGamme, BsGamme>();
             services.AddScoped<IDpGamme, DpGamme>();
+            services.AddScoped<IBsClient, BsClient>();
+            services.AddScoped<IDpClient, DpClient>();
             services.AddScoped<IBsGammeType, BsGammeType>();
             services.AddScoped<IDpGammeType, DpGammeType>();
+            services.AddScoped<IBsOrderContent, BsOrderContent>();
+            services.AddScoped<IDpOrderContent, DpOrderContent>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +72,7 @@ namespace TicsaAPI
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi Routage");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticsa API");
                 c.RoutePrefix = "doc";
             });
             app.UseRouting();

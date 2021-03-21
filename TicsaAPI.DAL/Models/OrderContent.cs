@@ -12,8 +12,5 @@ namespace TicsaAPI.DAL.Models
         public int IdOrder { get; set; }
         public int IdGamme { get; set; }
         public int Quantity { get; set; }
-
-        public virtual Gammes IdGammeNavigation { get; set; }
-        public virtual Orders IdOrderNavigation { get; set; }
     }
 }

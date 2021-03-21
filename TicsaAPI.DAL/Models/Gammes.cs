@@ -9,10 +9,6 @@ namespace TicsaAPI.DAL.Models
 {
     public partial class Gammes: BasicElement
     {
-        public Gammes()
-        {
-            OrderContent = new HashSet<OrderContent>();
-        }
         public string Label { get; set; }
         public string Description { get; set; }
         public string CostHisto { get; set; }
@@ -20,8 +16,5 @@ namespace TicsaAPI.DAL.Models
         public int IdType { get; set; }
         public int Stock { get; set; }
         public string StockHisto { get; set; }
-
-        public virtual GammeTypes IdTypeNavigation { get; set; }
-        public virtual ICollection<OrderContent> OrderContent { get; set; }
     }
 }
