@@ -11,29 +11,30 @@ namespace TicsaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GammeTypeController : ControllerBase
+    public class ClientController : ControllerBase
     {
-        private IBsGammeType _bsGammeType { get; set; }
-        public GammeTypeController(IBsGammeType bsGammeType)
+
+        private IBsClient _bsClient { get; set; }
+        public ClientController(IBsClient bsClient)
         {
-            _bsGammeType = bsGammeType;
+            _bsClient = bsClient;
         }
 
         /// <summary>
-        /// Recupère toute les Types de Gamme
+        /// Recupère toute les Clients
         /// </summary>
-        /// <response code="200">Succes / Retourne toutes les Types de Gammes</response>
+        /// <response code="200">Succes / Retourne toutes les Clients</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        [ProducesResponseType(typeof(Response<IEnumerable<GammeTypes>>), 200)]
+        [ProducesResponseType(typeof(Response<IEnumerable<Clients>>), 200)]
         [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<GammeTypes>>>> GetAllGammeType()
+        public async Task<ActionResult<Response<IEnumerable<Clients>>>> GetAllClient()
         {
             try
             {
-                return Ok(new Response<IEnumerable<GammeTypes>>() { Error = "", Data = await _bsGammeType.GetAll(), Succes = true });
+                return Ok(new Response<IEnumerable<Clients>>() { Error = "", Data = await _bsClient.GetAll(), Succes = true });
             }
             catch (Exception e)
             {
@@ -42,23 +43,23 @@ namespace TicsaAPI.Controllers
         }
 
         /// <summary>
-        /// Recupère un Type de Gamme en fonction de son Id
+        /// Recupère un Client en fonction de son Id
         /// </summary>
-        /// <param name="idType"></param>  
-        /// <response code="200">Succes / Retourne toutes un Type de Gamme</response>
+        /// <param name="idClient"></param>  
+        /// <response code="200">Succes / Retourne un Client</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
-        [Route("{idType}")]
-        [ProducesResponseType(typeof(Response<GammeTypes>), 200)]
+        [Route("{idGamme}")]
+        [ProducesResponseType(typeof(Response<Clients>), 200)]
         [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<GammeTypes>>> GetGammeTypeById([FromRoute] int idType)
+        public async Task<ActionResult<Response<Clients>>> GetClientById([FromRoute] int idClient)
         {
             try
             {
-                if (idType == 0)
-                    throw new Exception("IdType can't be equal to 0");
-                return Ok(new Response<GammeTypes>() { Error = "", Data = await _bsGammeType.GetById(idType), Succes = true });
+                if (idClient == 0)
+                    throw new Exception("IdGamme can't be equal to 0");
+                return Ok(new Response<Clients>() { Error = "", Data = await _bsClient.GetById(idClient), Succes = true });
             }
             catch (Exception e)
             {
@@ -67,21 +68,21 @@ namespace TicsaAPI.Controllers
         }
 
         /// <summary>
-        /// Met a jour un Type de Gamme
+        /// Met a jour un Client
         /// </summary>
-        /// <param name="type"></param>  
-        /// <response code="200">Succes / Retourne le Type de Gamme modifié</response>
+        /// <param name="client"></param>  
+        /// <response code="200">Succes / Retourne le Client modifié</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpPut]
         [Route("update")]
-        [ProducesResponseType(typeof(Response<GammeTypes>), 200)]
+        [ProducesResponseType(typeof(Response<Clients>), 200)]
         [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<GammeTypes>>> UpdateGammeType([FromBody] GammeTypes type)
+        public async Task<ActionResult<Response<Clients>>> UpdateClient([FromBody] Clients client)
         {
             try
             {
-                return Ok(new Response<GammeTypes>() { Error = "", Data = await _bsGammeType.Update(type), Succes = true });
+                return Ok(new Response<Clients>() { Error = "", Data = await _bsClient.Update(client), Succes = true });
             }
             catch (Exception e)
             {
@@ -90,21 +91,21 @@ namespace TicsaAPI.Controllers
         }
 
         /// <summary>
-        /// Supprime un Type de Gamme
+        /// Supprime un Client
         /// </summary>
-        /// <param name="type"></param>  
-        /// <response code="200">Succes / Retourne le Type de Gamme supprimé</response>
+        /// <param name="client"></param>  
+        /// <response code="200">Succes / Retourne le Client supprimé</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpDelete]
         [Route("remove")]
-        [ProducesResponseType(typeof(Response<GammeTypes>), 200)]
+        [ProducesResponseType(typeof(Response<Clients>), 200)]
         [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<GammeTypes>>> RemoveGammeType([FromBody] GammeTypes type)
+        public async Task<ActionResult<Response<Clients>>> RemoveClient([FromBody] Clients client)
         {
             try
             {
-                return Ok(new Response<GammeTypes>() { Error = "", Data = await _bsGammeType.Remove(type), Succes = true });
+                return Ok(new Response<Clients>() { Error = "", Data = await _bsClient.Remove(client), Succes = true });
             }
             catch (Exception e)
             {
@@ -113,21 +114,21 @@ namespace TicsaAPI.Controllers
         }
 
         /// <summary>
-        /// Ajoute un Type de Gamme
+        /// Ajoute un Client
         /// </summary>
-        /// <param name="gamme"></param>       
-        /// <response code="200">Succes / Retourne le Type de Gamme ajouté</response>
+        /// <param name="client"></param>       
+        /// <response code="200">Succes / Retourne le Client ajouté</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpPost]
         [Route("add")]
-        [ProducesResponseType(typeof(Response<GammeTypes>), 200)]
+        [ProducesResponseType(typeof(Response<Clients>), 200)]
         [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<GammeTypes>>> AddGammeType([FromBody] GammeTypes type)
+        public async Task<ActionResult<Response<Clients>>> AddClient([FromBody] Clients client)
         {
             try
             {
-                return Ok(new Response<GammeTypes>() { Error = "", Data = await _bsGammeType.Add(type), Succes = true });
+                return Ok(new Response<Clients>() { Error = "", Data = await _bsClient.Add(client), Succes = true });
             }
             catch (Exception e)
             {

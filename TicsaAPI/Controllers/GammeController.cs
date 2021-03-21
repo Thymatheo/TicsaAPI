@@ -46,7 +46,7 @@ namespace TicsaAPI.Controllers
         /// Recupère les Gammes ayant le type souhaité
         /// </summary>
         /// <param name="idType"></param> 
-        /// <response code="200">Succes / Retourne toutes les Gammes</response>
+        /// <response code="200">Succes / Retourne une Gamme</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
@@ -71,7 +71,7 @@ namespace TicsaAPI.Controllers
         /// Recupère une Gamme en fonction de son Id
         /// </summary>
         /// <param name="idGamme"></param>  
-        /// <response code="200">Succes / Retourne toutes les Gammes</response>
+        /// <response code="200">Succes / Retourne une Gamme</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
@@ -96,7 +96,7 @@ namespace TicsaAPI.Controllers
         /// Met a jour une Gamme
         /// </summary>
         /// <param name="gamme"></param>  
-        /// <response code="200">Succes / Retourne toutes les Gammes</response>
+        /// <response code="200">Succes / Retourne la Gamme modifié</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpPut]
@@ -119,14 +119,14 @@ namespace TicsaAPI.Controllers
         /// Supprime une Gamme
         /// </summary>
         /// <param name="gamme"></param>  
-        /// <response code="200">Succes / Retourne toutes les Gammes</response>
+        /// <response code="200">Succes / Retourne la Gamme supprimé</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpDelete]
         [Route("remove")]
         [ProducesResponseType(typeof(Response<Gammes>), 200)]
         [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<Gammes>>> removeGamme([FromBody] Gammes gamme)
+        public async Task<ActionResult<Response<Gammes>>> RemoveGamme([FromBody] Gammes gamme)
         {
             try
             {
@@ -142,7 +142,7 @@ namespace TicsaAPI.Controllers
         /// Ajoute une Gamme
         /// </summary>
         /// <param name="gamme"></param>       
-        /// <response code="200">Succes / Retourne toutes les Gammes</response>
+        /// <response code="200">Succes / Retourne la Gamme ajouté</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpPost]
