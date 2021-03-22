@@ -18,24 +18,31 @@
             </summary>
             <param name="idClient"></param>  
             <response code="200">Succes / Retourne un Client</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / l'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.ClientController.UpdateClient(TicsaAPI.DAL.Models.Client)">
+        <member name="M:TicsaAPI.Controllers.ClientController.UpdateClient(System.Int32,TicsaAPI.DAL.Models.Client)">
             <summary>
             Met a jour un Client
             </summary>
             <param name="client"></param>  
+            <param name="idClient"></param>  
             <response code="200">Succes / Retourne le Client modifié</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / l'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.ClientController.RemoveClient(TicsaAPI.DAL.Models.Client)">
+        <member name="M:TicsaAPI.Controllers.ClientController.RemoveClient(System.Int32)">
             <summary>
             Supprime un Client
             </summary>
-            <param name="client"></param>  
+            <param name="idClient"></param>  
             <response code="200">Succes / Retourne le Client supprimé</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / l'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -45,6 +52,59 @@
             </summary>
             <param name="client"></param>       
             <response code="200">Succes / Retourne le Client ajouté</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.bsCommentaryController.GetAllClient">
+            <summary>
+            Recupère toute les Commentaires
+            </summary>
+            <response code="200">Succes / Retourne toutes les Commentaires</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.bsCommentaryController.GetClientById(System.Int32)">
+            <summary>
+            Recupère un Commentaire en fonction de son Id
+            </summary>
+            <param name="idCommentary"></param>  
+            <response code="200">Succes / Retourne un Commentaire</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.bsCommentaryController.UpdateClient(System.Int32,TicsaAPI.DAL.Models.Commentary)">
+            <summary>
+            Met a jour un Commentaire
+            </summary>
+            <param name="commentary"></param>  
+            <param name="idCommentary"></param>  
+            <response code="200">Succes / Retourne le Commentaire modifié</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.bsCommentaryController.RemoveCommentary(System.Int32)">
+            <summary>
+            Supprime un Commentaire
+            </summary>
+            <param name="idCommentary"></param>  
+            <response code="200">Succes / Retourne le Commentaire supprimé</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.bsCommentaryController.AddCommentary(TicsaAPI.DAL.Models.Commentary)">
+            <summary>
+            Ajoute un Commentaire
+            </summary>
+            <param name="commentary"></param>       
+            <response code="200">Succes / Retourne le Commentaire ajouté</response>
+            <response code="400">BadRequest / Un des params est vide</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -62,6 +122,8 @@
             </summary>
             <param name="idType"></param> 
             <response code="200">Succes / Retourne une Gamme</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -71,24 +133,31 @@
             </summary>
             <param name="idGamme"></param>  
             <response code="200">Succes / Retourne une Gamme</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeController.UpdateGamme(TicsaAPI.DAL.Models.Gamme)">
+        <member name="M:TicsaAPI.Controllers.GammeController.UpdateGamme(System.Int32,TicsaAPI.DAL.Models.Gamme)">
             <summary>
             Met a jour une Gamme
             </summary>
             <param name="gamme"></param>  
+            <param name="idGamme"></param>  
             <response code="200">Succes / Retourne la Gamme modifié</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeController.RemoveGamme(TicsaAPI.DAL.Models.Gamme)">
+        <member name="M:TicsaAPI.Controllers.GammeController.RemoveGamme(System.Int32)">
             <summary>
             Supprime une Gamme
             </summary>
-            <param name="gamme"></param>  
+            <param name="idGamme"></param>  
             <response code="200">Succes / Retourne la Gamme supprimé</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -98,6 +167,7 @@
             </summary>
             <param name="gamme"></param>       
             <response code="200">Succes / Retourne la Gamme ajouté</response>
+            <response code="400">BadRequest / Un des params est vide</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -115,24 +185,31 @@
             </summary>
             <param name="idType"></param>  
             <response code="200">Succes / Retourne toutes un Type de Gamme</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeTypeController.UpdateGammeType(TicsaAPI.DAL.Models.GammeType)">
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.UpdateGammeType(System.Int32,TicsaAPI.DAL.Models.GammeType)">
             <summary>
             Met a jour un Type de Gamme
             </summary>
-            <param name="type"></param>  
+            <param name="type"></param>
+            <param name="idType"></param>  
             <response code="200">Succes / Retourne le Type de Gamme modifié</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeTypeController.RemoveGammeType(TicsaAPI.DAL.Models.GammeType)">
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.RemoveGammeType(System.Int32)">
             <summary>
             Supprime un Type de Gamme
             </summary>
-            <param name="type"></param>  
+            <param name="idType"></param>  
             <response code="200">Succes / Retourne le Type de Gamme supprimé</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -140,8 +217,9 @@
             <summary>
             Ajoute un Type de Gamme
             </summary>
-            <param name="gamme"></param>       
+            <param name="type"></param>       
             <response code="200">Succes / Retourne le Type de Gamme ajouté</response>
+            <response code="400">BadRequest / Un des params est vide</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -157,7 +235,10 @@
             <summary>
             Recupère tout les Contenus d'une Commandes     
             </summary>
+            <param name="idOrder"></param>
             <response code="200">Succes / Retourne toutes les Contenus de Commandes</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -167,24 +248,31 @@
             </summary>
             <param name="idOrderContent"></param>  
             <response code="200">Succes / Retourne un Contenu de Commande</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderContentController.UpdateOrderContent(TicsaAPI.DAL.Models.OrderContent)">
+        <member name="M:TicsaAPI.Controllers.OrderContentController.UpdateOrderContent(System.Int32,TicsaAPI.DAL.Models.OrderContent)">
             <summary>
             Met a jour un Contenu de Commande
             </summary>
             <param name="orderContent"></param>  
+            <param name="idOrderContent"></param>  
             <response code="200">Succes / Retourne le Contenu de Commande modifié</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderContentController.RemoveOrderContent(TicsaAPI.DAL.Models.OrderContent)">
+        <member name="M:TicsaAPI.Controllers.OrderContentController.RemoveOrderContent(System.Int32)">
             <summary>
             Supprime un Contenu de Commande
             </summary>
-            <param name="orderContent"></param>  
+            <param name="idOrderContent"></param>  
             <response code="200">Succes / Retourne la Commande supprimé</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -194,6 +282,7 @@
             </summary>
             <param name="orderContent"></param>       
             <response code="200">Succes / Retourne la Commande ajouté</response>
+            <response code="400">BadRequest / Un des params est vide</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -211,24 +300,31 @@
             </summary>
             <param name="idOrder"></param>  
             <response code="200">Succes / Retourne une Commande</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderController.UpdateOrder(TicsaAPI.DAL.Models.Order)">
+        <member name="M:TicsaAPI.Controllers.OrderController.UpdateOrder(System.Int32,TicsaAPI.DAL.Models.Order)">
             <summary>
             Met a jour une Commande
             </summary>
             <param name="order"></param>  
+            <param name="idOrder"></param>  
             <response code="200">Succes / Retourne la Commande modifié</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderController.RemoveOrder(TicsaAPI.DAL.Models.Order)">
+        <member name="M:TicsaAPI.Controllers.OrderController.RemoveOrder(System.Int32)">
             <summary>
             Supprime une Commande
             </summary>
-            <param name="order"></param>  
+            <param name="idOrder"></param>  
             <response code="200">Succes / Retourne la Commande supprimé</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
@@ -238,6 +334,59 @@
             </summary>
             <param name="order"></param>       
             <response code="200">Succes / Retourne la Commande ajouté</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.PoducerController.GetAllProducer">
+            <summary>
+            Recupère toute les Producteurs
+            </summary>
+            <response code="200">Succes / Retourne toutes les Producteurs</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.PoducerController.GetProducerById(System.Int32)">
+            <summary>
+            Recupère un Producteur en fonction de son Id
+            </summary>
+            <param name="idProducer"></param>  
+            <response code="200">Succes / Retourne un Producteur</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.PoducerController.UpdateProducer(System.Int32,TicsaAPI.DAL.Models.Producer)">
+            <summary>
+            Met a jour un Producteur
+            </summary>
+            <param name="producer"></param>  
+            <param name="idProducer"></param>  
+            <response code="200">Succes / Retourne le Producteur modifié</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.PoducerController.RemoveProducer(System.Int32)">
+            <summary>
+            Supprime un Producteur
+            </summary>
+            <param name="idProducer"></param>  
+            <response code="200">Succes / Retourne le Producteur supprimé</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.PoducerController.AddProducer(TicsaAPI.DAL.Models.Producer)">
+            <summary>
+            Ajoute un Producteur
+            </summary>
+            <param name="producer"></param>       
+            <response code="200">Succes / Retourne le Producteur ajouté</response>
+            <response code="400">BadRequest / Un des params est vide</response>
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
