@@ -56,7 +56,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.bsCommentaryController.GetAllClient">
+        <member name="M:TicsaAPI.Controllers.CommentaryController.GetAllClient">
             <summary>
             Recupère toute les Commentaires
             </summary>
@@ -64,7 +64,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.bsCommentaryController.GetClientById(System.Int32)">
+        <member name="M:TicsaAPI.Controllers.CommentaryController.GetClientById(System.Int32)">
             <summary>
             Recupère un Commentaire en fonction de son Id
             </summary>
@@ -75,7 +75,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.bsCommentaryController.UpdateClient(System.Int32,TicsaAPI.DAL.Models.Commentary)">
+        <member name="M:TicsaAPI.Controllers.CommentaryController.UpdateClient(System.Int32,TicsaAPI.DAL.Models.Commentary)">
             <summary>
             Met a jour un Commentaire
             </summary>
@@ -87,7 +87,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.bsCommentaryController.RemoveCommentary(System.Int32)">
+        <member name="M:TicsaAPI.Controllers.CommentaryController.RemoveCommentary(System.Int32)">
             <summary>
             Supprime un Commentaire
             </summary>
@@ -98,7 +98,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.bsCommentaryController.AddCommentary(TicsaAPI.DAL.Models.Commentary)">
+        <member name="M:TicsaAPI.Controllers.CommentaryController.AddCommentary(TicsaAPI.DAL.Models.Commentary)">
             <summary>
             Ajoute un Commentaire
             </summary>
