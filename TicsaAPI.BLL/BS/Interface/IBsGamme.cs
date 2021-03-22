@@ -4,8 +4,8 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.BLL.BS.Interface
 {
-    public interface IBsGamme : IBasicBs<Gammes>
+    public interface IBsGamme : IBasicBs<Gamme>
     {
-        Task<IEnumerable<Gammes>> GetGammesByIdType(int idType);
+        Task<IEnumerable<Gamme>> GetGammesByIdType(int idType);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TicsaAPI.DAL.DataProvider;
 
 namespace TicsaAPI.DAL.Models
 {
@@ -6,6 +7,7 @@ namespace TicsaAPI.DAL.Models
     {
         [Key]
         public int Id { get; set; }
+        public BasicDp<T> ToDto();
 
     }
 }

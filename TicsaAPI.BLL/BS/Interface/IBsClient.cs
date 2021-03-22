@@ -2,7 +2,7 @@
 
 namespace TicsaAPI.BLL.BS.Interface
 {
-    public interface IBsClient : IBasicBs<Clients>
+    public interface IBsClient : IBasicBs<Client>
     {
     }
 }

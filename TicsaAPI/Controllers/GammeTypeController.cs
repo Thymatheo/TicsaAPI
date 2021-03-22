@@ -26,13 +26,13 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        [ProducesResponseType(typeof(Response<IEnumerable<GammeTypes>>), 200)]
-        [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<GammeTypes>>>> GetAllGammeType()
+        [ProducesResponseType(typeof(Response<IEnumerable<GammeType>>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<IEnumerable<GammeType>>>> GetAllGammeType()
         {
             try
             {
-                return Ok(new Response<IEnumerable<GammeTypes>>() { Error = "", Data = await _bsGammeType.GetAll(), Succes = true });
+                return Ok(new Response<IEnumerable<GammeType>>() { Error = "", Data = await _bsGammeType.GetAll(), Succes = true });
             }
             catch (Exception e)
             {
@@ -45,22 +45,25 @@ namespace TicsaAPI.Controllers
         /// </summary>
         /// <param name="idType"></param>  
         /// <response code="200">Succes / Retourne toutes un Type de Gamme</response>
+        /// <response code="400">BadRequest / Un des params est vide</response>
+        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpGet]
         [Route("{idType}")]
-        [ProducesResponseType(typeof(Response<GammeTypes>), 200)]
-        [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<GammeTypes>>> GetGammeTypeById([FromRoute] int idType)
+        [ProducesResponseType(typeof(Response<GammeType>), 200)]
+        [ProducesResponseType(typeof(Response<GammeType>), 400)]
+        [ProducesResponseType(typeof(Response<GammeType>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<GammeType>>> GetGammeTypeById([FromRoute] int idType)
         {
             try
             {
                 if (idType == 0)
-                {
-                    throw new Exception("IdType can't be equal to 0");
-                }
-
-                return Ok(new Response<GammeTypes>() { Error = "", Data = await _bsGammeType.GetById(idType), Succes = true });
+                    return BadRequest(new Response<GammeType>() { Error = "IdGammeType can't be equal to 0", Data = null, Succes = true });
+                if ((await _bsGammeType.GetById(idType)) == null)
+                    return NotFound(new Response<GammeType>() { Error = "the GammeType doesn't exist", Data = null, Succes = true });
+                return Ok(new Response<GammeType>() { Error = "", Data = await _bsGammeType.GetById(idType), Succes = true });
             }
             catch (Exception e)
             {
@@ -71,19 +74,30 @@ namespace TicsaAPI.Controllers
         /// <summary>
         /// Met a jour un Type de Gamme
         /// </summary>
-        /// <param name="type"></param>  
+        /// <param name="type"></param>
+        /// <param name="idType"></param>  
         /// <response code="200">Succes / Retourne le Type de Gamme modifié</response>
+        /// <response code="400">BadRequest / Un des params est vide</response>
+        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpPut]
-        [Route("update")]
-        [ProducesResponseType(typeof(Response<GammeTypes>), 200)]
-        [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<GammeTypes>>> UpdateGammeType([FromBody] GammeTypes type)
+        [Route("update/{idType}")]
+        [ProducesResponseType(typeof(Response<GammeType>), 200)]
+        [ProducesResponseType(typeof(Response<GammeType>), 400)]
+        [ProducesResponseType(typeof(Response<GammeType>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<GammeType>>> UpdateGammeType([FromRoute] int idType, [FromBody] GammeType type)
         {
             try
             {
-                return Ok(new Response<GammeTypes>() { Error = "", Data = await _bsGammeType.Update(type), Succes = true });
+                if (idType == 0)
+                    return BadRequest(new Response<GammeType>() { Error = "IdGammeType can't be equal to 0", Data = null, Succes = true });
+                if ((await _bsGammeType.GetById(idType)) == null)
+                    return NotFound(new Response<GammeType>() { Error = "the GammeType doesn't exist", Data = null, Succes = true });
+                if (type == null)
+                    return BadRequest(new Response<GammeType>() { Error = "The GammeType can't be null", Data = null, Succes = true });
+                return Ok(new Response<GammeType>() { Error = "", Data = await _bsGammeType.Update(idType, type), Succes = true });
             }
             catch (Exception e)
             {
@@ -94,19 +108,27 @@ namespace TicsaAPI.Controllers
         /// <summary>
         /// Supprime un Type de Gamme
         /// </summary>
-        /// <param name="type"></param>  
+        /// <param name="idType"></param>  
         /// <response code="200">Succes / Retourne le Type de Gamme supprimé</response>
+        /// <response code="400">BadRequest / Un des params est vide</response>
+        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpDelete]
-        [Route("remove")]
-        [ProducesResponseType(typeof(Response<GammeTypes>), 200)]
-        [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<GammeTypes>>> RemoveGammeType([FromBody] GammeTypes type)
+        [Route("remove/{idType}")]
+        [ProducesResponseType(typeof(Response<GammeType>), 200)]
+        [ProducesResponseType(typeof(Response<GammeType>), 400)]
+        [ProducesResponseType(typeof(Response<GammeType>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<GammeType>>> RemoveGammeType([FromRoute] int idType)
         {
             try
             {
-                return Ok(new Response<GammeTypes>() { Error = "", Data = await _bsGammeType.Remove(type), Succes = true });
+                if (idType == 0)
+                    return BadRequest(new Response<GammeType>() { Error = "IdGammeType can't be equal to 0", Data = null, Succes = true });
+                if ((await _bsGammeType.GetById(idType)) == null)
+                    return NotFound(new Response<GammeType>() { Error = "the GammeType doesn't exist", Data = null, Succes = true });
+                return Ok(new Response<GammeType>() { Error = "", Data = await _bsGammeType.Remove(idType), Succes = true });
             }
             catch (Exception e)
             {
@@ -117,19 +139,23 @@ namespace TicsaAPI.Controllers
         /// <summary>
         /// Ajoute un Type de Gamme
         /// </summary>
-        /// <param name="gamme"></param>       
+        /// <param name="type"></param>       
         /// <response code="200">Succes / Retourne le Type de Gamme ajouté</response>
+        /// <response code="400">BadRequest / Un des params est vide</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
         [HttpPost]
         [Route("add")]
-        [ProducesResponseType(typeof(Response<GammeTypes>), 200)]
-        [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<GammeTypes>>> AddGammeType([FromBody] GammeTypes type)
+        [ProducesResponseType(typeof(Response<GammeType>), 200)]
+        [ProducesResponseType(typeof(Response<GammeType>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<GammeType>>> AddGammeType([FromBody] GammeType type)
         {
             try
             {
-                return Ok(new Response<GammeTypes>() { Error = "", Data = await _bsGammeType.Add(type), Succes = true });
+                if (type == null)
+                    return BadRequest(new Response<GammeType>() { Error = "The GammeType can't be null", Data = null, Succes = true });
+                return Ok(new Response<GammeType>() { Error = "", Data = await _bsGammeType.Add(type), Succes = true });
             }
             catch (Exception e)
             {

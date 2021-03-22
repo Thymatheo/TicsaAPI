@@ -2,7 +2,7 @@
 
 namespace TicsaAPI.DAL.DataProvider.Interface
 {
-    public interface IDpOrder : IBasicDp<Orders>
+    public interface IDpOrder : IBasicDp<Order>
     {
     }
 }

@@ -2,7 +2,7 @@
 
 namespace TicsaAPI.BLL.BS.Interface
 {
-    public interface IBsOrder : IBasicBs<Orders>
+    public interface IBsOrder : IBasicBs<Order>
     {
     }
 }

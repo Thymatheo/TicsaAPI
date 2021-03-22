@@ -4,8 +4,8 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.DAL.DataProvider.Interface
 {
-    public interface IDpGamme : IBasicDp<Gammes>
+    public interface IDpGamme : IBasicDp<Gamme>
     {
-        Task<IEnumerable<Gammes>> GetGammesByIdType(int idType);
+        Task<IEnumerable<Gamme>> GetGammesByIdType(int idType);
     }
 }

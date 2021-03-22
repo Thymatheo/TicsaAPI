@@ -10,9 +10,9 @@ namespace TicsaAPI.BLL.BS.Interface
 
         Task<T> GetById(int id);
 
-        Task<T> Update(T entity);
+        Task<T> Update(int id, T entity);
 
-        Task<T> Remove(T entity);
+        Task<T> Remove(int id);
 
         Task<T> Add(T entity);
     }

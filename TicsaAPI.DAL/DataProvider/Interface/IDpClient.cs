@@ -2,7 +2,7 @@
 
 namespace TicsaAPI.DAL.DataProvider.Interface
 {
-    public interface IDpClient : IBasicDp<Clients>
+    public interface IDpClient : IBasicDp<Client>
     {
     }
 }

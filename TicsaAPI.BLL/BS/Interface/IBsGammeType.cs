@@ -2,7 +2,7 @@
 
 namespace TicsaAPI.BLL.BS.Interface
 {
-    public interface IBsGammeType : IBasicBs<GammeTypes>
+    public interface IBsGammeType : IBasicBs<GammeType>
     {
     }
 }

@@ -4,7 +4,7 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.BLL.BS
 {
-    public class BsGammeType : BasicBs<GammeTypes>, IBsGammeType
+    public class BsGammeType : BasicBs<GammeType>, IBsGammeType
     {
         private IDpGammeType _dpGammeType { get; set; }
         public BsGammeType(IDpGammeType dpGammeType) : base(dpGammeType)

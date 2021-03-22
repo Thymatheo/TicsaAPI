@@ -2,7 +2,7 @@
 
 namespace TicsaAPI.DAL.DataProvider.Interface
 {
-    public interface IDpGammeType : IBasicDp<GammeTypes>
+    public interface IDpGammeType : IBasicDp<GammeType>
     {
     }
 }

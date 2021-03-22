@@ -25,13 +25,11 @@ namespace TicsaAPI.BLL.BS
             return await Dp.GetById(id);
         }
 
-        public virtual async Task<T> Update(T entity)
-        {
-            return await Dp.Update(entity);
-        }
+        public abstract Task<T> Update(int id, T entity);
 
-        public virtual async Task<T> Remove(T entity)
+        public virtual async Task<T> Remove(int id)
         {
+            var entity = await Dp.GetById(id);
             return await Dp.Remove(entity);
         }
 

@@ -9,9 +9,9 @@ using System.IO;
 using System.Reflection;
 using TicsaAPI.BLL.BS;
 using TicsaAPI.BLL.BS.Interface;
-using TicsaAPI.DAL;
 using TicsaAPI.DAL.DataProvider;
 using TicsaAPI.DAL.DataProvider.Interface;
+using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI
 {

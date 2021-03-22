@@ -6,7 +6,7 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.BLL.BS
 {
-    public class BsGamme : BasicBs<Gammes>, IBsGamme
+    public class BsGamme : BasicBs<Gamme>, IBsGamme
     {
         private IDpGamme _dpGamme { get; set; }
 
@@ -15,9 +15,14 @@ namespace TicsaAPI.BLL.BS
             _dpGamme = dpGamme;
         }
 
-        public async Task<IEnumerable<Gammes>> GetGammesByIdType(int idType)
+        public async Task<IEnumerable<Gamme>> GetGammesByIdType(int idType)
         {
             return await _dpGamme.GetGammesByIdType(idType);
+        }
+
+        public override Task<Gamme> Update(int id, Gamme entity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

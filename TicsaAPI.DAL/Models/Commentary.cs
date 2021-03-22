@@ -4,9 +4,11 @@
 
 namespace TicsaAPI.DAL.Models
 {
-    public partial class GammeTypes : BasicElement
+    public partial class Commentary : BasicElement
     {
+        public int IdClient { get; set; }
+        public string Content { get; set; }
 
-        public string Label { get; set; }
+        public virtual Client IdClientNavigation { get; set; }
     }
 }

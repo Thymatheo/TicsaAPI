@@ -3,8 +3,8 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.DAL.DataProvider
 {
-    public class DpClient : BasicDp<Clients>, IDpClient
+    public class DpClient : BasicDp<Client>, IDpClient
     {
-        public DpClient(TicsaContext db) : base(db.Clients, db) { }
+        public DpClient(TicsaContext db) : base(db.Client, db) { }
     }
 }

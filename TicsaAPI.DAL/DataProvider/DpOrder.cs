@@ -3,8 +3,8 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.DAL.DataProvider
 {
-    public class DpOrder : BasicDp<Orders>, IDpOrder
+    public class DpOrder : BasicDp<Order>, IDpOrder
     {
-        public DpOrder(TicsaContext db) : base(db.Orders, db) { }
+        public DpOrder(TicsaContext db) : base(db.Order, db) { }
     }
 }

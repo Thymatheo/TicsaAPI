@@ -21,7 +21,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.ClientController.UpdateClient(TicsaAPI.DAL.Models.Clients)">
+        <member name="M:TicsaAPI.Controllers.ClientController.UpdateClient(TicsaAPI.DAL.Models.Client)">
             <summary>
             Met a jour un Client
             </summary>
@@ -30,7 +30,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.ClientController.RemoveClient(TicsaAPI.DAL.Models.Clients)">
+        <member name="M:TicsaAPI.Controllers.ClientController.RemoveClient(TicsaAPI.DAL.Models.Client)">
             <summary>
             Supprime un Client
             </summary>
@@ -39,7 +39,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.ClientController.AddClient(TicsaAPI.DAL.Models.Clients)">
+        <member name="M:TicsaAPI.Controllers.ClientController.AddClient(TicsaAPI.DAL.Models.Client)">
             <summary>
             Ajoute un Client
             </summary>
@@ -74,7 +74,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeController.UpdateGamme(TicsaAPI.DAL.Models.Gammes)">
+        <member name="M:TicsaAPI.Controllers.GammeController.UpdateGamme(TicsaAPI.DAL.Models.Gamme)">
             <summary>
             Met a jour une Gamme
             </summary>
@@ -83,7 +83,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeController.RemoveGamme(TicsaAPI.DAL.Models.Gammes)">
+        <member name="M:TicsaAPI.Controllers.GammeController.RemoveGamme(TicsaAPI.DAL.Models.Gamme)">
             <summary>
             Supprime une Gamme
             </summary>
@@ -92,7 +92,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeController.AddGamme(TicsaAPI.DAL.Models.Gammes)">
+        <member name="M:TicsaAPI.Controllers.GammeController.AddGamme(TicsaAPI.DAL.Models.Gamme)">
             <summary>
             Ajoute une Gamme
             </summary>
@@ -118,7 +118,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeTypeController.UpdateGammeType(TicsaAPI.DAL.Models.GammeTypes)">
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.UpdateGammeType(TicsaAPI.DAL.Models.GammeType)">
             <summary>
             Met a jour un Type de Gamme
             </summary>
@@ -127,7 +127,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeTypeController.RemoveGammeType(TicsaAPI.DAL.Models.GammeTypes)">
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.RemoveGammeType(TicsaAPI.DAL.Models.GammeType)">
             <summary>
             Supprime un Type de Gamme
             </summary>
@@ -136,7 +136,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeTypeController.AddGammeType(TicsaAPI.DAL.Models.GammeTypes)">
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.AddGammeType(TicsaAPI.DAL.Models.GammeType)">
             <summary>
             Ajoute un Type de Gamme
             </summary>
@@ -214,7 +214,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderController.UpdateOrder(TicsaAPI.DAL.Models.Orders)">
+        <member name="M:TicsaAPI.Controllers.OrderController.UpdateOrder(TicsaAPI.DAL.Models.Order)">
             <summary>
             Met a jour une Commande
             </summary>
@@ -223,7 +223,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderController.RemoveOrder(TicsaAPI.DAL.Models.Orders)">
+        <member name="M:TicsaAPI.Controllers.OrderController.RemoveOrder(TicsaAPI.DAL.Models.Order)">
             <summary>
             Supprime une Commande
             </summary>
@@ -232,7 +232,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderController.AddOrder(TicsaAPI.DAL.Models.Orders)">
+        <member name="M:TicsaAPI.Controllers.OrderController.AddOrder(TicsaAPI.DAL.Models.Order)">
             <summary>
             Ajoute une Commande
             </summary>

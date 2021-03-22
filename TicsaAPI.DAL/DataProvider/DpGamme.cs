@@ -7,11 +7,11 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.DAL.DataProvider
 {
-    public class DpGamme : BasicDp<Gammes>, IDpGamme
+    public class DpGamme : BasicDp<Gamme>, IDpGamme
     {
-        public DpGamme(TicsaContext db) : base(db.Gammes, db) { }
+        public DpGamme(TicsaContext db) : base(db.Gamme, db) { }
 
-        public async Task<IEnumerable<Gammes>> GetGammesByIdType(int idType)
+        public async Task<IEnumerable<Gamme>> GetGammesByIdType(int idType)
         {
             return await Table.Where(x => x.IdType == idType).ToListAsync();
         }
