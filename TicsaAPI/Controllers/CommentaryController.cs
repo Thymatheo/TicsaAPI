@@ -11,12 +11,12 @@ namespace TicsaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class bsCommentaryController : ControllerBase
+    public class CommentaryController : ControllerBase
     {
 
 
         private IBsCommentary _bsCommentary { get; set; }
-        public bsCommentaryController(IBsCommentary bsCommentary)
+        public CommentaryController(IBsCommentary bsCommentary)
         {
             _bsCommentary = bsCommentary;
         }
