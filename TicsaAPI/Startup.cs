@@ -43,8 +43,12 @@ namespace TicsaAPI
             services.AddScoped<IDpGamme, DpGamme>();
             services.AddScoped<IBsClient, BsClient>();
             services.AddScoped<IDpClient, DpClient>();
+            services.AddScoped<IBsProducer, BsProducer>();
+            services.AddScoped<IDpProducer, DpProducer>();
             services.AddScoped<IBsGammeType, BsGammeType>();
             services.AddScoped<IDpGammeType, DpGammeType>();
+            services.AddScoped<IBsCommentary, BsCommentary>();
+            services.AddScoped<IDpCommentary, DpCommentary>();
             services.AddScoped<IBsOrderContent, BsOrderContent>();
             services.AddScoped<IDpOrderContent, DpOrderContent>();
         }

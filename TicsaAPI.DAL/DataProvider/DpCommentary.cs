@@ -9,7 +9,7 @@ namespace TicsaAPI.DAL.DataProvider
 {
     public class DpCommentary : BasicDp<Commentary>, IDpCommentary
     {
-        public DpCommentary(DbSet<Commentary> table, TicsaContext db) : base(table, db)
+        public DpCommentary(TicsaContext db) : base(db.Commentary, db)
         {
         }
     }

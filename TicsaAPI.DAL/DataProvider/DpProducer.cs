@@ -9,7 +9,7 @@ namespace TicsaAPI.DAL.DataProvider
 {
     public class DpProducer : BasicDp<Producer>, IDpProducer
     {
-        public DpProducer(DbSet<Producer> table, TicsaContext db) : base(table, db)
+        public DpProducer(TicsaContext db) : base(db.Producer, db)
         {
         }
     }
