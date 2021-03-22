@@ -16,13 +16,20 @@ namespace TicsaAPI.BLL.BS
         public override async Task<Client> Update(int id, Client entity)
         {
             var result = await _dpClient.GetById(id);
-            result.Address = entity.Address;
-            result.PostalCode = entity.PostalCode;
-            result.LastName = entity.LastName;
-            result.FirstName = entity.FirstName;
-            result.CompagnieName = entity.CompagnieName;
-            result.PhoneNumber = entity.PhoneNumber;
-            result.Email = entity.Email;
+            if (entity.Address != null)
+                result.Address = entity.Address;
+            if (entity.PostalCode != null)
+                result.PostalCode = entity.PostalCode;
+            if (entity.LastName != null)
+                result.LastName = entity.LastName;
+            if (entity.FirstName != null)
+                result.FirstName = entity.FirstName;
+            if (entity.CompagnieName != null)
+                result.CompagnieName = entity.CompagnieName;
+            if (entity.PhoneNumber != null)
+                result.PhoneNumber = entity.PhoneNumber;
+            if (entity.Email != null)
+                result.Email = entity.Email;
             return await _dpClient.Update(result);
         }
     }

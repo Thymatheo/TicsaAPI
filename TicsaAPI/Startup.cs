@@ -28,7 +28,11 @@ namespace TicsaAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(option =>
+            {
+                option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                option.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            });
             services.AddDbContext<TicsaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TicsaContext")));
             services.AddSwaggerGen(c =>
             {

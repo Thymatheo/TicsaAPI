@@ -16,7 +16,8 @@ namespace TicsaAPI.BLL.BS
         public override async Task<GammeType> Update(int id, GammeType entity)
         {
             var result = await _dpGammeType.GetById(id);
-            result.Label = entity.Label;
+            if (entity.Label != null)
+                result.Label = entity.Label;
             return await _dpGammeType.Update(result);
         }
     }

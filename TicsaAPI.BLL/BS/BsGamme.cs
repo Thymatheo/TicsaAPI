@@ -27,12 +27,18 @@ namespace TicsaAPI.BLL.BS
         {
 
             var result = await _dpGamme.GetById(id);
-            result.Label = entity.Label;
-            result.Description = entity.Description;
-            result = _UpdateCost(result, entity);
-            result = _UpdateStock(result, entity);
-            result.IdProducer = entity.IdProducer;
-            result.IdType = entity.IdType;
+            if (entity.Label != null)
+                result.Label = entity.Label;
+            if (entity.Description != null)
+                result.Description = entity.Description;
+            if (entity.Cost != result.Cost)
+                result = UpdateCost(result, new DtoCostHisto() { Date = DateTime.Now, Cost = entity.Cost });
+            if (entity.Stock != result.Stock)
+                result = UpdateStock(result, new DtoStockHisto() { Date = DateTime.Now, Stock = entity.Stock });
+            if (entity.IdProducer != 0)
+                result.IdProducer = entity.IdProducer;
+            if (entity.IdProducer != 0)
+                result.IdType = entity.IdType;
             return await _dpGamme.Update(result);
         }
 
@@ -54,21 +60,21 @@ namespace TicsaAPI.BLL.BS
 
         }
 
-        private Gamme _UpdateCost(Gamme result, Gamme entity)
+        public Gamme UpdateCost(Gamme entity, DtoCostHisto newHisto)
         {
             List<DtoCostHisto> costHisto = JsonConvert.DeserializeObject<List<DtoCostHisto>>(entity.CostHisto);
-            costHisto.Add(new DtoCostHisto() { Date = DateTime.Now, Cost = entity.Cost });
-            result.CostHisto = JsonConvert.SerializeObject(costHisto);
-            result.Cost = entity.Cost;
-            return result;
+            costHisto.Add(newHisto);
+            entity.CostHisto = JsonConvert.SerializeObject(costHisto);
+            entity.Cost = entity.Cost;
+            return entity;
         }
-        private Gamme _UpdateStock(Gamme result, Gamme entity)
+        public Gamme UpdateStock(Gamme entity, DtoStockHisto newHisto)
         {
             List<DtoStockHisto> stockHisto = JsonConvert.DeserializeObject<List<DtoStockHisto>>(entity.StockHisto);
-            stockHisto.Add(new DtoStockHisto() { Date = DateTime.Now, Stock = entity.Stock });
-            result.StockHisto = JsonConvert.SerializeObject(stockHisto);
-            result.Stock = entity.Stock;
-            return result;
+            stockHisto.Add(newHisto);
+            entity.StockHisto = JsonConvert.SerializeObject(stockHisto);
+            entity.Stock = entity.Stock;
+            return entity;
         }
     }
 }

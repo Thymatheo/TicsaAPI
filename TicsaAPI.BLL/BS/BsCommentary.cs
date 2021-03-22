@@ -19,8 +19,10 @@ namespace TicsaAPI.BLL.BS
         public override async Task<Commentary> Update(int id, Commentary entity)
         {
             var result = await _dpCommentary.GetById(id);
-            result.Content = entity.Content;
-            result.IdClient = entity.IdClient;
+            if (entity.Content != null)
+                result.Content = entity.Content;
+            if (entity.IdClient != 0)
+                result.IdClient = entity.IdClient;
             return await _dpCommentary.Update(result);
         }
     }

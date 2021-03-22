@@ -2,3 +2,12 @@
 
 # CS1591: Commentaire XML manquant pour le type ou le membre visible publiquement
 dotnet_diagnostic.CS1591.severity = none
+
+# CS8618: Un champ non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le champ comme nullable.
+dotnet_diagnostic.CS8618.severity = none
+
+# CS8625: Impossible de convertir un littéral ayant une valeur null en type référence non-nullable.
+dotnet_diagnostic.CS8625.severity = none
+
+# CS8601: Existence possible d'une assignation de référence null.
+dotnet_diagnostic.CS8601.severity = none
