@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL.Models;
@@ -56,7 +55,10 @@ namespace TicsaAPI.Controllers
             try
             {
                 if (idOrder == 0)
+                {
                     throw new Exception("idOrder can't be equal to 0");
+                }
+
                 return Ok(new Response<IEnumerable<OrderContent>>() { Error = "", Data = await _bsOrderContent.GetByIdOrder(idOrder), Succes = true });
             }
             catch (Exception e)
@@ -81,7 +83,10 @@ namespace TicsaAPI.Controllers
             try
             {
                 if (idOrderContent == 0)
+                {
                     throw new Exception("idOrderContent can't be equal to 0");
+                }
+
                 return Ok(new Response<OrderContent>() { Error = "", Data = await _bsOrderContent.GetById(idOrderContent), Succes = true });
             }
             catch (Exception e)

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TicsaAPI.BLL.BS.Interface;
-using TicsaAPI.DAL.DataProvider;
+﻿using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL.DataProvider.Interface;
 using TicsaAPI.DAL.Models;
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL.DataProvider.Interface;
@@ -8,7 +6,7 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.BLL.BS
 {
-    public class BasicBs<T> : IBasicBs<T> where T : BasicElement
+    public abstract class BasicBs<T> : IBasicBs<T> where T : BasicElement
     {
         public IBasicDp<T> Dp { get; set; }
 

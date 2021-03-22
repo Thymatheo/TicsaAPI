@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL.Models;
@@ -57,7 +56,10 @@ namespace TicsaAPI.Controllers
             try
             {
                 if (idType == 0)
+                {
                     throw new Exception("IdType can't be equal to 0");
+                }
+
                 return Ok(new Response<GammeTypes>() { Error = "", Data = await _bsGammeType.GetById(idType), Succes = true });
             }
             catch (Exception e)

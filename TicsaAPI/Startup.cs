@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using TicsaAPI.BLL;
+using System;
+using System.IO;
+using System.Reflection;
 using TicsaAPI.BLL.BS;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL;
 using TicsaAPI.DAL.DataProvider;
 using TicsaAPI.DAL.DataProvider.Interface;
-using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI
 {

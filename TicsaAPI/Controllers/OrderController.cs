@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL.Models;
@@ -14,7 +13,7 @@ namespace TicsaAPI.Controllers
     public class OrderController : ControllerBase
     {
 
-        private IBsOrder _bsOrder{ get; set; }
+        private IBsOrder _bsOrder { get; set; }
         public OrderController(IBsOrder bsOrder)
         {
             _bsOrder = bsOrder;
@@ -58,7 +57,10 @@ namespace TicsaAPI.Controllers
             try
             {
                 if (idOrder == 0)
+                {
                     throw new Exception("IdGamme can't be equal to 0");
+                }
+
                 return Ok(new Response<Orders>() { Error = "", Data = await _bsOrder.GetById(idOrder), Succes = true });
             }
             catch (Exception e)

@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TicsaAPI.DAL.TicsaContext">
+    <Position X="19.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAQAAAAAAQAAAAACAAAAAAEAAAEAAEAAAAAAAAAAA=</HashCode>
+      <FileName>TicsaContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.DataProvider.BasicDp&lt;T&gt;">
+    <Position X="12" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAQAAAAAAAARAAAAAAAAAAgAgAAAIAEAIA=</HashCode>
+      <FileName>DataProvider\BasicDp.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicsaAPI.DAL.DataProvider.DpClient">
+    <Position X="14.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\DpClient.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicsaAPI.DAL.DataProvider.DpGamme">
+    <Position X="16.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\DpGamme.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicsaAPI.DAL.DataProvider.DpGammeType">
+    <Position X="7.25" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\DpGammeType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicsaAPI.DAL.DataProvider.DpOrder">
+    <Position X="9.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\DpOrder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicsaAPI.DAL.DataProvider.DpOrderContent">
+    <Position X="12" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\DpOrderContent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TicsaAPI.DAL.Migrations.AddPrimaryKey">
+    <Position X="19.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Migrations\20210320114234_AddPrimaryKey.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.Migrations.RemoveCrossAttribute">
+    <Position X="21" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Migrations\20210321165659_RemoveCrossAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.Migrations.TicsaContextModelSnapshot">
+    <Position X="21" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Migrations\TicsaContextModelSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.Models.BasicElement">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BasicElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.Models.Clients">
+    <Position X="11.5" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAGAAAAAAIAAAQAAAAAAAAAACAAAAAAAAAAg=</HashCode>
+      <FileName>Models\Clients.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.Models.Gammes">
+    <Position X="14" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAgBAAAAQAAABAAggAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Gammes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.Models.GammeTypes">
+    <Position X="16.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GammeTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.Models.OrderContent">
+    <Position X="7" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAA=</HashCode>
+      <FileName>Models\OrderContent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.Models.Orders">
+    <Position X="9.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Models\Orders.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TicsaAPI.DAL.DataProvider.Interface.IBasicDp&lt;T&gt;">
+    <Position X="12" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAAAAAAABAAAAAAAAAAgAgAAAIAEAIA=</HashCode>
+      <FileName>DataProvider\Interface\IBasicDp.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicsaAPI.DAL.DataProvider.Interface.IDpClient">
+    <Position X="12" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\Interface\IDpClient.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicsaAPI.DAL.DataProvider.Interface.IDpGamme">
+    <Position X="14.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\Interface\IDpGamme.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicsaAPI.DAL.DataProvider.Interface.IDpGammeType">
+    <Position X="16.5" Y="14.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\Interface\IDpGammeType.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicsaAPI.DAL.DataProvider.Interface.IDpOrder">
+    <Position X="7.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\Interface\IDpOrder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TicsaAPI.DAL.DataProvider.Interface.IDpOrderContent">
+    <Position X="9.5" Y="14.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataProvider\Interface\IDpOrderContent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
