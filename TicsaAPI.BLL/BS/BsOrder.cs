@@ -15,7 +15,10 @@ namespace TicsaAPI.BLL.BS
 
         public override async Task<Order> Update(int id, Order entity)
         {
-            throw new System.NotImplementedException();
+            var result = await _dpOrder.GetById(id);
+            result.IdClient = entity.IdClient;
+            result.OrderDate = entity.OrderDate;
+            return await _dpOrder.Update(result);
         }
     }
 }

@@ -7,7 +7,6 @@ namespace TicsaAPI.DAL.Models
     {
         [Key]
         public int Id { get; set; }
-        public BasicDp<T> ToDto();
 
     }
 }

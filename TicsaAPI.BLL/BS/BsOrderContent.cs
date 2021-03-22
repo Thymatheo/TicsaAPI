@@ -17,5 +17,14 @@ namespace TicsaAPI.BLL.BS
         {
             return await _dpOrderContent.GetByIdOrder(idOrder);
         }
+
+        public override async Task<OrderContent> Update(int id, OrderContent entity)
+        {
+            var result = await _dpOrderContent.GetById(id);
+            result.IdGamme = entity.IdGamme;
+            result.IdOrder = entity.IdOrder;
+            result.Quantity = entity.Quantity;
+            return await _dpOrderContent.Update(result);
+        }
     }
 }

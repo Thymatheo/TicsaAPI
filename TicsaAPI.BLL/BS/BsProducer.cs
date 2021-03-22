@@ -10,13 +10,24 @@ namespace TicsaAPI.BLL.BS
 {
     public class BsProducer : BasicBs<Producer>, IBsProducer
     {
-        public BsProducer(IBasicDp<Producer> dp) : base(dp)
+        private IDpProducer _dpProducer;
+
+        public BsProducer(IDpProducer dp) : base(dp)
         {
+            _dpProducer = dp;
         }
 
-        public override Task<Producer> Update(int id, Producer entity)
+        public override async Task<Producer> Update(int id, Producer entity)
         {
-            throw new NotImplementedException();
+            var result = await _dpProducer.GetById(id);
+            result.Address = entity.Address;
+            result.PostalCode = entity.PostalCode;
+            result.LastName = entity.LastName;
+            result.FirstName = entity.FirstName;
+            result.CompagnieName = entity.CompagnieName;
+            result.PhoneNumber = entity.PhoneNumber;
+            result.Email = entity.Email;
+            return await _dpProducer.Update(result);
         }
     }
 }

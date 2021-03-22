@@ -17,6 +17,7 @@ namespace TicsaAPI.DAL.Models
         public string CompagnieName { get; set; }
         public string Address { get; set; }
         public int? PhoneNumber { get; set; }
+        public int? Email { get; set; }
         public int? PostalCode { get; set; }
 
         public virtual ICollection<Gamme> Gamme { get; set; }
