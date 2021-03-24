@@ -22,6 +22,10 @@ namespace TicsaAPI.BLL.BS
         {
             return await DpGamme.GetGammesByIdType(idType);
         }
+        public async Task<IEnumerable<Gamme>> GetGammesByIdProducer(int idProducer)
+        {
+            return await DpGamme.GetGammesByIdType(idProducer);
+        }
 
         public override async Task<Gamme> Update(int id, Gamme entity)
         {
@@ -47,7 +51,7 @@ namespace TicsaAPI.BLL.BS
         public override async Task<Gamme> Add(Gamme entity)
         {
             var result = InitHisto(entity);
-            return await Dp.Add(result);
+            return await DpGamme.Add(result);
         }
 
         private Gamme InitHisto(Gamme entity)

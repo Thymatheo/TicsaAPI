@@ -25,5 +25,10 @@ namespace TicsaAPI.BLL.BS
                 result.IdClient = entity.IdClient;
             return await DpCommentary.Update(result);
         }
+
+        public async Task<IEnumerable<Commentary>> GetByIdClient(int idClient)
+        {
+            return await DpCommentary.GetByIdClient(idClient);
+        }
     }
 }

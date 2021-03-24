@@ -1,4 +1,7 @@
-﻿using TicsaAPI.DAL.DataProvider.Interface;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TicsaAPI.DAL.DataProvider.Interface;
 using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.DAL.DataProvider

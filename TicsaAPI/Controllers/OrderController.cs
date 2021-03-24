@@ -16,9 +16,12 @@ namespace TicsaAPI.Controllers
     {
 
         private IBsOrder BsOrder { get; set; }
-        public OrderController(IBsOrder bsOrder)
+        private  IBsClient BsClient { get; set; }
+
+        public OrderController(IBsOrder bsOrder,IBsClient bsClient)
         {
             BsOrder = bsOrder;
+            BsClient = bsClient;
         }
 
         /// <summary>
@@ -58,7 +61,7 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<Order>), 400)]
         [ProducesResponseType(typeof(Response<Order>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Order>>> GetOrderById([FromRoute] int idOrder)
+        public async Task<ActionResult<Response<IEnumerable<Order>>>> GetOrderById([FromRoute] int idOrder)
         {
             try
             {
@@ -67,6 +70,37 @@ namespace TicsaAPI.Controllers
                 if ((await BsOrder.GetById(idOrder)) == null)
                     return NotFound(new Response<Order>() { Error = "The Order doesn't exist", Data = null, Succes = true });
                 return Ok(new Response<Order>() { Error = "", Data = await BsOrder.GetById(idOrder), Succes = true });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+            }
+        }
+
+        /// <summary>
+        /// Recupère Toutes les Commande d'un utilisateur
+        /// </summary>
+        /// <param name="idClient"></param>  
+        /// <response code="200">Succes / Retourne une Commande</response>
+        /// <response code="400">BadRequest / Un des params est vide</response>
+        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
+        /// <response code="500">InternalError / Erreur interne au serveur</response>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("client/{idClient}")]
+        [ProducesResponseType(typeof(Response<IEnumerable<Order>>), 200)]
+        [ProducesResponseType(typeof(Response<IEnumerable<Order>>), 400)]
+        [ProducesResponseType(typeof(Response<IEnumerable<Order>>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<Order>>> GetOrderByIdClient([FromRoute] int idClient)
+        {
+            try
+            {
+                if (idClient == 0)
+                    return BadRequest(new Response<IEnumerable<Order>>() { Error = "IdClient can't be equal to 0", Data = null, Succes = true });
+                if ((await BsClient.GetById(idClient)) == null)
+                    return NotFound(new Response<IEnumerable<Order>>() { Error = "The Client doesn't exist", Data = null, Succes = true });
+                return Ok(new Response<IEnumerable<Order>>() { Error = "", Data = await BsOrder.GetByIdClient(idClient), Succes = true });
             }
             catch (Exception e)
             {

@@ -16,13 +16,14 @@ namespace TicsaAPI.Controllers
     public class GammeController : ControllerBase
     {
         private IBsGamme BsGamme { get; set; }
-
         private IBsGammeType BsGammeType { get; set; }
+        private IBsProducer BsProducer { get; set; }
 
-        public GammeController(IBsGamme bsGamme, IBsGammeType bsGammeType)
+        public GammeController(IBsGamme bsGamme, IBsGammeType bsGammeType, IBsProducer bsProducer)
         {
             BsGamme = bsGamme;
             BsGammeType = bsGammeType;
+            BsProducer = bsProducer;
         }
 
         /// <summary>
@@ -69,8 +70,39 @@ namespace TicsaAPI.Controllers
                 if (idType == 0)
                     return BadRequest(new Response<IEnumerable<Gamme>>() { Error = "IdGammeType can't be equal to 0", Data = null, Succes = true });
                 if ((await BsGammeType.GetById(idType)) == null)
-                    return NotFound(new Response<IEnumerable<Gamme>>() { Error = "the GammeType doesn't exist", Data = null, Succes = true });
+                    return NotFound(new Response<IEnumerable<Gamme>>() { Error = "The GammeType doesn't exist", Data = null, Succes = true });
                 return Ok(new Response<IEnumerable<Gamme>>() { Error = "", Data = await BsGamme.GetGammesByIdType(idType), Succes = true });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+            }
+        }
+
+        /// <summary>
+        /// Recupère les Gammes en fonction du producteur souhaité
+        /// </summary>
+        /// <param name="idProducer"></param> 
+        /// <response code="200">Succes / Retourne une Gamme</response>
+        /// <response code="400">BadRequest / Un des params est vide</response>
+        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
+        /// <response code="500">InternalError / Erreur interne au serveur</response>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("producer/{idProducer}")]
+        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 200)]
+        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 400)]
+        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 404)]
+        [ProducesResponseType(typeof(Response<Exception>), 500)]
+        public async Task<ActionResult<Response<IEnumerable<Gamme>>>> GetGammeByProducer([FromRoute] int idProducer)
+        {
+            try
+            {
+                if (idProducer == 0)
+                    return BadRequest(new Response<IEnumerable<Gamme>>() { Error = "IdProducer can't be equal to 0", Data = null, Succes = true });
+                if ((await BsProducer.GetById(idProducer)) == null)
+                    return NotFound(new Response<IEnumerable<Gamme>>() { Error = "The Producer doesn't exist", Data = null, Succes = true });
+                return Ok(new Response<IEnumerable<Gamme>>() { Error = "", Data = await BsGamme.GetGammesByIdProducer(idProducer), Succes = true });
             }
             catch (Exception e)
             {

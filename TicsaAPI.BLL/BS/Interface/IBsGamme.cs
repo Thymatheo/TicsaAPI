@@ -7,6 +7,7 @@ namespace TicsaAPI.BLL.BS.Interface
 {
     public interface IBsGamme : IBasicBs<Gamme>
     {
+        Task<IEnumerable<Gamme>> GetGammesByIdProducer(int idProducer);
         Task<IEnumerable<Gamme>> GetGammesByIdType(int idType);
         Gamme UpdateCost(Gamme entity, DtoCostHisto newHisto);
         Gamme UpdateStock(Gamme entity, DtoStockHisto newHisto);

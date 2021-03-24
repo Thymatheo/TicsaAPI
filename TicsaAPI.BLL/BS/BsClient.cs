@@ -17,7 +17,6 @@ namespace TicsaAPI.BLL.BS
             DpClient = dp;
             BsOrder = bsOrder;
         }
-
         public override async Task<Client> Update(int id, Client entity)
         {
             var result = await DpClient.GetById(id);

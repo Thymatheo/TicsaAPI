@@ -15,6 +15,10 @@ namespace TicsaAPI.DAL.DataProvider
         {
             return await Table.Where(x => x.IdType == idType).ToListAsync();
         }
+        public async Task<IEnumerable<Gamme>> GetGammesByIdProducer(int idProducer)
+        {
+            return await Table.Where(x => x.IdProducer == idProducer).ToListAsync();
+        }
 
     }
 }

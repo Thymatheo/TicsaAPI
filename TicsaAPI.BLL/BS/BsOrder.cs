@@ -16,6 +16,10 @@ namespace TicsaAPI.BLL.BS
             DpOrder = dp;
             BsOrderContent = bsOrderContent;
         }
+        public async Task<IEnumerable<Order>> GetByIdClient(int idClient)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public override async Task<Order> Update(int id, Order entity)
         {

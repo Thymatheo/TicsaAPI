@@ -8,7 +8,7 @@ namespace TicsaAPI.BLL.BS
 {
     public abstract class BasicBs<T> : IBasicBs<T> where T : BasicElement
     {
-        public IBasicDp<T> Dp { get; set; }
+        private IBasicDp<T> Dp { get; set; }
 
         public BasicBs(IBasicDp<T> dp)
         {

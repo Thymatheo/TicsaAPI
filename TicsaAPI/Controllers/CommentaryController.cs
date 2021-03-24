@@ -18,9 +18,12 @@ namespace TicsaAPI.Controllers
 
 
         private IBsCommentary BsCommentary { get; set; }
-        public CommentaryController(IBsCommentary bsCommentary)
+        private IBsClient BsClient { get; set; }
+
+        public CommentaryController(IBsCommentary bsCommentary, IBsClient bsClient)
         {
             BsCommentary = bsCommentary;
+            BsClient = bsClient;
         }
 
         /// <summary>
@@ -33,7 +36,7 @@ namespace TicsaAPI.Controllers
         [Route("all")]
         [ProducesResponseType(typeof(Response<IEnumerable<Commentary>>), 200)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<Commentary>>>> GetAllClient()
+        public async Task<ActionResult<Response<IEnumerable<Commentary>>>> GetAllCommentary()
         {
             try
             {
@@ -60,7 +63,7 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<Commentary>), 400)]
         [ProducesResponseType(typeof(Response<Commentary>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Commentary>>> GetClientById([FromRoute] int idCommentary)
+        public async Task<ActionResult<Response<Commentary>>> GetCommentaryById([FromRoute] int idCommentary)
         {
             try
             {
@@ -69,6 +72,36 @@ namespace TicsaAPI.Controllers
                 if ((await BsCommentary.GetById(idCommentary)) == null)
                     return NotFound(new Response<Commentary>() { Error = "The Commentary doesn't exist", Data = null, Succes = true });
                 return Ok(new Response<Commentary>() { Error = "", Data = await BsCommentary.GetById(idCommentary), Succes = true });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+            }
+        }
+        /// <summary>
+        /// Recupère Tout les commentaire d'un client
+        /// </summary>
+        /// <param name="idClient"></param>  
+        /// <response code="200">Succes / Retourne un Commentaire</response>
+        /// <response code="400">BadRequest / Un des params est vide</response>
+        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
+        /// <response code="500">InternalError / Erreur interne au serveur</response>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("client/{idClient}")]
+        [ProducesResponseType(typeof(Response<IEnumerable<Commentary>>), 200)]
+        [ProducesResponseType(typeof(Response<IEnumerable<Commentary>>), 400)]
+        [ProducesResponseType(typeof(Response<IEnumerable<Commentary>>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<Commentary>>> GetCommentaryByIdClient([FromRoute] int idClient)
+        {
+            try
+            {
+                if (idClient == 0)
+                    return BadRequest(new Response<IEnumerable<Commentary>>() { Error = "IdClient can't be equal to 0", Data = null, Succes = true });
+                if ((await BsClient.GetById(idClient)) == null)
+                    return NotFound(new Response<IEnumerable<Commentary>>() { Error = "The Client doesn't exist", Data = null, Succes = true });
+                return Ok(new Response<IEnumerable<Commentary>>() { Error = "", Data = await BsCommentary.GetByIdClient(idClient), Succes = true });
             }
             catch (Exception e)
             {
@@ -92,7 +125,7 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<Commentary>), 400)]
         [ProducesResponseType(typeof(Response<Commentary>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Commentary>>> UpdateClient([FromRoute] int idCommentary, [FromBody] Commentary commentary)
+        public async Task<ActionResult<Response<Commentary>>> UpdateCommentary([FromRoute] int idCommentary, [FromBody] Commentary commentary)
         {
             try
             {
