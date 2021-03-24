@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -59,9 +61,9 @@ namespace TicsaAPI.DAL.Models
 
             modelBuilder.Entity<Commentary>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasIndex(e => e.IdClient);
 
-                entity.Property(e => e.Content)
+                entity.Property(e => e.CommentaryContent)
                     .IsRequired()
                     .HasColumnType("text");
 
@@ -76,16 +78,26 @@ namespace TicsaAPI.DAL.Models
 
             modelBuilder.Entity<Gamme>(entity =>
             {
-                entity.Property(e => e.CostHisto).HasColumnType("text");
+                entity.HasIndex(e => e.IdProducer);
 
-                entity.Property(e => e.Description).HasColumnType("text");
+                entity.HasIndex(e => e.IdType);
+
+                entity.Property(e => e.CostHisto)
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasColumnType("text");
 
                 entity.Property(e => e.Label)
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.StockHisto).HasColumnType("text");
+                entity.Property(e => e.StockHisto)
+                    .IsRequired()
+                    .HasColumnType("text");
 
                 entity.HasOne(d => d.IdProducerNavigation)
                     .WithMany(p => p.Gamme)
@@ -110,6 +122,8 @@ namespace TicsaAPI.DAL.Models
 
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.HasIndex(e => e.IdClient);
+
                 entity.Property(e => e.OrderDate).HasColumnType("date");
 
                 entity.HasOne(d => d.IdClientNavigation)
@@ -121,6 +135,10 @@ namespace TicsaAPI.DAL.Models
 
             modelBuilder.Entity<OrderContent>(entity =>
             {
+                entity.HasIndex(e => e.IdGamme);
+
+                entity.HasIndex(e => e.IdOrder);
+
                 entity.HasOne(d => d.IdGammeNavigation)
                     .WithMany(p => p.OrderContent)
                     .HasForeignKey(d => d.IdGamme)

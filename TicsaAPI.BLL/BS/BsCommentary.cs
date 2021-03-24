@@ -10,20 +10,20 @@ namespace TicsaAPI.BLL.BS
 {
     public class BsCommentary : BasicBs<Commentary>, IBsCommentary
     {
-        private IDpCommentary _dpCommentary { get; set; }
+        private IDpCommentary DpCommentary { get; set; }
         public BsCommentary(IDpCommentary dp) : base(dp)
         {
-            _dpCommentary = dp;
+            DpCommentary = dp;
         }
 
         public override async Task<Commentary> Update(int id, Commentary entity)
         {
-            var result = await _dpCommentary.GetById(id);
-            if (entity.Content != null)
-                result.Content = entity.Content;
+            var result = await DpCommentary.GetById(id);
+            if (entity.CommentaryContent != null)
+                result.CommentaryContent = entity.CommentaryContent;
             if (entity.IdClient != 0)
                 result.IdClient = entity.IdClient;
-            return await _dpCommentary.Update(result);
+            return await DpCommentary.Update(result);
         }
     }
 }

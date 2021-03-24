@@ -68,20 +68,22 @@ namespace TicsaAPI.DAL.Migrations
 
             modelBuilder.Entity("TicsaAPI.DAL.Models.Commentary", b =>
                 {
-                    b.Property<DateTime>("CommentaryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CommentaryContent")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CommentaryDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("IdClient")
                         .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("IdClient");
 

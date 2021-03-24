@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicsaAPI.DAL.Migrations
 {
-    public partial class RefactoDb : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +19,7 @@ namespace TicsaAPI.DAL.Migrations
                     Email = table.Column<string>(unicode: false, maxLength: 255, nullable: true),
                     PhoneNumber = table.Column<string>(unicode: false, maxLength: 255, nullable: true),
                     Address = table.Column<string>(type: "text", nullable: false),
-                    PostalCode = table.Column<int>(nullable: false)
+                    PostalCode = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,9 +49,9 @@ namespace TicsaAPI.DAL.Migrations
                     FirstName = table.Column<string>(unicode: false, maxLength: 255, nullable: false),
                     CompagnieName = table.Column<string>(unicode: false, maxLength: 255, nullable: false),
                     address = table.Column<string>(unicode: false, maxLength: 255, nullable: true),
-                    phoneNumber = table.Column<int>(nullable: true),
-                    Email = table.Column<int>(nullable: true),
-                    PostalCode = table.Column<int>(nullable: true)
+                    phoneNumber = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    PostalCode = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,11 +65,12 @@ namespace TicsaAPI.DAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdClient = table.Column<int>(nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: false),
+                    CommentaryContent = table.Column<string>(type: "text", nullable: false),
                     CommentaryDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Commentary", x => x.Id);
                     table.ForeignKey(
                         name: "FK__Commentar__IdCli__3A81B327",
                         column: x => x.IdClient,
@@ -105,12 +106,12 @@ namespace TicsaAPI.DAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Label = table.Column<string>(unicode: false, maxLength: 255, nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    CostHisto = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    CostHisto = table.Column<string>(type: "text", nullable: false),
                     Cost = table.Column<double>(nullable: false),
                     IdType = table.Column<int>(nullable: false),
                     Stock = table.Column<int>(nullable: false),
-                    StockHisto = table.Column<string>(type: "text", nullable: true),
+                    StockHisto = table.Column<string>(type: "text", nullable: false),
                     IdProducer = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

@@ -37,5 +37,18 @@ namespace TicsaAPI.BLL.BS
         {
             return await Dp.Add(entity);
         }
+
+        public virtual async Task AddRange(IEnumerable<T> entityList)
+        {
+            await Dp.AddRange(entityList);
+        }
+        public virtual async Task RemoveRange(IEnumerable<T> entityList)
+        {
+            await Dp.RemoveRange(entityList);
+        }
+        public virtual async Task UpdateRange(IEnumerable<T> entityList)
+        {
+            await Dp.UpdateRange(entityList);
+        }
     }
 }

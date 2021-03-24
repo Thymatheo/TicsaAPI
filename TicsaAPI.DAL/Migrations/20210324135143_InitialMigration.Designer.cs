@@ -10,8 +10,8 @@ using TicsaAPI.DAL.Models;
 namespace TicsaAPI.DAL.Migrations
 {
     [DbContext(typeof(TicsaContext))]
-    [Migration("20210323141359_AddNullOnDataRef")]
-    partial class AddNullOnDataRef
+    [Migration("20210324135143_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,20 +70,22 @@ namespace TicsaAPI.DAL.Migrations
 
             modelBuilder.Entity("TicsaAPI.DAL.Models.Commentary", b =>
                 {
-                    b.Property<DateTime>("CommentaryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CommentaryContent")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CommentaryDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("IdClient")
                         .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("IdClient");
 

@@ -15,5 +15,8 @@ namespace TicsaAPI.BLL.BS.Interface
         Task<T> Remove(int id);
 
         Task<T> Add(T entity);
+        Task AddRange(IEnumerable<T> entityList);
+        Task RemoveRange(IEnumerable<T> entityList);
+        Task UpdateRange(IEnumerable<T> entityList);
     }
 }

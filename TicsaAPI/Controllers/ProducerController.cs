@@ -13,13 +13,13 @@ namespace TicsaAPI.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class PoducerController : ControllerBase
+    public class ProducerController : ControllerBase
     {
 
-        private IBsProducer _bsProducer { get; set; }
-        public PoducerController(IBsProducer bsProducer)
+        private IBsProducer BsProducer { get; set; }
+        public ProducerController(IBsProducer bsProducer)
         {
-            _bsProducer = bsProducer;
+            BsProducer = bsProducer;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace TicsaAPI.Controllers
         {
             try
             {
-                return Ok(new Response<IEnumerable<Producer>>() { Error = "", Data = await _bsProducer.GetAll(), Succes = true });
+                return Ok(new Response<IEnumerable<Producer>>() { Error = "", Data = await BsProducer.GetAll(), Succes = true });
             }
             catch (Exception e)
             {
@@ -65,9 +65,9 @@ namespace TicsaAPI.Controllers
             {
                 if (idProducer == 0)
                     return BadRequest(new Response<Producer>() { Error = "IdProducteur can't be equal to 0", Data = null, Succes = true });
-                if ((await _bsProducer.GetById(idProducer)) == null)
+                if ((await BsProducer.GetById(idProducer)) == null)
                     return NotFound(new Response<Producer>() { Error = "The Producteur doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Producer>() { Error = "", Data = await _bsProducer.GetById(idProducer), Succes = true });
+                return Ok(new Response<Producer>() { Error = "", Data = await BsProducer.GetById(idProducer), Succes = true });
             }
             catch (Exception e)
             {
@@ -97,11 +97,11 @@ namespace TicsaAPI.Controllers
             {
                 if (idProducer == 0)
                     return BadRequest(new Response<Producer>() { Error = "IdProducteur can't be equal to 0", Data = null, Succes = true });
-                if ((await _bsProducer.GetById(idProducer)) == null)
+                if ((await BsProducer.GetById(idProducer)) == null)
                     return NotFound(new Response<Producer>() { Error = "The Producteur doesn't exist", Data = null, Succes = true });
                 if (producer == null)
                     return BadRequest(new Response<Producer>() { Error = "The Producteur can't be null", Data = null, Succes = true });
-                return Ok(new Response<Producer>() { Error = "", Data = await _bsProducer.Update(idProducer, producer), Succes = true });
+                return Ok(new Response<Producer>() { Error = "", Data = await BsProducer.Update(idProducer, producer), Succes = true });
             }
             catch (Exception e)
             {
@@ -124,15 +124,15 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<Producer>), 400)]
         [ProducesResponseType(typeof(Response<Producer>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Producer>>> RemoveProducer([FromBody] int idProducer)
+        public async Task<ActionResult<Response<Producer>>> RemoveProducer([FromRoute] int idProducer)
         {
             try
             {
                 if (idProducer == 0)
                     return BadRequest(new Response<Producer>() { Error = "IdProducteur can't be equal to 0", Data = null, Succes = true });
-                if ((await _bsProducer.GetById(idProducer)) == null)
+                if ((await BsProducer.GetById(idProducer)) == null)
                     return NotFound(new Response<Producer>() { Error = "The Producteur doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Producer>() { Error = "", Data = await _bsProducer.Remove(idProducer), Succes = true });
+                return Ok(new Response<Producer>() { Error = "", Data = await BsProducer.Remove(idProducer), Succes = true });
             }
             catch (Exception e)
             {
@@ -159,7 +159,7 @@ namespace TicsaAPI.Controllers
             {
                 if (producer == null)
                     return BadRequest(new Response<Producer>() { Error = "The Producteur can't be null", Data = null, Succes = true });
-                return Ok(new Response<Producer>() { Error = "", Data = await _bsProducer.Add(producer), Succes = true });
+                return Ok(new Response<Producer>() { Error = "", Data = await BsProducer.Add(producer), Succes = true });
             }
             catch (Exception e)
             {

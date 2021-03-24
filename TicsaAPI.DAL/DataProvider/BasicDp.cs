@@ -10,11 +10,11 @@ namespace TicsaAPI.DAL.DataProvider
     public abstract class BasicDp<T> : IBasicDp<T> where T : BasicElement
     {
         public DbSet<T> Table { get; set; }
-        public TicsaContext db { get; set; }
+        public TicsaContext Db { get; set; }
         public BasicDp(DbSet<T> table, TicsaContext db)
         {
             Table = table;
-            this.db = db;
+            Db = db;
         }
 
         public async Task<IEnumerable<T>> GetAll()
@@ -28,35 +28,35 @@ namespace TicsaAPI.DAL.DataProvider
         public async Task<T> Remove(T entity)
         {
             var result = Table.Remove(entity);
-            await db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
             return result.Entity;
         }
         public async Task<T> Add(T entity)
         {
             var result = Table.Add(entity);
-            await db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
             return result.Entity;
         }
         public async Task<T> Update(T entity)
         {
             var result = Table.Update(entity);
-            await db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
             return result.Entity;
         }
         public async Task RemoveRange(IEnumerable<T> entity)
         {
             Table.RemoveRange(entity);
-            await db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
         }
         public async Task AddRange(IEnumerable<T> entity)
         {
             Table.AddRange(entity);
-            await db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
         }
         public async Task UpdateRange(IEnumerable<T> entity)
         {
             Table.UpdateRange(entity);
-            await db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
         }
 
     }

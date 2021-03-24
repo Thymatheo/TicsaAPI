@@ -15,10 +15,10 @@ namespace TicsaAPI.Controllers
     public class OrderController : ControllerBase
     {
 
-        private IBsOrder _bsOrder { get; set; }
+        private IBsOrder BsOrder { get; set; }
         public OrderController(IBsOrder bsOrder)
         {
-            _bsOrder = bsOrder;
+            BsOrder = bsOrder;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace TicsaAPI.Controllers
         {
             try
             {
-                return Ok(new Response<IEnumerable<Order>>() { Error = "", Data = await _bsOrder.GetAll(), Succes = true });
+                return Ok(new Response<IEnumerable<Order>>() { Error = "", Data = await BsOrder.GetAll(), Succes = true });
             }
             catch (Exception e)
             {
@@ -64,9 +64,9 @@ namespace TicsaAPI.Controllers
             {
                 if (idOrder == 0)
                     return BadRequest(new Response<Order>() { Error = "IdOrder can't be equal to 0", Data = null, Succes = true });
-                if ((await _bsOrder.GetById(idOrder)) == null)
+                if ((await BsOrder.GetById(idOrder)) == null)
                     return NotFound(new Response<Order>() { Error = "The Order doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Order>() { Error = "", Data = await _bsOrder.GetById(idOrder), Succes = true });
+                return Ok(new Response<Order>() { Error = "", Data = await BsOrder.GetById(idOrder), Succes = true });
             }
             catch (Exception e)
             {
@@ -96,11 +96,11 @@ namespace TicsaAPI.Controllers
             {
                 if (idOrder == 0)
                     return BadRequest(new Response<Order>() { Error = "IdOrder can't be equal to 0", Data = null, Succes = true });
-                if ((await _bsOrder.GetById(idOrder)) == null)
+                if ((await BsOrder.GetById(idOrder)) == null)
                     return NotFound(new Response<Order>() { Error = "The Order doesn't exist", Data = null, Succes = true });
                 if (order == null)
                     return BadRequest(new Response<Order>() { Error = "The Order can't be null", Data = null, Succes = true });
-                return Ok(new Response<Order>() { Error = "", Data = await _bsOrder.Update(idOrder, order), Succes = true });
+                return Ok(new Response<Order>() { Error = "", Data = await BsOrder.Update(idOrder, order), Succes = true });
             }
             catch (Exception e)
             {
@@ -129,9 +129,9 @@ namespace TicsaAPI.Controllers
             {
                 if (idOrder == 0)
                     return BadRequest(new Response<Order>() { Error = "IdOrder can't be equal to 0", Data = null, Succes = true });
-                if ((await _bsOrder.GetById(idOrder)) == null)
+                if ((await BsOrder.GetById(idOrder)) == null)
                     return NotFound(new Response<Order>() { Error = "The Order doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Order>() { Error = "", Data = await _bsOrder.Remove(idOrder), Succes = true });
+                return Ok(new Response<Order>() { Error = "", Data = await BsOrder.Remove(idOrder), Succes = true });
             }
             catch (Exception e)
             {
@@ -158,7 +158,7 @@ namespace TicsaAPI.Controllers
             {
                 if (order == null)
                     return BadRequest(new Response<Order>() { Error = "The Order can't be null", Data = null, Succes = true });
-                return Ok(new Response<Order>() { Error = "", Data = await _bsOrder.Add(order), Succes = true });
+                return Ok(new Response<Order>() { Error = "", Data = await BsOrder.Add(order), Succes = true });
             }
             catch (Exception e)
             {

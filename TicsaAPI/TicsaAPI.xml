@@ -338,7 +338,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.PoducerController.GetAllProducer">
+        <member name="M:TicsaAPI.Controllers.ProducerController.GetAllProducer">
             <summary>
             Recupère toute les Producteurs
             </summary>
@@ -346,7 +346,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.PoducerController.GetProducerById(System.Int32)">
+        <member name="M:TicsaAPI.Controllers.ProducerController.GetProducerById(System.Int32)">
             <summary>
             Recupère un Producteur en fonction de son Id
             </summary>
@@ -357,7 +357,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.PoducerController.UpdateProducer(System.Int32,TicsaAPI.DAL.Models.Producer)">
+        <member name="M:TicsaAPI.Controllers.ProducerController.UpdateProducer(System.Int32,TicsaAPI.DAL.Models.Producer)">
             <summary>
             Met a jour un Producteur
             </summary>
@@ -369,7 +369,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.PoducerController.RemoveProducer(System.Int32)">
+        <member name="M:TicsaAPI.Controllers.ProducerController.RemoveProducer(System.Int32)">
             <summary>
             Supprime un Producteur
             </summary>
@@ -380,7 +380,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.PoducerController.AddProducer(TicsaAPI.DAL.Models.Producer)">
+        <member name="M:TicsaAPI.Controllers.ProducerController.AddProducer(TicsaAPI.DAL.Models.Producer)">
             <summary>
             Ajoute un Producteur
             </summary>

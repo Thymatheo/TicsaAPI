@@ -14,10 +14,10 @@ namespace TicsaAPI.Controllers
     public class ClientController : ControllerBase
     {
 
-        private IBsClient _bsClient { get; set; }
+        private IBsClient BsClient { get; set; }
         public ClientController(IBsClient bsClient)
         {
-            _bsClient = bsClient;
+            BsClient = bsClient;
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace TicsaAPI.Controllers
         {
             try
             {
-                return Ok(new Response<IEnumerable<Client>>() { Error = "", Data = await _bsClient.GetAll(), Succes = true });
+                return Ok(new Response<IEnumerable<Client>>() { Error = "", Data = await BsClient.GetAll(), Succes = true });
             }
             catch (Exception e)
             {
@@ -63,9 +63,9 @@ namespace TicsaAPI.Controllers
             {
                 if (idClient == 0)
                     return BadRequest(new Response<Client>() { Error = "IdClient can't be equal to 0", Data = null, Succes = true });
-                if ((await _bsClient.GetById(idClient)) == null)
+                if ((await BsClient.GetById(idClient)) == null)
                     return NotFound(new Response<Client>() { Error = "The Client doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Client>() { Error = "", Data = await _bsClient.GetById(idClient), Succes = true });
+                return Ok(new Response<Client>() { Error = "", Data = await BsClient.GetById(idClient), Succes = true });
             }
             catch (Exception e)
             {
@@ -95,11 +95,11 @@ namespace TicsaAPI.Controllers
             {
                 if (idClient == 0)
                     return BadRequest(new Response<Client>() { Error = "IdClient can't be equal to 0", Data = null, Succes = true });
-                if ((await _bsClient.GetById(idClient)) == null)
+                if ((await BsClient.GetById(idClient)) == null)
                     return NotFound(new Response<Client>() { Error = "The Client doesn't exist", Data = null, Succes = true });
                 if (client == null)
                     return BadRequest(new Response<Client>() { Error = "The Clientcan't be null", Data = null, Succes = true });
-                return Ok(new Response<Client>() { Error = "", Data = await _bsClient.Update(idClient, client), Succes = true });
+                return Ok(new Response<Client>() { Error = "", Data = await BsClient.Update(idClient, client), Succes = true });
             }
             catch (Exception e)
             {
@@ -122,15 +122,15 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<Client>), 400)]
         [ProducesResponseType(typeof(Response<Client>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Client>>> RemoveClient([FromBody] int idClient)
+        public async Task<ActionResult<Response<Client>>> RemoveClient([FromRoute] int idClient)
         {
             try
             {
                 if (idClient == 0)
                     return BadRequest(new Response<Client>() { Error = "IdClient can't be equal to 0", Data = null, Succes = true });
-                if ((await _bsClient.GetById(idClient)) == null)
+                if ((await BsClient.GetById(idClient)) == null)
                     return NotFound(new Response<Client>() { Error = "The Client doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Client>() { Error = "", Data = await _bsClient.Remove(idClient), Succes = true });
+                return Ok(new Response<Client>() { Error = "", Data = await BsClient.Remove(idClient), Succes = true });
             }
             catch (Exception e)
             {
@@ -157,7 +157,7 @@ namespace TicsaAPI.Controllers
             {
                 if (client == null)
                     return BadRequest(new Response<Client>() { Error = "The Clientcan't be null", Data = null, Succes = true });
-                return Ok(new Response<Client>() { Error = "", Data = await _bsClient.Add(client), Succes = true });
+                return Ok(new Response<Client>() { Error = "", Data = await BsClient.Add(client), Succes = true });
             }
             catch (Exception e)
             {
