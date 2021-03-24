@@ -20,6 +20,6 @@ namespace TicsaAPI.DAL.Models
         public string? Address { get; set; }
         public string? PostalCode { get; set; }
 
-        public virtual ICollection<Order> Order { get; set; }
+        public virtual ICollection<Order>? Order { get; set; }
     }
 }

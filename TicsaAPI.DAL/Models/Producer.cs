@@ -20,6 +20,6 @@ namespace TicsaAPI.DAL.Models
         public string? Email { get; set; }
         public string? PostalCode { get; set; }
 
-        public virtual ICollection<Gamme> Gamme { get; set; }
+        public virtual ICollection<Gamme>? Gamme { get; set; }
     }
 }

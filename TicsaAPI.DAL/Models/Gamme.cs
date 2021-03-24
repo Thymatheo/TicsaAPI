@@ -21,8 +21,8 @@ namespace TicsaAPI.DAL.Models
         public string StockHisto { get; set; }
         public int IdProducer { get; set; }
 
-        public virtual Producer IdProducerNavigation { get; set; }
-        public virtual GammeType IdTypeNavigation { get; set; }
-        public virtual ICollection<OrderContent> OrderContent { get; set; }
+        public virtual Producer? IdProducerNavigation { get; set; }
+        public virtual GammeType? IdTypeNavigation { get; set; }
+        public virtual ICollection<OrderContent>? OrderContent { get; set; }
     }
 }

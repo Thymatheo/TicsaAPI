@@ -12,6 +12,6 @@ namespace TicsaAPI.DAL.Models
         public string Content { get; set; }
         public DateTime CommentaryDate { get; set; }
 
-        public virtual Client IdClientNavigation { get; set; }
+        public virtual Client? IdClientNavigation { get; set; }
     }
 }

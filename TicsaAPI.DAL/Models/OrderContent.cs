@@ -10,7 +10,7 @@ namespace TicsaAPI.DAL.Models
         public int IdGamme { get; set; }
         public int Quantity { get; set; }
 
-        public virtual Gamme IdGammeNavigation { get; set; }
-        public virtual Order IdOrderNavigation { get; set; }
+        public virtual Gamme? IdGammeNavigation { get; set; }
+        public virtual Order? IdOrderNavigation { get; set; }
     }
 }

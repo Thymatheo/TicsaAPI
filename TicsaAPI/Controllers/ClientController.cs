@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL.Models;
 namespace TicsaAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
@@ -24,6 +26,7 @@ namespace TicsaAPI.Controllers
         /// <response code="200">Succes / Retourne toutes les Clients</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         [Route("all")]
         [ProducesResponseType(typeof(Response<IEnumerable<Client>>), 200)]

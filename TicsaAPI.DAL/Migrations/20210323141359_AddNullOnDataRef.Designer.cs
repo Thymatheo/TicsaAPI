@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.DAL.Migrations
 {
     [DbContext(typeof(TicsaContext))]
-    partial class TicsaContextModelSnapshot : ModelSnapshot
+    [Migration("20210323141359_AddNullOnDataRef")]
+    partial class AddNullOnDataRef
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

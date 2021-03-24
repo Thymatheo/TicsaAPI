@@ -14,6 +14,6 @@ namespace TicsaAPI.DAL.Models
         }
         public string Label { get; set; }
 
-        public virtual ICollection<Gamme> Gamme { get; set; }
+        public virtual ICollection<Gamme>? Gamme { get; set; }
     }
 }
