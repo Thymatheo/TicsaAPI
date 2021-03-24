@@ -26,7 +26,6 @@ namespace TicsaAPI.Controllers
         /// <response code="200">Succes / Retourne toutes les Clients</response>
         /// <response code="500">InternalError / Erreur interne au serveur</response>
         /// <returns></returns>
-        [Authorize]
         [HttpGet]
         [Route("all")]
         [ProducesResponseType(typeof(Response<IEnumerable<Client>>), 200)]
