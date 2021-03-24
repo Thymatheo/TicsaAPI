@@ -56,7 +56,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.CommentaryController.GetAllClient">
+        <member name="M:TicsaAPI.Controllers.CommentaryController.GetAllCommentary">
             <summary>
             Recupère toute les Commentaires
             </summary>
@@ -64,7 +64,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.CommentaryController.GetClientById(System.Int32)">
+        <member name="M:TicsaAPI.Controllers.CommentaryController.GetCommentaryById(System.Int32)">
             <summary>
             Recupère un Commentaire en fonction de son Id
             </summary>
@@ -75,7 +75,18 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.CommentaryController.UpdateClient(System.Int32,TicsaAPI.DAL.Models.Commentary)">
+        <member name="M:TicsaAPI.Controllers.CommentaryController.GetCommentaryByIdClient(System.Int32)">
+            <summary>
+            Recupère Tout les commentaire d'un client
+            </summary>
+            <param name="idClient"></param>  
+            <response code="200">Succes / Retourne un Commentaire</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.CommentaryController.UpdateCommentary(System.Int32,TicsaAPI.DAL.Models.Commentary)">
             <summary>
             Met a jour un Commentaire
             </summary>
@@ -310,6 +321,17 @@
             Recupère une Commande en fonction de son Id
             </summary>
             <param name="idOrder"></param>  
+            <response code="200">Succes / Retourne une Commande</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderController.GetOrderByIdClient(System.Int32)">
+            <summary>
+            Recupère Toutes les Commande d'un utilisateur
+            </summary>
+            <param name="idClient"></param>  
             <response code="200">Succes / Retourne une Commande</response>
             <response code="400">BadRequest / Un des params est vide</response>
             <response code="404">NotFound / L'objet recherché n'existe pas</response>

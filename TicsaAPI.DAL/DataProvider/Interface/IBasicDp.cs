@@ -14,6 +14,5 @@ namespace TicsaAPI.DAL.DataProvider.Interface
         Task AddRange(IEnumerable<T> entity);
         Task<T> Update(T entity);
         Task UpdateRange(IEnumerable<T> entity);
-        Task<IEnumerable<Commentary>> GetByIdClient(int idClient);
     }
 }

@@ -18,7 +18,7 @@ namespace TicsaAPI.BLL.BS
         }
         public async Task<IEnumerable<Order>> GetByIdClient(int idClient)
         {
-            throw new System.NotImplementedException();
+            return await DpOrder.GetByIdClient(idClient);
         }
 
         public override async Task<Order> Update(int id, Order entity)
