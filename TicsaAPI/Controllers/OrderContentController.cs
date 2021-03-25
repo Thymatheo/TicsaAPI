@@ -44,37 +44,6 @@ namespace TicsaAPI.Controllers
         }
 
         /// <summary>
-        /// Recupère tout les Contenus d'une Commandes     
-        /// </summary>
-        /// <param name="idOrder"></param>
-        /// <response code="200">Succes / Retourne toutes les Contenus de Commandes</response>
-        /// <response code="400">BadRequest / Un des params est vide</response>
-        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
-        /// <response code="500">InternalError / Erreur interne au serveur</response>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("order/{idOrder}")]
-        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 200)]
-        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 400)]
-        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 404)]
-        [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<OrderContent>>>> GetOrderContentByIdOrder([FromRoute] int idOrder)
-        {
-            try
-            {
-                if (idOrder == 0)
-                    return BadRequest(new Response<IEnumerable<OrderContent>>() { Error = "IdOrder can't be equal to 0", Data = null, Succes = true });
-                if ((await BsOrderContent.GetById(idOrder)) == null)
-                    return NotFound(new Response<IEnumerable<OrderContent>>() { Error = "the Order doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<IEnumerable<OrderContent>>() { Error = "", Data = await BsOrderContent.GetByIdOrder(idOrder), Succes = true });
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
-            }
-        }
-
-        /// <summary>
         /// Recupère un Contenu de Commande en fonction de son Id
         /// </summary>
         /// <param name="idOrderContent"></param>  
@@ -98,6 +67,37 @@ namespace TicsaAPI.Controllers
                 if ((await BsOrderContent.GetById(idOrderContent)) == null)
                     return NotFound(new Response<OrderContent>() { Error = "the OrderContent doesn't exist", Data = null, Succes = true });
                 return Ok(new Response<OrderContent>() { Error = "", Data = await BsOrderContent.GetById(idOrderContent), Succes = true });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+            }
+        }
+
+        /// <summary>
+        /// Recupère tout les Contenus d'une Commandes     
+        /// </summary>
+        /// <param name="idOrder"></param>
+        /// <response code="200">Succes / Retourne toutes les Contenus de Commandes</response>
+        /// <response code="400">BadRequest / Un des params est vide</response>
+        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
+        /// <response code="500">InternalError / Erreur interne au serveur</response>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("order/{idOrder}")]
+        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 200)]
+        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 400)]
+        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<IEnumerable<OrderContent>>>> GetOrderContentByIdOrder([FromRoute] int idOrder)
+        {
+            try
+            {
+                if (idOrder == 0)
+                    return BadRequest(new Response<IEnumerable<OrderContent>>() { Error = "IdOrder can't be equal to 0", Data = null, Succes = true });
+                if ((await BsOrderContent.GetById(idOrder)) == null)
+                    return NotFound(new Response<IEnumerable<OrderContent>>() { Error = "the Order doesn't exist", Data = null, Succes = true });
+                return Ok(new Response<IEnumerable<OrderContent>>() { Error = "", Data = await BsOrderContent.GetByIdOrder(idOrder), Succes = true });
             }
             catch (Exception e)
             {

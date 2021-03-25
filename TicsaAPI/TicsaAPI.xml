@@ -127,6 +127,17 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
+        <member name="M:TicsaAPI.Controllers.GammeController.GetGammeById(System.Int32)">
+            <summary>
+            Recupère une Gamme en fonction de son Id
+            </summary>
+            <param name="idGamme"></param>  
+            <response code="200">Succes / Retourne une Gamme</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
         <member name="M:TicsaAPI.Controllers.GammeController.GetGammeByType(System.Int32)">
             <summary>
             Recupère les Gammes ayant le type souhaité
@@ -143,17 +154,6 @@
             Recupère les Gammes en fonction du producteur souhaité
             </summary>
             <param name="idProducer"></param> 
-            <response code="200">Succes / Retourne une Gamme</response>
-            <response code="400">BadRequest / Un des params est vide</response>
-            <response code="404">NotFound / L'objet recherché n'existe pas</response>
-            <response code="500">InternalError / Erreur interne au serveur</response>
-            <returns></returns>
-        </member>
-        <member name="M:TicsaAPI.Controllers.GammeController.GetGammeById(System.Int32)">
-            <summary>
-            Recupère une Gamme en fonction de son Id
-            </summary>
-            <param name="idGamme"></param>  
             <response code="200">Succes / Retourne une Gamme</response>
             <response code="400">BadRequest / Un des params est vide</response>
             <response code="404">NotFound / L'objet recherché n'existe pas</response>
@@ -253,23 +253,23 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderContentController.GetOrderContentByIdOrder(System.Int32)">
-            <summary>
-            Recupère tout les Contenus d'une Commandes     
-            </summary>
-            <param name="idOrder"></param>
-            <response code="200">Succes / Retourne toutes les Contenus de Commandes</response>
-            <response code="400">BadRequest / Un des params est vide</response>
-            <response code="404">NotFound / L'objet recherché n'existe pas</response>
-            <response code="500">InternalError / Erreur interne au serveur</response>
-            <returns></returns>
-        </member>
         <member name="M:TicsaAPI.Controllers.OrderContentController.GetOrderById(System.Int32)">
             <summary>
             Recupère un Contenu de Commande en fonction de son Id
             </summary>
             <param name="idOrderContent"></param>  
             <response code="200">Succes / Retourne un Contenu de Commande</response>
+            <response code="400">BadRequest / Un des params est vide</response>
+            <response code="404">NotFound / L'objet recherché n'existe pas</response>
+            <response code="500">InternalError / Erreur interne au serveur</response>
+            <returns></returns>
+        </member>
+        <member name="M:TicsaAPI.Controllers.OrderContentController.GetOrderContentByIdOrder(System.Int32)">
+            <summary>
+            Recupère tout les Contenus d'une Commandes     
+            </summary>
+            <param name="idOrder"></param>
+            <response code="200">Succes / Retourne toutes les Contenus de Commandes</response>
             <response code="400">BadRequest / Un des params est vide</response>
             <response code="404">NotFound / L'objet recherché n'existe pas</response>
             <response code="500">InternalError / Erreur interne au serveur</response>

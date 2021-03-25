@@ -10,7 +10,7 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GammeController : ControllerBase
@@ -41,6 +41,37 @@ namespace TicsaAPI.Controllers
             try
             {
                 return Ok(new Response<IEnumerable<Gamme>>() { Error = "", Data = await BsGamme.GetAll(), Succes = true });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+            }
+        }
+
+        /// <summary>
+        /// Recupère une Gamme en fonction de son Id
+        /// </summary>
+        /// <param name="idGamme"></param>  
+        /// <response code="200">Succes / Retourne une Gamme</response>
+        /// <response code="400">BadRequest / Un des params est vide</response>
+        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
+        /// <response code="500">InternalError / Erreur interne au serveur</response>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{idGamme}")]
+        [ProducesResponseType(typeof(Response<Gamme>), 200)]
+        [ProducesResponseType(typeof(Response<Gamme>), 400)]
+        [ProducesResponseType(typeof(Response<Gamme>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<Gamme>>> GetGammeById([FromRoute] int idGamme)
+        {
+            try
+            {
+                if (idGamme == 0)
+                    return BadRequest(new Response<Gamme>() { Error = "IdGamme can't be equal to 0", Data = null, Succes = true });
+                if ((await BsGamme.GetById(idGamme)) == null)
+                    return NotFound(new Response<Gamme>() { Error = "The Gamme doesn't exist", Data = null, Succes = true });
+                return Ok(new Response<Gamme>() { Error = "", Data = await BsGamme.GetById(idGamme), Succes = true });
             }
             catch (Exception e)
             {
@@ -103,37 +134,6 @@ namespace TicsaAPI.Controllers
                 if ((await BsProducer.GetById(idProducer)) == null)
                     return NotFound(new Response<IEnumerable<Gamme>>() { Error = "The Producer doesn't exist", Data = null, Succes = true });
                 return Ok(new Response<IEnumerable<Gamme>>() { Error = "", Data = await BsGamme.GetGammesByIdProducer(idProducer), Succes = true });
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
-            }
-        }
-
-        /// <summary>
-        /// Recupère une Gamme en fonction de son Id
-        /// </summary>
-        /// <param name="idGamme"></param>  
-        /// <response code="200">Succes / Retourne une Gamme</response>
-        /// <response code="400">BadRequest / Un des params est vide</response>
-        /// <response code="404">NotFound / L'objet recherché n'existe pas</response>
-        /// <response code="500">InternalError / Erreur interne au serveur</response>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("{idGamme}")]
-        [ProducesResponseType(typeof(Response<Gamme>), 200)]
-        [ProducesResponseType(typeof(Response<Gamme>), 400)]
-        [ProducesResponseType(typeof(Response<Gamme>), 404)]
-        [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Gamme>>> GetGammeById([FromRoute] int idGamme)
-        {
-            try
-            {
-                if (idGamme == 0)
-                    return BadRequest(new Response<Gamme>() { Error = "IdGamme can't be equal to 0", Data = null, Succes = true });
-                if ((await BsGamme.GetById(idGamme)) == null)
-                    return NotFound(new Response<Gamme>() { Error = "The Gamme doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Gamme>() { Error = "", Data = await BsGamme.GetById(idGamme), Succes = true });
             }
             catch (Exception e)
             {

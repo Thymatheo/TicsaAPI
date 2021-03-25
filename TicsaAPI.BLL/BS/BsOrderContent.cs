@@ -36,14 +36,14 @@ namespace TicsaAPI.BLL.BS
             if (entity.IdOrder != 0)
                 if (result.IdOrder != entity.IdOrder)
                     result.IdOrder = entity.IdOrder;
-                if (entity.Quantity != 0)
-                    if (result.Quantity != entity.Quantity)
-                    {
-                        Gamme gamme = await BsGamme.GetById(result.IdGamme);
-                        int diffStock = result.Quantity - entity.Quantity;
-                        await BsGamme.Update(result.IdGamme, new Gamme() { Stock = (gamme.Stock + diffStock) });
-                        result.Quantity = entity.Quantity;
-                    }
+            if (entity.Quantity != 0)
+                if (result.Quantity != entity.Quantity)
+                {
+                    Gamme gamme = await BsGamme.GetById(result.IdGamme);
+                    int diffStock = result.Quantity - entity.Quantity;
+                    await BsGamme.Update(result.IdGamme, new Gamme() { Stock = (gamme.Stock + diffStock) });
+                    result.Quantity = entity.Quantity;
+                }
             return await DpOrderContent.Update(result);
         }
 
