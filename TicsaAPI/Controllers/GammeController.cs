@@ -10,7 +10,7 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GammeController : ControllerBase

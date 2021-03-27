@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicsaAPI.DAL.Models;
 
@@ -16,15 +15,13 @@ namespace TicsaAPI.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.13")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("TicsaAPI.DAL.Models.Client", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -32,34 +29,36 @@ namespace TicsaAPI.DAL.Migrations
 
                     b.Property<string>("CompagnieName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
                     b.Property<string>("Email")
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
                     b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
+                        .HasMaxLength(255)
+                        .IsUnicode(false);
 
                     b.HasKey("Id");
 
@@ -70,15 +69,14 @@ namespace TicsaAPI.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("CommentaryContent")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("CommentaryDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("CommentaryDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("IdClient")
                         .HasColumnType("int");
@@ -94,11 +92,10 @@ namespace TicsaAPI.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
+                    b.Property<double?>("Cost")
+                        .HasColumnType("double");
 
                     b.Property<string>("CostHisto")
                         .IsRequired()
@@ -116,11 +113,11 @@ namespace TicsaAPI.DAL.Migrations
 
                     b.Property<string>("Label")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
-                    b.Property<int>("Stock")
+                    b.Property<int?>("Stock")
                         .HasColumnType("int");
 
                     b.Property<string>("StockHisto")
@@ -140,12 +137,11 @@ namespace TicsaAPI.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Label")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
@@ -158,13 +154,12 @@ namespace TicsaAPI.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("IdClient")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("OrderDate")
+                    b.Property<DateTime?>("OrderDate")
                         .HasColumnType("date");
 
                     b.HasKey("Id");
@@ -178,8 +173,7 @@ namespace TicsaAPI.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("IdGamme")
                         .HasColumnType("int");
@@ -203,42 +197,43 @@ namespace TicsaAPI.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Address")
                         .HasColumnName("address")
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
                     b.Property<string>("CompagnieName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
                         .HasMaxLength(255)
                         .IsUnicode(false);
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnName("phoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
+                        .HasMaxLength(255)
+                        .IsUnicode(false);
 
                     b.HasKey("Id");
 

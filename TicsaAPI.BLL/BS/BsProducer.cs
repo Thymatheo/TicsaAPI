@@ -10,16 +10,16 @@ namespace TicsaAPI.BLL.BS
 {
     public class BsProducer : BasicBs<Producer>, IBsProducer
     {
-        private IDpProducer _dpProducer;
+        private readonly IDpProducer DpProducer;
 
         public BsProducer(IDpProducer dp) : base(dp)
         {
-            _dpProducer = dp;
+            DpProducer = dp;
         }
 
         public override async Task<Producer> Update(int id, Producer entity)
         {
-            var result = await _dpProducer.GetById(id);
+            var result = await DpProducer.GetById(id);
             if (entity.Address != null)
                 result.Address = entity.Address;
             if (entity.PostalCode != null)
@@ -34,7 +34,7 @@ namespace TicsaAPI.BLL.BS
                 result.PhoneNumber = entity.PhoneNumber;
             if (entity.Email != null)
                 result.Email = entity.Email;
-            return await _dpProducer.Update(result);
+            return await DpProducer.Update(result);
         }
     }
 }

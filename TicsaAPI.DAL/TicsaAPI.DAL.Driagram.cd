@@ -1,16 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="TicsaAPI.DAL.TicsaContext">
-    <Position X="19.25" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAEAQAAAAAAQAAAAACAAAAAAEAAAEAAEAAAAAAAAAAA=</HashCode>
-      <FileName>TicsaContext.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="TicsaAPI.DAL.DataProvider.BasicDp&lt;T&gt;">
     <Position X="12" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAYAAAAAAAAQAAAAAAAARAAAAAAAAAAgAgAAAIAEAIA=</HashCode>
+      <HashCode>AAYAAAAAAAAAAAAAEAAARAAAAAAAAAAgAgAAAIAEAIA=</HashCode>
       <FileName>DataProvider\BasicDp.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -26,7 +19,7 @@
   <Class Name="TicsaAPI.DAL.DataProvider.DpGamme">
     <Position X="16.75" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>DataProvider\DpGamme.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -42,7 +35,7 @@
   <Class Name="TicsaAPI.DAL.DataProvider.DpOrder">
     <Position X="9.75" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DataProvider\DpOrder.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -54,13 +47,6 @@
       <FileName>DataProvider\DpOrderContent.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="TicsaAPI.DAL.Migrations.AddPrimaryKey">
-    <Position X="19.25" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
-      <FileName>Migrations\20210320114234_AddPrimaryKey.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="TicsaAPI.DAL.Migrations.RemoveCrossAttribute">
     <Position X="21" Y="1.5" Width="1.5" />
@@ -83,11 +69,11 @@
       <FileName>Models\BasicElement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TicsaAPI.DAL.Models.Clients">
+  <Class Name="TicsaAPI.DAL.Models.Client">
     <Position X="11.5" Y="2.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAGAAAAAAIAAAQAAAAAAAAAACAAAAAAAAAAg=</HashCode>
-      <FileName>Models\Clients.cs</FileName>
+      <HashCode>AAEAAEAAAGAAAAAAIAAAQAAAAAAAAAACAAAAAAAAAAg=</HashCode>
+      <FileName>Models\Client.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TicsaAPI.DAL.Models.Gammes">
@@ -97,17 +83,17 @@
       <FileName>Models\Gammes.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TicsaAPI.DAL.Models.GammeTypes">
+  <Class Name="TicsaAPI.DAL.Models.GammeType">
     <Position X="16.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\GammeTypes.cs</FileName>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GammeType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TicsaAPI.DAL.Models.OrderContent">
     <Position X="7" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAiAAAAAA=</HashCode>
       <FileName>Models\OrderContent.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -116,6 +102,13 @@
     <TypeIdentifier>
       <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Models\Orders.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TicsaAPI.DAL.TicsaContext">
+    <Position X="19.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAQAAAAAAQAAAAABAAAAAAEAAQGAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>TicsaContext.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="TicsaAPI.DAL.DataProvider.Interface.IBasicDp&lt;T&gt;">
@@ -135,7 +128,7 @@
   <Interface Name="TicsaAPI.DAL.DataProvider.Interface.IDpGamme">
     <Position X="14.25" Y="14.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>DataProvider\Interface\IDpGamme.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -149,7 +142,7 @@
   <Interface Name="TicsaAPI.DAL.DataProvider.Interface.IDpOrder">
     <Position X="7.25" Y="14.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DataProvider\Interface\IDpOrder.cs</FileName>
     </TypeIdentifier>
   </Interface>

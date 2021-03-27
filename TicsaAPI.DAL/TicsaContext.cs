@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using TicsaAPI.DAL.Models;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace TicsaAPI.DAL.Models
+namespace TicsaAPI.DAL
 {
     public partial class TicsaContext : DbContext
     {
@@ -57,10 +58,16 @@ namespace TicsaAPI.DAL.Models
                 entity.Property(e => e.PhoneNumber)
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property(e => e.PostalCode)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Commentary>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.HasIndex(e => e.IdClient);
 
                 entity.Property(e => e.CommentaryContent)
@@ -82,22 +89,16 @@ namespace TicsaAPI.DAL.Models
 
                 entity.HasIndex(e => e.IdType);
 
-                entity.Property(e => e.CostHisto)
-                    .IsRequired()
-                    .HasColumnType("text");
+                entity.Property(e => e.CostHisto).HasColumnType("text");
 
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasColumnType("text");
+                entity.Property(e => e.Description).HasColumnType("text");
 
                 entity.Property(e => e.Label)
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.StockHisto)
-                    .IsRequired()
-                    .HasColumnType("text");
+                entity.Property(e => e.StockHisto).HasColumnType("text");
 
                 entity.HasOne(d => d.IdProducerNavigation)
                     .WithMany(p => p.Gamme)
@@ -164,6 +165,10 @@ namespace TicsaAPI.DAL.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Email)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(255)
@@ -174,7 +179,14 @@ namespace TicsaAPI.DAL.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PhoneNumber).HasColumnName("phoneNumber");
+                entity.Property(e => e.PhoneNumber)
+                    .HasColumnName("phoneNumber")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PostalCode)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

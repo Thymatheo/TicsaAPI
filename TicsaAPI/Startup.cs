@@ -16,6 +16,8 @@ using TicsaAPI.DAL.DataProvider;
 using TicsaAPI.DAL.DataProvider.Interface;
 using TicsaAPI.DAL.Models;
 using TicsaAPI.Securité;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using TicsaAPI.DAL;
 
 namespace TicsaAPI
 {
@@ -46,7 +48,10 @@ namespace TicsaAPI
                 option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 option.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
-            services.AddDbContext<TicsaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TicsaContext")));
+
+            services.AddDbContext<TicsaContext>(options =>
+                options.UseMySql(Configuration.GetConnectionString("TicsaContext"),
+                mysqloption => mysqloption.ServerVersion(new Version(10, 3, 27), ServerType.MariaDb)));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo());
@@ -116,19 +121,18 @@ namespace TicsaAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticsa API");
+                    c.RoutePrefix = "doc";
+                });
             }
-            else
+            else if(env.IsProduction())
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticsa API");
-                c.RoutePrefix = "doc";
-            });
             app.UseCors(MyAllowSpecificOrigins);
             app.UseRouting();
 
