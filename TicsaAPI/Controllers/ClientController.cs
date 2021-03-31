@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
+using TicsaAPI.BLL.DTO.Clients;
 using TicsaAPI.DAL.Models;
 namespace TicsaAPI.Controllers
 {
@@ -28,13 +29,13 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        [ProducesResponseType(typeof(Response<IEnumerable<Client>>), 200)]
+        [ProducesResponseType(typeof(Response<IEnumerable<DtoClient>>), 200)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<Client>>>> GetAllClient()
+        public async Task<ActionResult<Response<IEnumerable<DtoClient>>>> GetAllClient()
         {
             try
             {
-                return Ok(new Response<IEnumerable<Client>>() { Error = "", Data = await BsClient.GetAll(), Succes = true });
+                return Ok(new Response<IEnumerable<DtoClient>>() { Error = "", Data = await BsClient.GetAll<DtoClient>(), Succes = true });
             }
             catch (Exception e)
             {
@@ -53,19 +54,19 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{idClient}")]
-        [ProducesResponseType(typeof(Response<Client>), 200)]
-        [ProducesResponseType(typeof(Response<Client>), 400)]
-        [ProducesResponseType(typeof(Response<Client>), 404)]
+        [ProducesResponseType(typeof(Response<DtoClient>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Client>>> GetClientById([FromRoute] int idClient)
+        public async Task<ActionResult<Response<DtoClient>>> GetClientById([FromRoute] int idClient)
         {
             try
             {
                 if (idClient == 0)
-                    return BadRequest(new Response<Client>() { Error = "IdClient can't be equal to 0", Data = null, Succes = true });
-                if ((await BsClient.GetById(idClient)) == null)
-                    return NotFound(new Response<Client>() { Error = "The Client doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Client>() { Error = "", Data = await BsClient.GetById(idClient), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdClient can't be equal to 0", Succes = true });
+                if ((await BsClient.GetById<DtoClient>(idClient)) == null)
+                    return NotFound(new Response<string>() { Error = "The Client doesn't exist", Data = null, Succes = true });
+                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.GetById<DtoClient>(idClient), Succes = true });
             }
             catch (Exception e)
             {
@@ -85,21 +86,21 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("update/{idClient}")]
-        [ProducesResponseType(typeof(Response<Client>), 200)]
-        [ProducesResponseType(typeof(Response<Client>), 400)]
-        [ProducesResponseType(typeof(Response<Client>), 404)]
+        [ProducesResponseType(typeof(Response<DtoClient>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Client>>> UpdateClient([FromRoute] int idClient, [FromBody] Client client)
+        public async Task<ActionResult<Response<Client>>> UpdateClient([FromRoute] int idClient, [FromBody] DtoClientUpdate client)
         {
             try
             {
                 if (idClient == 0)
-                    return BadRequest(new Response<Client>() { Error = "IdClient can't be equal to 0", Data = null, Succes = true });
-                if ((await BsClient.GetById(idClient)) == null)
-                    return NotFound(new Response<Client>() { Error = "The Client doesn't exist", Data = null, Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdClient can't be equal to 0", Succes = true });
+                if ((await BsClient.GetById<DtoClient>(idClient)) == null)
+                    return NotFound(new Response<string>() { Error = "The Client doesn't exist", Succes = true });
                 if (client == null)
-                    return BadRequest(new Response<Client>() { Error = "The Clientcan't be null", Data = null, Succes = true });
-                return Ok(new Response<Client>() { Error = "", Data = await BsClient.Update(idClient, client), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The Clientcan't be null", Succes = true });
+                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.Update<DtoClient, DtoClientUpdate>(idClient, client), Succes = true });
             }
             catch (Exception e)
             {
@@ -118,19 +119,19 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("remove/{idClient}")]
-        [ProducesResponseType(typeof(Response<Client>), 200)]
-        [ProducesResponseType(typeof(Response<Client>), 400)]
-        [ProducesResponseType(typeof(Response<Client>), 404)]
+        [ProducesResponseType(typeof(Response<DtoClient>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
         public async Task<ActionResult<Response<Client>>> RemoveClient([FromRoute] int idClient)
         {
             try
             {
                 if (idClient == 0)
-                    return BadRequest(new Response<Client>() { Error = "IdClient can't be equal to 0", Data = null, Succes = true });
-                if ((await BsClient.GetById(idClient)) == null)
-                    return NotFound(new Response<Client>() { Error = "The Client doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Client>() { Error = "", Data = await BsClient.Remove(idClient), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdClient can't be equal to 0", Succes = true });
+                if ((await BsClient.GetById<DtoClient>(idClient)) == null)
+                    return NotFound(new Response<string>() { Error = "The Client doesn't exist",  Succes = true });
+                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.Remove<DtoClient>(idClient), Succes = true });
             }
             catch (Exception e)
             {
@@ -148,16 +149,16 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("add")]
-        [ProducesResponseType(typeof(Response<Client>), 200)]
-        [ProducesResponseType(typeof(Response<Client>), 400)]
+        [ProducesResponseType(typeof(Response<DtoClient>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Client>>> AddClient([FromBody] Client client)
+        public async Task<ActionResult<Response<Client>>> AddClient([FromBody] DtoClientAdd client)
         {
             try
             {
                 if (client == null)
-                    return BadRequest(new Response<Client>() { Error = "The Clientcan't be null", Data = null, Succes = true });
-                return Ok(new Response<Client>() { Error = "", Data = await BsClient.Add(client), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The Clientcan't be null", Succes = true });
+                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.Add<DtoClient, DtoClientAdd>(client), Succes = true });
             }
             catch (Exception e)
             {

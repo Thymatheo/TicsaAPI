@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
+using TicsaAPI.BLL.DTO;
 using TicsaAPI.DAL.DataProvider.Interface;
 using TicsaAPI.DAL.Models;
 
@@ -15,40 +17,64 @@ namespace TicsaAPI.BLL.BS
             Dp = dp;
         }
 
-        public virtual async Task<IEnumerable<T>> GetAll()
+        public virtual async Task<IEnumerable<U>> GetAll<U>() where U : BasicElement
         {
-            return await Dp.GetAll();
+            Mapper mapper = BuildMapper<T, U>();
+            List<U> result = new List<U>();
+            foreach (T entity in await Dp.GetAll())
+                result.Add(mapper.Map<U>(entity));
+            return result;
         }
 
-        public virtual async Task<T> GetById(int id)
+        public virtual async Task<U> GetById<U>(int id) where U : BasicElement
         {
-            return await Dp.GetById(id);
+            return BuildMapper<T, U>().Map<U>(await Dp.GetById(id));
         }
 
-        public abstract Task<T> Update(int id, T entity);
-
-        public virtual async Task<T> Remove(int id)
+        public virtual async Task<U> Update<U, V>(int id, V entity) where U : BasicElement where V : BasicElement
         {
-            var entity = await Dp.GetById(id);
-            return await Dp.Remove(entity);
+            return BuildMapper<T, U>().Map<U>(await Dp.Update(BuildMapper<V, T>().Map(entity, await Dp.GetById(id))));
         }
 
-        public virtual async Task<T> Add(T entity)
+        public virtual async Task<U> Remove<U>(int id) where U : BasicElement
         {
-            return await Dp.Add(entity);
+            return BuildMapper<T, U>().Map<U>(await Dp.Remove(await Dp.GetById(id)));
         }
 
-        public virtual async Task AddRange(IEnumerable<T> entityList)
+        public virtual async Task<U> Add<U, V>(V entity) where U : BasicElement where V : BasicElement
         {
-            await Dp.AddRange(entityList);
+            return BuildMapper<T, U>().Map<U>(await Dp.Add(BuildMapper<V, T>().Map<T>(entity)));
         }
-        public virtual async Task RemoveRange(IEnumerable<T> entityList)
+
+        public virtual async Task AddRange<U>(IEnumerable<U> entityList) where U : BasicElement
         {
-            await Dp.RemoveRange(entityList);
+            Mapper mapper = BuildMapper<U, T>();
+            List<T> entityToAdd = new List<T>();
+            foreach (U entity in entityList)
+                entityToAdd.Add(mapper.Map<T>(entity));
+            await Dp.AddRange(entityToAdd);
         }
-        public virtual async Task UpdateRange(IEnumerable<T> entityList)
+        public virtual async Task RemoveRange<U>(IEnumerable<U> entityList) where U : BasicElement
         {
-            await Dp.UpdateRange(entityList);
+            Mapper mapper = BuildMapper<U, T>();
+            List<T> entityToRemove = new List<T>();
+            foreach (U entity in entityList)
+                entityToRemove.Add(mapper.Map<T>(entity));
+            await Dp.RemoveRange(entityToRemove);
+        }
+        public virtual async Task UpdateRange<U>(IEnumerable<U> entityList) where U : BasicElement
+        {
+
+            Mapper mapper = BuildMapper<U, T>();
+            List<T> entityToUpdate = new List<T>();
+            foreach (U entity in entityList)
+                entityToUpdate.Add(mapper.Map<T>(entity));
+            await Dp.RemoveRange(entityToUpdate);
+        }
+
+        public static Mapper BuildMapper<U, V>() where U : class where V : BasicElement
+        {
+            return new Mapper(new MapperConfiguration(config => config.CreateMap<U, V>()));
         }
     }
 }

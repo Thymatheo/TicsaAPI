@@ -10,8 +10,8 @@ namespace TicsaAPI.DAL.Models
     public partial class Commentary : BasicElement
     {
         public int IdClient { get; set; }
-        public string? CommentaryContent { get; set; }
-        public DateTime? CommentaryDate { get; set; }
+        public string CommentaryContent { get; set; }
+        public DateTime CommentaryDate { get; set; }
 
         public virtual Client? IdClientNavigation { get; set; }
     }

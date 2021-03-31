@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.BLL.DTO;
+using TicsaAPI.BLL.DTO.Gamme;
 using TicsaAPI.DAL.DataProvider.Interface;
 using TicsaAPI.DAL.Models;
 
@@ -27,31 +28,22 @@ namespace TicsaAPI.BLL.BS
             return await DpGamme.GetGammesByIdType(idProducer);
         }
 
-        public override async Task<Gamme> Update(int id, Gamme entity)
+        public override async Task<U> Update<U, V>(int id, V entity) where U : class where V : class
         {
-
-            var result = await DpGamme.GetById(id);
-            if (entity.Label != null)
-                result.Label = entity.Label;
-            if (entity.Description != null)
-                result.Description = entity.Description;
-            if (entity.Cost != null)
-                if (entity.Cost != result.Cost)
-                    result = UpdateCost(result, new DtoCostHisto() { Date = DateTime.Now, Cost = (double)entity.Cost });
-            if (entity.Stock != null)
-                if (entity.Stock != result.Stock)
-                    result = UpdateStock(result, new DtoStockHisto() { Date = DateTime.Now, Stock = (int)entity.Stock });
-            if (entity.IdProducer != 0)
-                result.IdProducer = entity.IdProducer;
-            if (entity.IdProducer != 0)
-                result.IdType = entity.IdType;
-            return await DpGamme.Update(result);
+            var sourceEntity = await DpGamme.GetById(id);
+            var updateEntity = BuildMapper<V, DtoGammeUpdate>().Map<DtoGammeUpdate>(entity);
+            if (updateEntity.Cost != null)
+                if (updateEntity.Cost != sourceEntity.Cost)
+                    sourceEntity = UpdateCost(sourceEntity, new DtoCostHisto() { Date = DateTime.Now, Cost = (double)updateEntity.Cost });
+            if (updateEntity.Stock != null)
+                if (updateEntity.Stock != sourceEntity.Stock)
+                    sourceEntity = UpdateStock(sourceEntity, new DtoStockHisto() { Date = DateTime.Now, Stock = (int)updateEntity.Stock });
+            return await base.Update<U, Gamme>(id, sourceEntity);
         }
 
-        public override async Task<Gamme> Add(Gamme entity)
+        public override async Task<U> Add<U, V>(V entity) where U : class where V : class
         {
-            var result = InitHisto(entity);
-            return await DpGamme.Add(result);
+            return BuildMapper<Gamme, U>().Map<U>(await DpGamme.Add(InitHisto(BuildMapper<V, Gamme>().Map<Gamme>(entity))));
         }
 
         private Gamme InitHisto(Gamme entity)

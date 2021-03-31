@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TicsaAPI.DAL.Model
+namespace TicsaAPI.DAL.Models
 {
     public class HistoStock
     {
