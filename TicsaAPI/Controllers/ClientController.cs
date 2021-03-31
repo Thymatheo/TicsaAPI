@@ -90,7 +90,7 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Client>>> UpdateClient([FromRoute] int idClient, [FromBody] DtoClientUpdate client)
+        public async Task<ActionResult<Response<DtoClient>>> UpdateClient([FromRoute] int idClient, [FromBody] DtoClientUpdate client)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Client>>> RemoveClient([FromRoute] int idClient)
+        public async Task<ActionResult<Response<DtoClient>>> RemoveClient([FromRoute] int idClient)
         {
             try
             {
@@ -152,7 +152,7 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<DtoClient>), 200)]
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Client>>> AddClient([FromBody] DtoClientAdd client)
+        public async Task<ActionResult<Response<DtoClient>>> AddClient([FromBody] DtoClientAdd client)
         {
             try
             {

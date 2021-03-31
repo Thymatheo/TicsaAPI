@@ -94,10 +94,10 @@ namespace TicsaAPI.Controllers
         [HttpGet]
         [Route("client/{idClient}")]
         [ProducesResponseType(typeof(Response<IEnumerable<Commentary>>), 200)]
-        [ProducesResponseType(typeof(Response<IEnumerable<string>>), 400)]
-        [ProducesResponseType(typeof(Response<IEnumerable<string>>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Commentary>>> GetCommentaryByIdClient([FromRoute] int idClient)
+        public async Task<ActionResult<Response<DtoCommentary>>> GetCommentaryByIdClient([FromRoute] int idClient)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Commentary>>> UpdateCommentary([FromRoute] int idCommentary, [FromBody] DtoCommentaryUpdate commentary)
+        public async Task<ActionResult<Response<DtoCommentary>>> UpdateCommentary([FromRoute] int idCommentary, [FromBody] DtoCommentaryUpdate commentary)
         {
             try
             {
@@ -162,7 +162,7 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Commentary>>> RemoveCommentary([FromRoute] int idCommentary)
+        public async Task<ActionResult<Response<DtoCommentary>>> RemoveCommentary([FromRoute] int idCommentary)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<Commentary>), 200)]
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Commentary>>> AddCommentary([FromBody] DtoCommentaryAdd commentary)
+        public async Task<ActionResult<Response<DtoCommentary>>> AddCommentary([FromBody] DtoCommentaryAdd commentary)
         {
             try
             {

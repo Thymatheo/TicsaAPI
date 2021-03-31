@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.DAL.DataProvider.Interface;
 using TicsaAPI.DAL.Models;
+using TicsaAPI.BLL.DTO.Order;
 
 namespace TicsaAPI.BLL.BS
 {
@@ -14,9 +16,13 @@ namespace TicsaAPI.BLL.BS
         {
             DpOrder = dp;
         }
-        public async Task<IEnumerable<Order>> GetByIdClient(int idClient)
+        public async Task<IEnumerable<DtoOrder>> GetByIdClient(int idClient)
         {
-            return await DpOrder.GetByIdClient(idClient);
+            Mapper mapper = BuildMapper<Client, DtoOrder>();
+            List<DtoOrder> result = new List<DtoOrder>();
+            foreach (Order entity in await DpOrder.GetByIdClient(idClient))
+                result.Add(mapper.Map<DtoOrder>(entity));
+            return result;
         }
     }
 }

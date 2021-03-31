@@ -13,7 +13,7 @@ namespace TicsaAPI.DAL.Models
         {
             OrderContent = new HashSet<OrderContent>();
         }
-        public DateTime? OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
         public int IdClient { get; set; }
 
         public virtual Client? IdClientNavigation { get; set; }

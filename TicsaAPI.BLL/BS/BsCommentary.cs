@@ -22,7 +22,7 @@ namespace TicsaAPI.BLL.BS
         {
             Mapper mapper = BuildMapper<Client, DtoCommentary>();
             List<DtoCommentary> result = new List<DtoCommentary>();
-            foreach (Commentary entity in await DpCommentary.GetAll())
+            foreach (Commentary entity in await DpCommentary.GetByIdClient(idClient))
                 result.Add(mapper.Map<DtoCommentary>(entity));
             return result;
         }

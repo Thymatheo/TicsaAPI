@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,13 +20,21 @@ namespace TicsaAPI.BLL.BS
             DpGamme = dpGamme;
         }
 
-        public async Task<IEnumerable<Gamme>> GetGammesByIdType(int idType)
+        public async Task<IEnumerable<DtoGamme>> GetGammesByIdType(int idType)
         {
-            return await DpGamme.GetGammesByIdType(idType);
+            Mapper mapper = BuildMapper<Client, DtoGamme>();
+            List<DtoGamme> result = new List<DtoGamme>();
+            foreach (Gamme entity in await DpGamme.GetGammesByIdType(idType))
+                result.Add(mapper.Map<DtoGamme>(entity));
+            return result;
         }
-        public async Task<IEnumerable<Gamme>> GetGammesByIdProducer(int idProducer)
+        public async Task<IEnumerable<DtoGamme>> GetGammesByIdProducer(int idProducer)
         {
-            return await DpGamme.GetGammesByIdType(idProducer);
+            Mapper mapper = BuildMapper<Client, DtoGamme>();
+            List<DtoGamme> result = new List<DtoGamme>();
+            foreach (Gamme entity in await DpGamme.GetGammesByIdType(idProducer))
+                result.Add(mapper.Map<DtoGamme>(entity));
+            return result;
         }
 
         public override async Task<U> Update<U, V>(int id, V entity) where U : class where V : class

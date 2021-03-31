@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
+using TicsaAPI.BLL.DTO.Gamme;
+using TicsaAPI.BLL.DTO.GammeType;
+using TicsaAPI.BLL.DTO.Producer;
 using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.Controllers
@@ -34,13 +37,13 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 200)]
+        [ProducesResponseType(typeof(Response<IEnumerable<DtoGamme>>), 200)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<Gamme>>>> GetAllGamme()
+        public async Task<ActionResult<Response<IEnumerable<DtoGamme>>>> GetAllGamme()
         {
             try
             {
-                return Ok(new Response<IEnumerable<Gamme>>() { Error = "", Data = await BsGamme.GetAll(), Succes = true });
+                return Ok(new Response<IEnumerable<DtoGamme>>() { Error = "", Data = await BsGamme.GetAll<DtoGamme>(), Succes = true });
             }
             catch (Exception e)
             {
@@ -59,19 +62,20 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{idGamme}")]
-        [ProducesResponseType(typeof(Response<Gamme>), 200)]
-        [ProducesResponseType(typeof(Response<Gamme>), 400)]
-        [ProducesResponseType(typeof(Response<Gamme>), 404)]
+        [ProducesResponseType(typeof(Response<DtoGamme>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Gamme>>> GetGammeById([FromRoute] int idGamme)
+        public async Task<ActionResult<Response<DtoGamme>>> GetGammeById([FromRoute] int idGamme)
         {
             try
             {
                 if (idGamme == 0)
-                    return BadRequest(new Response<Gamme>() { Error = "IdGamme can't be equal to 0", Data = null, Succes = true });
-                if ((await BsGamme.GetById(idGamme)) == null)
-                    return NotFound(new Response<Gamme>() { Error = "The Gamme doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Gamme>() { Error = "", Data = await BsGamme.GetById(idGamme), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdGamme can't be equal to 0", Succes = true });
+                var result = await BsGamme.GetById<DtoGamme>(idGamme);
+                if (result == null)
+                    return NotFound(new Response<string>() { Error = "The Gamme doesn't exist", Succes = true });
+                return Ok(new Response<DtoGamme>() { Error = "", Data = result, Succes = true });
             }
             catch (Exception e)
             {
@@ -90,19 +94,19 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("type/{idType}")]
-        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 200)]
-        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 400)]
-        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 404)]
-        [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<Gamme>>>> GetGammeByType([FromRoute] int idType)
+        [ProducesResponseType(typeof(Response<IEnumerable<DtoGamme>>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<IEnumerable<DtoGamme>>>> GetGammeByType([FromRoute] int idType)
         {
             try
             {
                 if (idType == 0)
-                    return BadRequest(new Response<IEnumerable<Gamme>>() { Error = "IdGammeType can't be equal to 0", Data = null, Succes = true });
-                if ((await BsGammeType.GetById(idType)) == null)
-                    return NotFound(new Response<IEnumerable<Gamme>>() { Error = "The GammeType doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<IEnumerable<Gamme>>() { Error = "", Data = await BsGamme.GetGammesByIdType(idType), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdGammeType can't be equal to 0", Succes = true });
+                if ((await BsGammeType.GetById<DtoGammeType>(idType)) == null)
+                    return NotFound(new Response<string>() { Error = "The GammeType doesn't exist", Succes = true });
+                return Ok(new Response<IEnumerable<DtoGamme>>() { Error = "", Data = await BsGamme.GetGammesByIdType(idType), Succes = true });
             }
             catch (Exception e)
             {
@@ -121,19 +125,19 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("producer/{idProducer}")]
-        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 200)]
-        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 400)]
-        [ProducesResponseType(typeof(Response<IEnumerable<Gamme>>), 404)]
-        [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<Gamme>>>> GetGammeByProducer([FromRoute] int idProducer)
+        [ProducesResponseType(typeof(Response<IEnumerable<DtoGamme>>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<IEnumerable<DtoGamme>>>> GetGammeByProducer([FromRoute] int idProducer)
         {
             try
             {
                 if (idProducer == 0)
-                    return BadRequest(new Response<IEnumerable<Gamme>>() { Error = "IdProducer can't be equal to 0", Data = null, Succes = true });
-                if ((await BsProducer.GetById(idProducer)) == null)
-                    return NotFound(new Response<IEnumerable<Gamme>>() { Error = "The Producer doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<IEnumerable<Gamme>>() { Error = "", Data = await BsGamme.GetGammesByIdProducer(idProducer), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdProducer can't be equal to 0", Succes = true });
+                if ((await BsProducer.GetById<DtoProducer>(idProducer)) == null)
+                    return NotFound(new Response<string>() { Error = "The Producer doesn't exist", Succes = true });
+                return Ok(new Response<IEnumerable<DtoGamme>>() { Error = "", Data = await BsGamme.GetGammesByIdProducer(idProducer), Succes = true });
             }
             catch (Exception e)
             {
@@ -153,21 +157,21 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("update/{idGamme}")]
-        [ProducesResponseType(typeof(Response<Gamme>), 200)]
-        [ProducesResponseType(typeof(Response<Gamme>), 400)]
-        [ProducesResponseType(typeof(Response<Gamme>), 404)]
+        [ProducesResponseType(typeof(Response<DtoGamme>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Gamme>>> UpdateGamme([FromRoute] int idGamme, [FromBody] Gamme gamme)
+        public async Task<ActionResult<Response<DtoGamme>>> UpdateGamme([FromRoute] int idGamme, [FromBody] DtoGammeUpdate gamme)
         {
             try
             {
                 if (idGamme == 0)
-                    return BadRequest(new Response<Gamme>() { Error = "IdGamme can't be equal to 0", Data = null, Succes = true });
-                if ((await BsGamme.GetById(idGamme)) == null)
-                    return NotFound(new Response<Gamme>() { Error = "The Gamme doesn't exist", Data = null, Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdGamme can't be equal to 0", Succes = true });
+                if ((await BsGamme.GetById<DtoGamme>(idGamme)) == null)
+                    return NotFound(new Response<string>() { Error = "The Gamme doesn't exist", Succes = true });
                 if (gamme == null)
-                    return BadRequest(new Response<Gamme>() { Error = "The Gamme can't be null", Data = null, Succes = true });
-                return Ok(new Response<Gamme>() { Error = "", Data = await BsGamme.Update(idGamme, gamme), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The Gamme can't be null", Succes = true });
+                return Ok(new Response<DtoGamme>() { Error = "", Data = await BsGamme.Update<DtoGamme, DtoGammeUpdate>(idGamme, gamme), Succes = true });
             }
             catch (Exception e)
             {
@@ -186,19 +190,19 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("remove/{idGamme}")]
-        [ProducesResponseType(typeof(Response<Gamme>), 200)]
-        [ProducesResponseType(typeof(Response<Gamme>), 400)]
-        [ProducesResponseType(typeof(Response<Gamme>), 404)]
-        [ProducesResponseType(typeof(Response<Exception>), 500)]
-        public async Task<ActionResult<Response<Gamme>>> RemoveGamme([FromRoute] int idGamme)
+        [ProducesResponseType(typeof(Response<DtoGamme>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
+        [ProducesResponseType(typeof(Response<string>), 500)]
+        public async Task<ActionResult<Response<DtoGamme>>> RemoveGamme([FromRoute] int idGamme)
         {
             try
             {
                 if (idGamme == 0)
-                    return BadRequest(new Response<Gamme>() { Error = "IdGamme can't be equal to 0", Data = null, Succes = true });
-                if ((await BsGamme.GetById(idGamme)) == null)
-                    return NotFound(new Response<Gamme>() { Error = "The Gamme doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Gamme>() { Error = "", Data = await BsGamme.Remove(idGamme), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdGamme can't be equal to 0", Succes = true });
+                if ((await BsGamme.GetById<DtoGamme>(idGamme)) == null)
+                    return NotFound(new Response<string>() { Error = "The Gamme doesn't exist", Succes = true });
+                return Ok(new Response<DtoGamme>() { Error = "", Data = await BsGamme.Remove<DtoGamme>(idGamme), Succes = true });
             }
             catch (Exception e)
             {
@@ -216,16 +220,16 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("add")]
-        [ProducesResponseType(typeof(Response<Gamme>), 200)]
-        [ProducesResponseType(typeof(Response<Gamme>), 400)]
+        [ProducesResponseType(typeof(Response<DtoGamme>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Gamme>>> AddGamme([FromBody] Gamme gamme)
+        public async Task<ActionResult<Response<DtoGamme>>> AddGamme([FromBody] DtoGammeAdd gamme)
         {
             try
             {
                 if (gamme == null)
-                    return BadRequest(new Response<Gamme>() { Error = "The Gamme can't be null", Data = null, Succes = true });
-                return Ok(new Response<Gamme>() { Error = "", Data = await BsGamme.Add(gamme), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The Gamme can't be null", Succes = true });
+                return Ok(new Response<DtoGamme>() { Error = "", Data = await BsGamme.Add<DtoGamme, DtoGammeAdd>(gamme), Succes = true });
             }
             catch (Exception e)
             {
