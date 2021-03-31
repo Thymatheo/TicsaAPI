@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
+using TicsaAPI.BLL.DTO.Producer;
 using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.Controllers
@@ -30,13 +31,13 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        [ProducesResponseType(typeof(Response<IEnumerable<Producer>>), 200)]
+        [ProducesResponseType(typeof(Response<IEnumerable<DtoProducer>>), 200)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<Producer>>>> GetAllProducer()
+        public async Task<ActionResult<Response<IEnumerable<DtoProducer>>>> GetAllProducer()
         {
             try
             {
-                return Ok(new Response<IEnumerable<Producer>>() { Error = "", Data = await BsProducer.GetAll(), Succes = true });
+                return Ok(new Response<IEnumerable<DtoProducer>>() { Error = "", Data = await BsProducer.GetAll<DtoProducer>(), Succes = true });
             }
             catch (Exception e)
             {
@@ -55,19 +56,20 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{idProducer}")]
-        [ProducesResponseType(typeof(Response<Producer>), 200)]
-        [ProducesResponseType(typeof(Response<Producer>), 400)]
-        [ProducesResponseType(typeof(Response<Producer>), 404)]
+        [ProducesResponseType(typeof(Response<DtoProducer>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Producer>>> GetProducerById([FromRoute] int idProducer)
+        public async Task<ActionResult<Response<DtoProducer>>> GetProducerById([FromRoute] int idProducer)
         {
             try
             {
                 if (idProducer == 0)
-                    return BadRequest(new Response<Producer>() { Error = "IdProducteur can't be equal to 0", Data = null, Succes = true });
-                if ((await BsProducer.GetById(idProducer)) == null)
-                    return NotFound(new Response<Producer>() { Error = "The Producteur doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Producer>() { Error = "", Data = await BsProducer.GetById(idProducer), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdProducteur can't be equal to 0", Succes = true });
+                var result = await BsProducer.GetById<DtoProducer>(idProducer);
+                if (result == null)
+                    return NotFound(new Response<string>() { Error = "The Producteur doesn't exist", Succes = true });
+                return Ok(new Response<DtoProducer>() { Error = "", Data = result, Succes = true });
             }
             catch (Exception e)
             {
@@ -87,21 +89,21 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("update/{idProducer}")]
-        [ProducesResponseType(typeof(Response<Producer>), 200)]
-        [ProducesResponseType(typeof(Response<Producer>), 400)]
-        [ProducesResponseType(typeof(Response<Producer>), 404)]
+        [ProducesResponseType(typeof(Response<DtoProducer>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Producer>>> UpdateProducer([FromRoute] int idProducer, [FromBody] Producer producer)
+        public async Task<ActionResult<Response<Producer>>> UpdateProducer([FromRoute] int idProducer, [FromBody] DtoProducerUpdate producer)
         {
             try
             {
                 if (idProducer == 0)
-                    return BadRequest(new Response<Producer>() { Error = "IdProducteur can't be equal to 0", Data = null, Succes = true });
-                if ((await BsProducer.GetById(idProducer)) == null)
-                    return NotFound(new Response<Producer>() { Error = "The Producteur doesn't exist", Data = null, Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdProducteur can't be equal to 0", Succes = true });
+                if ((await BsProducer.GetById<DtoProducer>(idProducer)) == null)
+                    return NotFound(new Response<string>() { Error = "The Producteur doesn't exist", Succes = true });
                 if (producer == null)
-                    return BadRequest(new Response<Producer>() { Error = "The Producteur can't be null", Data = null, Succes = true });
-                return Ok(new Response<Producer>() { Error = "", Data = await BsProducer.Update(idProducer, producer), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The Producteur can't be null", Succes = true });
+                return Ok(new Response<DtoProducer>() { Error = "", Data = await BsProducer.Update<DtoProducer, DtoProducerUpdate>(idProducer, producer), Succes = true });
             }
             catch (Exception e)
             {
@@ -120,19 +122,19 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("remove/{idProducer}")]
-        [ProducesResponseType(typeof(Response<Producer>), 200)]
-        [ProducesResponseType(typeof(Response<Producer>), 400)]
-        [ProducesResponseType(typeof(Response<Producer>), 404)]
+        [ProducesResponseType(typeof(Response<DtoProducer>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Producer>>> RemoveProducer([FromRoute] int idProducer)
+        public async Task<ActionResult<Response<DtoProducer>>> RemoveProducer([FromRoute] int idProducer)
         {
             try
             {
                 if (idProducer == 0)
-                    return BadRequest(new Response<Producer>() { Error = "IdProducteur can't be equal to 0", Data = null, Succes = true });
-                if ((await BsProducer.GetById(idProducer)) == null)
-                    return NotFound(new Response<Producer>() { Error = "The Producteur doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<Producer>() { Error = "", Data = await BsProducer.Remove(idProducer), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdProducteur can't be equal to 0", Succes = true });
+                if ((await BsProducer.GetById<DtoProducer>(idProducer)) == null)
+                    return NotFound(new Response<string>() { Error = "The Producteur doesn't exist", Succes = true });
+                return Ok(new Response<DtoProducer>() { Error = "", Data = await BsProducer.Remove<DtoProducer>(idProducer), Succes = true });
             }
             catch (Exception e)
             {
@@ -150,16 +152,16 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("add")]
-        [ProducesResponseType(typeof(Response<Producer>), 200)]
-        [ProducesResponseType(typeof(Response<Producer>), 400)]
+        [ProducesResponseType(typeof(Response<DtoProducer>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<Producer>>> AddProducer([FromBody] Producer producer)
+        public async Task<ActionResult<Response<DtoProducer>>> AddProducer([FromBody] DtoProducerAdd producer)
         {
             try
             {
                 if (producer == null)
-                    return BadRequest(new Response<Producer>() { Error = "The Producteur can't be null", Data = null, Succes = true });
-                return Ok(new Response<Producer>() { Error = "", Data = await BsProducer.Add(producer), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The Producteur can't be null", Succes = true });
+                return Ok(new Response<DtoProducer>() { Error = "", Data = await BsProducer.Add<DtoProducer, DtoProducerAdd>(producer), Succes = true });
             }
             catch (Exception e)
             {

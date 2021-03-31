@@ -96,11 +96,11 @@ namespace TicsaAPI.Controllers
             try
             {
                 if (idType == 0)
-                    return BadRequest(new Response<string>() { Error = "IdGammeType can't be equal to 0", Data = null, Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdGammeType can't be equal to 0", Succes = true });
                 if ((await BsGammeType.GetById<DtoGammeType>(idType)) == null)
-                    return NotFound(new Response<string>() { Error = "the GammeType doesn't exist", Data = null, Succes = true });
+                    return NotFound(new Response<string>() { Error = "the GammeType doesn't exist", Succes = true });
                 if (type == null)
-                    return BadRequest(new Response<string>() { Error = "The GammeType can't be null", Data = null, Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The GammeType can't be null", Succes = true });
                 return Ok(new Response<DtoGammeType>() { Error = "", Data = await BsGammeType.Update<DtoGammeType,DtoGammeTypeUpdate>(idType, type), Succes = true });
             }
             catch (Exception e)
@@ -120,19 +120,19 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("remove/{idType}")]
-        [ProducesResponseType(typeof(Response<GammeType>), 200)]
-        [ProducesResponseType(typeof(Response<GammeType>), 400)]
-        [ProducesResponseType(typeof(Response<GammeType>), 404)]
+        [ProducesResponseType(typeof(Response<DtoGammeType>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<GammeType>>> RemoveGammeType([FromRoute] int idType)
+        public async Task<ActionResult<Response<DtoGammeType>>> RemoveGammeType([FromRoute] int idType)
         {
             try
             {
                 if (idType == 0)
-                    return BadRequest(new Response<GammeType>() { Error = "IdGammeType can't be equal to 0", Data = null, Succes = true });
-                if ((await BsGammeType.GetById(idType)) == null)
-                    return NotFound(new Response<GammeType>() { Error = "the GammeType doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<GammeType>() { Error = "", Data = await BsGammeType.Remove(idType), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdGammeType can't be equal to 0", Data = null, Succes = true });
+                if ((await BsGammeType.GetById<DtoGammeType>(idType)) == null)
+                    return NotFound(new Response<string>() { Error = "the GammeType doesn't exist", Data = null, Succes = true });
+                return Ok(new Response<DtoGammeType>() { Error = "", Data = await BsGammeType.Remove<DtoGammeType>(idType), Succes = true });
             }
             catch (Exception e)
             {
@@ -150,16 +150,16 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("add")]
-        [ProducesResponseType(typeof(Response<GammeType>), 200)]
-        [ProducesResponseType(typeof(Response<GammeType>), 400)]
+        [ProducesResponseType(typeof(Response<DtoGammeType>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<GammeType>>> AddGammeType([FromBody] GammeType type)
+        public async Task<ActionResult<Response<DtoGammeType>>> AddGammeType([FromBody] DtoGammeTypeAdd type)
         {
             try
             {
                 if (type == null)
-                    return BadRequest(new Response<GammeType>() { Error = "The GammeType can't be null", Data = null, Succes = true });
-                return Ok(new Response<GammeType>() { Error = "", Data = await BsGammeType.Add(type), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The GammeType can't be null", Succes = true });
+                return Ok(new Response<DtoGammeType>() { Error = "", Data = await BsGammeType.Add<DtoGammeType,DtoGammeTypeAdd>(type), Succes = true });
             }
             catch (Exception e)
             {
