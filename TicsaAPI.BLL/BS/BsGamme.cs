@@ -15,9 +15,9 @@ namespace TicsaAPI.BLL.BS
     {
         private IDpGamme DpGamme { get; set; }
 
-        public BsGamme(IDpGamme dpGamme) : base(dpGamme)
+        public BsGamme(IDpGamme dp) : base(dp)
         {
-            DpGamme = dpGamme;
+            DpGamme = dp;
         }
 
         public async Task<IEnumerable<DtoGamme>> GetGammesByIdType(int idType)
@@ -41,12 +41,18 @@ namespace TicsaAPI.BLL.BS
         {
             var sourceEntity = await DpGamme.GetById(id);
             var updateEntity = BuildMapper<V, DtoGammeUpdate>().Map<DtoGammeUpdate>(entity);
-            if (updateEntity.Cost != null)
-                if (updateEntity.Cost != sourceEntity.Cost)
-                    sourceEntity = UpdateCost(sourceEntity, new DtoCostHisto() { Date = DateTime.Now, Cost = (double)updateEntity.Cost });
-            if (updateEntity.Stock != null)
-                if (updateEntity.Stock != sourceEntity.Stock)
-                    sourceEntity = UpdateStock(sourceEntity, new DtoStockHisto() { Date = DateTime.Now, Stock = (int)updateEntity.Stock });
+            if (VerifyEntityUpdate(updateEntity.Label, sourceEntity.Label))
+                sourceEntity.Label = updateEntity.Label;
+            if (VerifyEntityUpdate(updateEntity.Description, sourceEntity.Description))
+                sourceEntity.Description = updateEntity.Description;
+            if (VerifyEntityUpdate(updateEntity.IdProducer, sourceEntity.IdProducer))
+                sourceEntity.IdProducer = (int)updateEntity.IdProducer;
+            if (VerifyEntityUpdate(updateEntity.IdType, sourceEntity.IdType))
+                sourceEntity.IdType = (int)updateEntity.IdType;
+            if (VerifyEntityUpdate(updateEntity.Cost, sourceEntity.Cost))
+                sourceEntity = UpdateCost(sourceEntity, new DtoCostHisto() { Date = DateTime.Now, Cost = (double)updateEntity.Cost });
+            if (VerifyEntityUpdate(updateEntity.Stock, sourceEntity.Stock))
+                sourceEntity = UpdateStock(sourceEntity, new DtoStockHisto() { Date = DateTime.Now, Stock = (int)updateEntity.Stock });
             return await base.Update<U, Gamme>(id, sourceEntity);
         }
 

@@ -26,5 +26,17 @@ namespace TicsaAPI.BLL.BS
                 result.Add(mapper.Map<DtoCommentary>(entity));
             return result;
         }
+        public override async Task<U> Update<U, V>(int id, V entity) where U : class where V : class
+        {
+            var sourceEntity = await DpCommentary.GetById(id);
+            var updateEntity = BuildMapper<V, DtoCommentaryUpdate>().Map<DtoCommentaryUpdate>(entity);
+            if (VerifyEntityUpdate(updateEntity.CommentaryContent, sourceEntity.CommentaryContent))
+                sourceEntity.CommentaryContent = updateEntity.CommentaryContent;
+            if (VerifyEntityUpdate(updateEntity.CommentaryDate, sourceEntity.CommentaryDate))
+                sourceEntity.CommentaryDate = updateEntity.CommentaryDate;
+            if (VerifyEntityUpdate(updateEntity.IdClient, sourceEntity.CommentaryDate))
+                sourceEntity.CommentaryDate = updateEntity.CommentaryDate;
+            return await base.Update<U, Commentary>(id, sourceEntity);
+        }
     }
 }

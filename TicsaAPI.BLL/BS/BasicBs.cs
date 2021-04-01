@@ -76,5 +76,13 @@ namespace TicsaAPI.BLL.BS
         {
             return new Mapper(new MapperConfiguration(config => config.CreateMap<U, V>()));
         }
+
+        public static bool VerifyEntityUpdate<U, V>(U entitySource, V entityDest)
+        {
+            if (entitySource != null && entityDest != null)
+                if ((object)entitySource != (object)entityDest)
+                    return true;
+            return false;
+        }
     }
 }

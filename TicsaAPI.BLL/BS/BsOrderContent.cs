@@ -36,24 +36,21 @@ namespace TicsaAPI.BLL.BS
         {
             var sourceEntity = await DpOrderContent.GetById(id);
             var updateEntity = BuildMapper<V, DtoOrderContentUpdate>().Map<DtoOrderContentUpdate>(entity);
-            if (updateEntity.IdGamme != 0)
-                if (sourceEntity.IdGamme != updateEntity.IdGamme)
-                {
-                    await RollBackStock(sourceEntity, updateEntity);
-                    sourceEntity.IdGamme = (int)updateEntity.IdGamme;
-                }
-            if (updateEntity.IdOrder != 0)
-                if (sourceEntity.IdOrder != updateEntity.IdOrder)
-                    sourceEntity.IdOrder = (int)updateEntity.IdOrder;
-            if (updateEntity.Quantity != 0)
-                if (sourceEntity.Quantity != updateEntity.Quantity)
-                {
-                    DtoGamme gamme = await BsGamme.GetById<DtoGamme>(sourceEntity.IdGamme);
-                    int diffStock = sourceEntity.Quantity - (int)updateEntity.Quantity;
-                    await BsGamme.Update<DtoGamme, DtoGammeUpdate>(sourceEntity.IdGamme, new DtoGammeUpdate() { Stock = (gamme.Stock + diffStock) });
-                    sourceEntity.Quantity = (int)updateEntity.Quantity;
-                }
-            return BuildMapper<Gamme, U>().Map<U>(await DpOrderContent.Update(sourceEntity));
+            if (VerifyEntityUpdate(updateEntity.IdGamme, sourceEntity.IdGamme))
+            {
+                await RollBackStock(sourceEntity, updateEntity);
+                sourceEntity.IdGamme = (int)updateEntity.IdGamme;
+            }
+            if (VerifyEntityUpdate(updateEntity.IdOrder, sourceEntity.IdOrder))
+                sourceEntity.IdOrder = (int)updateEntity.IdOrder;
+            if (VerifyEntityUpdate(updateEntity.Quantity, sourceEntity.Quantity))
+            {
+                DtoGamme gamme = await BsGamme.GetById<DtoGamme>(sourceEntity.IdGamme);
+                int diffStock = sourceEntity.Quantity - (int)updateEntity.Quantity;
+                await BsGamme.Update<DtoGamme, DtoGammeUpdate>(sourceEntity.IdGamme, new DtoGammeUpdate() { Stock = (gamme.Stock + diffStock) });
+                sourceEntity.Quantity = (int)updateEntity.Quantity;
+            }
+            return await base.Update<U, OrderContent>(id, sourceEntity);
         }
 
         private async Task RollBackStock(OrderContent result, DtoOrderContentUpdate entity)
