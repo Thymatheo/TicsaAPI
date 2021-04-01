@@ -22,7 +22,7 @@ namespace TicsaAPI.BLL.BS
 
         public async Task<IEnumerable<DtoGamme>> GetGammesByIdType(int idType)
         {
-            Mapper mapper = BuildMapper<Client, DtoGamme>();
+            Mapper mapper = BuildMapper<Gamme, DtoGamme>();
             List<DtoGamme> result = new List<DtoGamme>();
             foreach (Gamme entity in await DpGamme.GetGammesByIdType(idType))
                 result.Add(mapper.Map<DtoGamme>(entity));
@@ -30,7 +30,7 @@ namespace TicsaAPI.BLL.BS
         }
         public async Task<IEnumerable<DtoGamme>> GetGammesByIdProducer(int idProducer)
         {
-            Mapper mapper = BuildMapper<Client, DtoGamme>();
+            Mapper mapper = BuildMapper<Gamme, DtoGamme>();
             List<DtoGamme> result = new List<DtoGamme>();
             foreach (Gamme entity in await DpGamme.GetGammesByIdType(idProducer))
                 result.Add(mapper.Map<DtoGamme>(entity));

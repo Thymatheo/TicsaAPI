@@ -7,6 +7,7 @@ namespace TicsaAPI.BLL.DTO.GammeType
 {
     public class DtoGammeTypeUpdate : BasicElement
     {
+        public int? Id { get; set; }
         public string? Label { get; set; }
     }
 }

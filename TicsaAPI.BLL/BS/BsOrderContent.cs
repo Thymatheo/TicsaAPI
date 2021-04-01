@@ -1,8 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.BLL.DTO;
+using TicsaAPI.BLL.DTO.Gamme;
+using TicsaAPI.BLL.DTO.Order;
+using TicsaAPI.BLL.DTO.OrderContent;
 using TicsaAPI.DAL.DataProvider.Interface;
 using TicsaAPI.DAL.Models;
 
@@ -19,49 +23,54 @@ namespace TicsaAPI.BLL.BS
             DpOrderContent = dp;
             BsGamme = bsGamme;
         }
-        public async Task<IEnumerable<OrderContent>> GetByIdOrder(int idOrder)
+        public async Task<IEnumerable<DtoOrderContent>> GetByIdOrder(int idOrder)
         {
-            return await DpOrderContent.GetByIdOrder(idOrder);
+            Mapper mapper = BuildMapper<OrderContent, DtoOrderContent>();
+            List<DtoOrderContent> result = new List<DtoOrderContent>();
+            foreach (OrderContent entity in await DpOrderContent.GetByIdOrder(idOrder))
+                result.Add(mapper.Map<DtoOrderContent>(entity));
+            return result;
         }
 
-        public override async Task<OrderContent> Update(int id, OrderContent entity)
+        public override async Task<U> Update<U, V>(int id, V entity) where U : class where V : class
         {
-            var result = await DpOrderContent.GetById(id);
-            if (entity.IdGamme != 0)
-                if (result.IdGamme != entity.IdGamme)
+            var sourceEntity = await DpOrderContent.GetById(id);
+            var updateEntity = BuildMapper<V, DtoOrderContentUpdate>().Map<DtoOrderContentUpdate>(entity);
+            if (updateEntity.IdGamme != 0)
+                if (sourceEntity.IdGamme != updateEntity.IdGamme)
                 {
-                    await RollBackStock(result, entity);
-                    result.IdGamme = entity.IdGamme;
+                    await RollBackStock(sourceEntity, updateEntity);
+                    sourceEntity.IdGamme = (int)updateEntity.IdGamme;
                 }
-            if (entity.IdOrder != 0)
-                if (result.IdOrder != entity.IdOrder)
-                    result.IdOrder = entity.IdOrder;
-            if (entity.Quantity != 0)
-                if (result.Quantity != entity.Quantity)
+            if (updateEntity.IdOrder != 0)
+                if (sourceEntity.IdOrder != updateEntity.IdOrder)
+                    sourceEntity.IdOrder = (int)updateEntity.IdOrder;
+            if (updateEntity.Quantity != 0)
+                if (sourceEntity.Quantity != updateEntity.Quantity)
                 {
-                    Gamme gamme = await BsGamme.GetById(result.IdGamme);
-                    int diffStock = result.Quantity - entity.Quantity;
-                    await BsGamme.Update(result.IdGamme, new Gamme() { Stock = (gamme.Stock + diffStock) });
-                    result.Quantity = entity.Quantity;
+                    DtoGamme gamme = await BsGamme.GetById<DtoGamme>(sourceEntity.IdGamme);
+                    int diffStock = sourceEntity.Quantity - (int)updateEntity.Quantity;
+                    await BsGamme.Update<DtoGamme, DtoGammeUpdate>(sourceEntity.IdGamme, new DtoGammeUpdate() { Stock = (gamme.Stock + diffStock) });
+                    sourceEntity.Quantity = (int)updateEntity.Quantity;
                 }
-            return await DpOrderContent.Update(result);
+            return BuildMapper<Gamme, U>().Map<U>(await DpOrderContent.Update(sourceEntity));
         }
 
-        private async Task RollBackStock(OrderContent result, OrderContent entity)
+        private async Task RollBackStock(OrderContent result, DtoOrderContentUpdate entity)
         {
-            Gamme oldGamme = await BsGamme.GetById(result.IdGamme);
-            Gamme newGamme = await BsGamme.GetById(entity.IdGamme);
-            await BsGamme.Update(oldGamme.Id, new Gamme() { Stock = oldGamme.Stock + result.Quantity });
-            await BsGamme.Update(newGamme.Id, new Gamme() { Stock = newGamme.Stock - entity.Quantity });
-            result.Quantity = entity.Quantity;
+            DtoGamme oldGamme = await BsGamme.GetById<DtoGamme>(result.IdGamme);
+            DtoGamme newGamme = await BsGamme.GetById<DtoGamme>((int)entity.IdGamme);
+            await BsGamme.Update<DtoGamme, DtoGammeUpdate>((int)oldGamme.Id, BuildMapper<Gamme, DtoGammeUpdate>().Map<DtoGammeUpdate>(new Gamme() { Stock = oldGamme.Stock + result.Quantity }));
+            await BsGamme.Update<DtoGamme, DtoGammeUpdate>((int)newGamme.Id, BuildMapper<Gamme, DtoGammeUpdate>().Map<DtoGammeUpdate>(new Gamme() { Stock = newGamme.Stock - (int)entity.Quantity }));
+            result.Quantity = (int)entity.Quantity;
         }
 
-        public override async Task<OrderContent> Add(OrderContent entity)
+        public override async Task<U> Add<U, V>(V entity) where U : class where V : class
         {
-            var gamme = await BsGamme.GetById(entity.IdGamme);
-            if (gamme.Stock != null)
-                BsGamme.UpdateStock(gamme, new DtoStockHisto() { Date = DateTime.Now, Stock = (int)gamme.Stock - entity.Quantity });
-            return await DpOrderContent.Add(entity);
+            DtoGamme gamme = await BsGamme.GetById<DtoGamme>(BuildMapper<V, DtoOrderContent>().Map<DtoOrderContent>(entity).IdGamme);
+            if (gamme.Stock != 0)
+                BsGamme.UpdateStock(BuildMapper<DtoGamme, Gamme>().Map<Gamme>(gamme), new DtoStockHisto() { Date = DateTime.Now, Stock = (int)gamme.Stock - BuildMapper<V, DtoOrderContent>().Map<DtoOrderContent>(entity).Quantity });
+            return BuildMapper<OrderContent, U>().Map<U>(await DpOrderContent.Add(BuildMapper<V, OrderContent>().Map<OrderContent>(entity)));
         }
     }
 }

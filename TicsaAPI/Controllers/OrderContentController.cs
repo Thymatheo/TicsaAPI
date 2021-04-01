@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TicsaAPI.BLL.BS;
 using TicsaAPI.BLL.BS.Interface;
+using TicsaAPI.BLL.DTO.Order;
+using TicsaAPI.BLL.DTO.OrderContent;
 using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.Controllers
@@ -14,11 +17,13 @@ namespace TicsaAPI.Controllers
     [ApiController]
     public class OrderContentController : ControllerBase
     {
-        private IBsOrderContent BsOrderContent { get; set; }
+        private readonly IBsOrderContent BsOrderContent;
+        private readonly IBsOrder BsOrder;
 
-        public OrderContentController(IBsOrderContent bsOrderContent)
+        public OrderContentController(IBsOrderContent bsOrderContent, IBsOrder bsOrder)
         {
             BsOrderContent = bsOrderContent;
+            BsOrder = bsOrder;
         }
 
         /// <summary>
@@ -29,13 +34,13 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 200)]
+        [ProducesResponseType(typeof(Response<IEnumerable<DtoOrderContent>>), 200)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<OrderContent>>>> GetAllOrderContent()
+        public async Task<ActionResult<Response<IEnumerable<DtoOrderContent>>>> GetAllOrderContent()
         {
             try
             {
-                return Ok(new Response<IEnumerable<OrderContent>>() { Error = "", Data = await BsOrderContent.GetAll(), Succes = true });
+                return Ok(new Response<IEnumerable<DtoOrderContent>>() { Error = "", Data = await BsOrderContent.GetAll<DtoOrderContent>(), Succes = true });
             }
             catch (Exception e)
             {
@@ -54,19 +59,20 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{idOrderContent}")]
-        [ProducesResponseType(typeof(Response<OrderContent>), 200)]
-        [ProducesResponseType(typeof(Response<OrderContent>), 400)]
-        [ProducesResponseType(typeof(Response<OrderContent>), 404)]
+        [ProducesResponseType(typeof(Response<DtoOrderContent>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<OrderContent>>> GetOrderById([FromRoute] int idOrderContent)
+        public async Task<ActionResult<Response<DtoOrderContent>>> GetOrderById([FromRoute] int idOrderContent)
         {
             try
             {
                 if (idOrderContent == 0)
-                    return BadRequest(new Response<OrderContent>() { Error = "IdOrderContent can't be equal to 0", Data = null, Succes = true });
-                if ((await BsOrderContent.GetById(idOrderContent)) == null)
-                    return NotFound(new Response<OrderContent>() { Error = "the OrderContent doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<OrderContent>() { Error = "", Data = await BsOrderContent.GetById(idOrderContent), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdOrderContent can't be equal to 0", Succes = true });
+                var result = await BsOrderContent.GetById<DtoOrderContent>(idOrderContent);
+                if (result == null)
+                    return NotFound(new Response<string>() { Error = "the OrderContent doesn't exist", Succes = true });
+                return Ok(new Response<DtoOrderContent>() { Error = "", Data = result, Succes = true });
             }
             catch (Exception e)
             {
@@ -85,19 +91,19 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("order/{idOrder}")]
-        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 200)]
-        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 400)]
-        [ProducesResponseType(typeof(Response<IEnumerable<OrderContent>>), 404)]
+        [ProducesResponseType(typeof(Response<IEnumerable<DtoOrderContent>>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<OrderContent>>>> GetOrderContentByIdOrder([FromRoute] int idOrder)
+        public async Task<ActionResult<Response<IEnumerable<DtoOrderContent>>>> GetOrderContentByIdOrder([FromRoute] int idOrder)
         {
             try
             {
                 if (idOrder == 0)
-                    return BadRequest(new Response<IEnumerable<OrderContent>>() { Error = "IdOrder can't be equal to 0", Data = null, Succes = true });
-                if ((await BsOrderContent.GetById(idOrder)) == null)
-                    return NotFound(new Response<IEnumerable<OrderContent>>() { Error = "the Order doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<IEnumerable<OrderContent>>() { Error = "", Data = await BsOrderContent.GetByIdOrder(idOrder), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdOrder can't be equal to 0", Succes = true });
+                if ((await BsOrder.GetById<DtoOrder>(idOrder)) == null)
+                    return NotFound(new Response<string>() { Error = "the Order doesn't exist", Succes = true });
+                return Ok(new Response<IEnumerable<DtoOrderContent>>() { Error = "", Data = await BsOrderContent.GetByIdOrder(idOrder), Succes = true });
             }
             catch (Exception e)
             {
@@ -117,21 +123,21 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("update/{idOrderContent}")]
-        [ProducesResponseType(typeof(Response<OrderContent>), 200)]
-        [ProducesResponseType(typeof(Response<OrderContent>), 400)]
-        [ProducesResponseType(typeof(Response<OrderContent>), 404)]
+        [ProducesResponseType(typeof(Response<DtoOrderContent>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<OrderContent>>> UpdateOrderContent([FromRoute] int idOrderContent, [FromBody] OrderContent orderContent)
+        public async Task<ActionResult<Response<DtoOrderContent>>> UpdateOrderContent([FromRoute] int idOrderContent, [FromBody] DtoOrderContentUpdate orderContent)
         {
             try
             {
                 if (idOrderContent == 0)
-                    return BadRequest(new Response<OrderContent>() { Error = "IdOrderContent can't be equal to 0", Data = null, Succes = true });
-                if ((await BsOrderContent.GetById(idOrderContent)) == null)
-                    return NotFound(new Response<OrderContent>() { Error = "the OrderContent doesn't exist", Data = null, Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdOrderContent can't be equal to 0", Succes = true });
+                if ((await BsOrderContent.GetById<DtoOrderContent>(idOrderContent)) == null)
+                    return NotFound(new Response<string>() { Error = "the OrderContent doesn't exist", Succes = true });
                 if (orderContent == null)
-                    return BadRequest(new Response<OrderContent>() { Error = "The OrderContent can't be null", Data = null, Succes = true });
-                return Ok(new Response<OrderContent>() { Error = "", Data = await BsOrderContent.Update(idOrderContent, orderContent), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The OrderContent can't be null", Succes = true });
+                return Ok(new Response<DtoOrderContent>() { Error = "", Data = await BsOrderContent.Update<DtoOrderContent, DtoOrderContentUpdate>(idOrderContent, orderContent), Succes = true });
             }
             catch (Exception e)
             {
@@ -150,19 +156,19 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("remove/{idOrderContent}")]
-        [ProducesResponseType(typeof(Response<OrderContent>), 200)]
-        [ProducesResponseType(typeof(Response<OrderContent>), 400)]
-        [ProducesResponseType(typeof(Response<OrderContent>), 404)]
+        [ProducesResponseType(typeof(Response<DtoOrderContent>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
+        [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<OrderContent>>> RemoveOrderContent([FromRoute] int idOrderContent)
+        public async Task<ActionResult<Response<DtoOrderContent>>> RemoveOrderContent([FromRoute] int idOrderContent)
         {
             try
             {
                 if (idOrderContent == 0)
-                    return BadRequest(new Response<OrderContent>() { Error = "IdOrderContent can't be equal to 0", Data = null, Succes = true });
-                if ((await BsOrderContent.GetById(idOrderContent)) == null)
-                    return NotFound(new Response<OrderContent>() { Error = "the OrderContent doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<OrderContent>() { Error = "", Data = await BsOrderContent.Remove(idOrderContent), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "IdOrderContent can't be equal to 0", Succes = true });
+                if ((await BsOrderContent.GetById<DtoOrderContent>(idOrderContent)) == null)
+                    return NotFound(new Response<string>() { Error = "the OrderContent doesn't exist", Succes = true });
+                return Ok(new Response<DtoOrderContent>() { Error = "", Data = await BsOrderContent.Remove<DtoOrderContent>(idOrderContent), Succes = true });
             }
             catch (Exception e)
             {
@@ -180,16 +186,16 @@ namespace TicsaAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("add")]
-        [ProducesResponseType(typeof(Response<OrderContent>), 200)]
-        [ProducesResponseType(typeof(Response<OrderContent>), 400)]
+        [ProducesResponseType(typeof(Response<DtoOrderContent>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<OrderContent>>> AddOrderContent([FromBody] OrderContent orderContent)
+        public async Task<ActionResult<Response<DtoOrderContent>>> AddOrderContent([FromBody] DtoOrderContentAdd orderContent)
         {
             try
             {
                 if (orderContent == null)
-                    return BadRequest(new Response<OrderContent>() { Error = "The OrderContent can't be null", Data = null, Succes = true });
-                return Ok(new Response<OrderContent>() { Error = "", Data = await BsOrderContent.Add(orderContent), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The OrderContent can't be null", Succes = true });
+                return Ok(new Response<DtoOrderContent>() { Error = "", Data = await BsOrderContent.Add<DtoOrderContent, DtoOrderContentAdd>(orderContent), Succes = true });
             }
             catch (Exception e)
             {

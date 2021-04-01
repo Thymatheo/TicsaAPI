@@ -7,6 +7,7 @@ namespace TicsaAPI.BLL.DTO.Gamme
 {
     public class DtoGamme : BasicElement
     {
+        public int? Id { get; set; }
         public string Label { get; set; }
         public string Description { get; set; }
         public string CostHisto { get; set; }

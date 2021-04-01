@@ -7,6 +7,7 @@ namespace TicsaAPI.BLL.DTO.Commentary
 {
     public class DtoCommentaryAdd : BasicElement
     {
+        public int? Id { get; set; }
         public int IdClient { get; set; }
         public string CommentaryContent { get; set; }
         public DateTime CommentaryDate { get; set; }

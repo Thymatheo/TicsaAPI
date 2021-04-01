@@ -49,9 +49,10 @@ namespace TicsaAPI
                 option.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
 
-            services.AddDbContext<TicsaContext>(options =>
+            /*services.AddDbContext<TicsaContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("TicsaContext"),
-                mysqloption => mysqloption.ServerVersion(new Version(10, 3, 27), ServerType.MariaDb)));
+                mysqloption => mysqloption.ServerVersion(new Version(10, 3, 27), ServerType.MariaDb)));*/
+            services.AddDbContext<TicsaContext>(option => option.UseSqlServer(Configuration.GetConnectionString("TicsaContext")));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo());
@@ -128,7 +129,7 @@ namespace TicsaAPI
                     c.RoutePrefix = "doc";
                 });
             }
-            else if(env.IsProduction())
+            else if (env.IsProduction())
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();

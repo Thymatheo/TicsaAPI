@@ -18,7 +18,7 @@ namespace TicsaAPI.BLL.BS
         }
         public async Task<IEnumerable<DtoOrder>> GetByIdClient(int idClient)
         {
-            Mapper mapper = BuildMapper<Client, DtoOrder>();
+            Mapper mapper = BuildMapper<Order, DtoOrder>();
             List<DtoOrder> result = new List<DtoOrder>();
             foreach (Order entity in await DpOrder.GetByIdClient(idClient))
                 result.Add(mapper.Map<DtoOrder>(entity));

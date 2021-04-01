@@ -7,6 +7,7 @@ namespace TicsaAPI.BLL.DTO.Order
 {
     public class DtoOrderAdd : BasicElement
     {
+        public int? Id { get; set; }
         public DateTime OrderDate { get; set; }
         public int IdClient { get; set; }
     }

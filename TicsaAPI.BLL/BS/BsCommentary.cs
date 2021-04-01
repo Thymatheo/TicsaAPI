@@ -20,7 +20,7 @@ namespace TicsaAPI.BLL.BS
 
         public async Task<IEnumerable<DtoCommentary>> GetByIdClient(int idClient)
         {
-            Mapper mapper = BuildMapper<Client, DtoCommentary>();
+            Mapper mapper = BuildMapper<Commentary, DtoCommentary>();
             List<DtoCommentary> result = new List<DtoCommentary>();
             foreach (Commentary entity in await DpCommentary.GetByIdClient(idClient))
                 result.Add(mapper.Map<DtoCommentary>(entity));
