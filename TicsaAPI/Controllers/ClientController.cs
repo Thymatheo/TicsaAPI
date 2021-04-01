@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.BLL.DTO.Clients;
@@ -39,7 +40,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
 
@@ -70,7 +71,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
 
@@ -104,7 +105,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
 
@@ -135,7 +136,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
 
@@ -162,7 +163,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
     }

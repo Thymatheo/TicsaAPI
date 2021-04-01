@@ -41,7 +41,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
 
@@ -73,7 +73,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
 
@@ -107,7 +107,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
 
@@ -138,7 +138,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
 
@@ -165,7 +165,7 @@ namespace TicsaAPI.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<string[]>() { Error = e.Message, Data = e.StackTrace.Split("\r\n"), Succes = false });
             }
         }
     }

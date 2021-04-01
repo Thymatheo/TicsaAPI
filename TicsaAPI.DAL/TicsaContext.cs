@@ -79,7 +79,7 @@ namespace TicsaAPI.DAL
                 entity.HasOne(d => d.IdClientNavigation)
                     .WithMany()
                     .HasForeignKey(d => d.IdClient)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__Commentar__IdCli__3A81B327");
             });
 
@@ -103,13 +103,13 @@ namespace TicsaAPI.DAL
                 entity.HasOne(d => d.IdProducerNavigation)
                     .WithMany(p => p.Gamme)
                     .HasForeignKey(d => d.IdProducer)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__Gamme__IdProduce__300424B4");
 
                 entity.HasOne(d => d.IdTypeNavigation)
                     .WithMany(p => p.Gamme)
                     .HasForeignKey(d => d.IdType)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__Gamme__IdType__2F10007B");
             });
 
@@ -130,7 +130,7 @@ namespace TicsaAPI.DAL
                 entity.HasOne(d => d.IdClientNavigation)
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.IdClient)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__Order__IdClient__34C8D9D1");
             });
 
@@ -143,13 +143,13 @@ namespace TicsaAPI.DAL
                 entity.HasOne(d => d.IdGammeNavigation)
                     .WithMany(p => p.OrderContent)
                     .HasForeignKey(d => d.IdGamme)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__OrderCont__IdGam__38996AB5");
 
                 entity.HasOne(d => d.IdOrderNavigation)
                     .WithMany(p => p.OrderContent)
                     .HasForeignKey(d => d.IdOrder)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__OrderCont__IdOrd__37A5467C");
             });
 
