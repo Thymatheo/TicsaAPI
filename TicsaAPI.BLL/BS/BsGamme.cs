@@ -53,12 +53,8 @@ namespace TicsaAPI.BLL.BS
                 sourceEntity = UpdateCost(sourceEntity, new DtoCostHisto() { Date = DateTime.Now, Cost = (double)updateEntity.Cost });
             if (VerifyEntityUpdate(updateEntity.Stock, sourceEntity.Stock))
                 sourceEntity = UpdateStock(sourceEntity, new DtoStockHisto() { Date = DateTime.Now, Stock = (int)updateEntity.Stock });
-            if (VerifyEntityUpdate(updateEntity.CostHisto, sourceEntity.CostHisto))
-                sourceEntity.CostHisto = updateEntity.CostHisto;
-            if (VerifyEntityUpdate(updateEntity.StockHisto, sourceEntity.StockHisto))
-                sourceEntity.StockHisto = updateEntity.StockHisto;
-            sourceEntity.OrderContent = null;
             return await base.Update<U, Gamme>(id, sourceEntity);
+
         }
 
         public override async Task<U> Add<U, V>(V entity) where U : class where V : class

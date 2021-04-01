@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Org.BouncyCastle.Asn1.X509.Qualified;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
@@ -77,10 +78,10 @@ namespace TicsaAPI.BLL.BS
             return new Mapper(new MapperConfiguration(config => config.CreateMap<U, V>()));
         }
 
-        public static bool VerifyEntityUpdate<U, V>(U entitySource, V entityDest)
+        public static bool VerifyEntityUpdate(object entitySource, object entityDest)
         {
             if (entitySource != null && entityDest != null)
-                if ((object)entitySource != (object)entityDest)
+                if (entitySource.ToString() != entityDest.ToString())
                     return true;
             return false;
         }

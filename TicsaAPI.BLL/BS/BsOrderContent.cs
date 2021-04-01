@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using TicsaAPI.BLL.DTO;
 using TicsaAPI.BLL.DTO.Gamme;
 using TicsaAPI.BLL.DTO.Order;
 using TicsaAPI.BLL.DTO.OrderContent;
+using TicsaAPI.DAL.DataProvider;
 using TicsaAPI.DAL.DataProvider.Interface;
 using TicsaAPI.DAL.Models;
 
@@ -15,7 +17,6 @@ namespace TicsaAPI.BLL.BS
     public class BsOrderContent : BasicBs<OrderContent>, IBsOrderContent
     {
         private IDpOrderContent DpOrderContent { get; set; }
-
         private IBsGamme BsGamme { get; set; }
 
         public BsOrderContent(IDpOrderContent dp, IBsGamme bsGamme) : base(dp)
@@ -45,7 +46,8 @@ namespace TicsaAPI.BLL.BS
                 sourceEntity.IdOrder = (int)updateEntity.IdOrder;
             if (VerifyEntityUpdate(updateEntity.Quantity, sourceEntity.Quantity))
             {
-                DtoGamme gamme = await BsGamme.GetById<DtoGamme>(sourceEntity.IdGamme);
+                Gamme gamme = await BsGamme.GetById<Gamme>(sourceEntity.IdGamme);
+                gamme.IdProducer = 1;
                 int diffStock = sourceEntity.Quantity - (int)updateEntity.Quantity;
                 await BsGamme.Update<DtoGamme, DtoGammeUpdate>(sourceEntity.IdGamme, new DtoGammeUpdate() { Stock = (gamme.Stock + diffStock) });
                 sourceEntity.Quantity = (int)updateEntity.Quantity;
