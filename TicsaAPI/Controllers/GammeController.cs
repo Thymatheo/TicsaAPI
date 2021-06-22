@@ -43,7 +43,7 @@ namespace TicsaAPI.Controllers
         {
             try
             {
-                return Ok(new Response<IEnumerable<DtoGamme>>() { Error = "", Data = await BsGamme.GetAll<DtoGamme>(), Succes = true });
+                return Ok(new Response<IEnumerable<DtoGamme>>() { Error = "", Data = await BsGamme.GetAll(), Succes = true });
             }
             catch (Exception e)
             {
@@ -72,7 +72,7 @@ namespace TicsaAPI.Controllers
             {
                 if (idGamme == 0)
                     return BadRequest(new Response<string>() { Error = "IdGamme can't be equal to 0", Succes = true });
-                var result = await BsGamme.GetById<DtoGamme>(idGamme);
+                var result = await BsGamme.GetById(idGamme);
                 if (result == null)
                     return NotFound(new Response<string>() { Error = "The Gamme doesn't exist", Succes = true });
                 return Ok(new Response<DtoGamme>() { Error = "", Data = result, Succes = true });
@@ -167,11 +167,11 @@ namespace TicsaAPI.Controllers
             {
                 if (idGamme == 0)
                     return BadRequest(new Response<string>() { Error = "IdGamme can't be equal to 0", Succes = true });
-                if ((await BsGamme.GetById<DtoGamme>(idGamme)) == null)
+                if ((await BsGamme.GetById(idGamme)) == null)
                     return NotFound(new Response<string>() { Error = "The Gamme doesn't exist", Succes = true });
                 if (gamme == null)
                     return BadRequest(new Response<string>() { Error = "The Gamme can't be null", Succes = true });
-                return Ok(new Response<DtoGamme>() { Error = "", Data = await BsGamme.Update<DtoGamme, DtoGammeUpdate>(idGamme, gamme), Succes = true });
+                return Ok(new Response<DtoGamme>() { Error = "", Data = await BsGamme.Update(idGamme, gamme), Succes = true });
             }
             catch (Exception e)
             {
@@ -200,9 +200,9 @@ namespace TicsaAPI.Controllers
             {
                 if (idGamme == 0)
                     return BadRequest(new Response<string>() { Error = "IdGamme can't be equal to 0", Succes = true });
-                if ((await BsGamme.GetById<DtoGamme>(idGamme)) == null)
+                if ((await BsGamme.GetById(idGamme)) == null)
                     return NotFound(new Response<string>() { Error = "The Gamme doesn't exist", Succes = true });
-                return Ok(new Response<DtoGamme>() { Error = "", Data = await BsGamme.Remove<DtoGamme>(idGamme), Succes = true });
+                return Ok(new Response<DtoGamme>() { Error = "", Data = await BsGamme.Remove(idGamme), Succes = true });
             }
             catch (Exception e)
             {
@@ -223,13 +223,13 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<DtoGamme>), 200)]
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoGamme>>> AddGamme([FromBody] DtoGammeAdd gamme)
+        public async Task<ActionResult<Response<DtoGammeAdd>>> AddGamme([FromBody] Gamme gamme)
         {
             try
             {
                 if (gamme == null)
                     return BadRequest(new Response<string>() { Error = "The Gamme can't be null", Succes = true });
-                return Ok(new Response<DtoGamme>() { Error = "", Data = await BsGamme.Add<DtoGamme, DtoGammeAdd>(gamme), Succes = true });
+                return Ok(new Response<DtoGammeAdd>() { Error = "", Data = await BsGamme.Add(gamme), Succes = true });
             }
             catch (Exception e)
             {

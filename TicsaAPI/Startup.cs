@@ -19,8 +19,7 @@ using TicsaAPI.Securité;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using TicsaAPI.DAL;
 
-namespace TicsaAPI
-{
+namespace TicsaAPI {
     public class Startup
     {
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

@@ -8,9 +8,9 @@ using TicsaAPI.DAL.Models;
 
 namespace TicsaAPI.BLL.BS
 {
-    public class BsProducer : BasicBs<Producer>, IBsProducer
+    public class BsProducer
     {
-        public BsProducer(IDpProducer dp) : base(dp)
+        public BsProducer(IDpProducer dp)
         {
         }
     }

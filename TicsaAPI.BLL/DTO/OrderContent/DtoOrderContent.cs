@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TicsaAPI.DAL.Models;
 
-namespace TicsaAPI.BLL.BS.Interface
-{
-    public interface IBsProducer : IBasicBs<Producer>
-    {
+namespace TicsaAPI.BLL.DTO.OrderContent {
+    public class DtoOrderContent : BasicElement {
     }
 }

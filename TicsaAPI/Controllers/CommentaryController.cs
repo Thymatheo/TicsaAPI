@@ -42,7 +42,7 @@ namespace TicsaAPI.Controllers
         {
             try
             {
-                return Ok(new Response<IEnumerable<DtoCommentary>>() { Error = "", Data = await BsCommentary.GetAll<DtoCommentary>(), Succes = true });
+                return Ok(new Response<IEnumerable<DtoCommentary>>() { Error = "", Data = await BsCommentary.GetAll(), Succes = true });
             }
             catch (Exception e)
             {
@@ -71,7 +71,7 @@ namespace TicsaAPI.Controllers
             {
                 if (idCommentary == 0)
                     return BadRequest(new Response<string>() { Error = "IdCommentary can't be equal to 0", Succes = true });
-                var result = await BsCommentary.GetById<DtoCommentary>(idCommentary);
+                var result = await BsCommentary.GetById(idCommentary);
                 if (result == null)
                     return NotFound(new Response<string>() { Error = "The Commentary doesn't exist", Succes = true });
                 return Ok(new Response<DtoCommentary>() { Error = "", Data = result, Succes = true });
@@ -103,7 +103,7 @@ namespace TicsaAPI.Controllers
             {
                 if (idClient == 0)
                     return BadRequest(new Response<IEnumerable<string>>() { Error = "IdClient can't be equal to 0", Succes = true });
-                if ((await BsClient.GetById<DtoClient>(idClient)) == null)
+                if ((await BsClient.GetById(idClient)) == null)
                     return NotFound(new Response<IEnumerable<string>>() { Error = "The Client doesn't exist", Succes = true });
                 return Ok(new Response<IEnumerable<DtoCommentary>>() { Error = "", Data = await BsCommentary.GetByIdClient(idClient), Succes = true });
             }
@@ -135,11 +135,11 @@ namespace TicsaAPI.Controllers
             {
                 if (idCommentary == 0)
                     return BadRequest(new Response<string>() { Error = "IdCommentary can't be equal to 0", Succes = true });
-                if ((await BsCommentary.GetById<DtoCommentary>(idCommentary)) == null)
+                if ((await BsCommentary.GetById(idCommentary)) == null)
                     return NotFound(new Response<string>() { Error = "The Commentary doesn't exist", Succes = true });
                 if (commentary == null)
                     return BadRequest(new Response<string>() { Error = "The Commentary can't be null", Succes = true });
-                return Ok(new Response<DtoCommentary>() { Error = "", Data = await BsCommentary.Update<DtoCommentary, DtoCommentaryUpdate>(idCommentary, commentary), Succes = true });
+                return Ok(new Response<DtoCommentary>() { Error = "", Data = await BsCommentary.Update(idCommentary, commentary), Succes = true });
             }
             catch (Exception e)
             {
@@ -168,9 +168,9 @@ namespace TicsaAPI.Controllers
             {
                 if (idCommentary == 0)
                     return BadRequest(new Response<string>() { Error = "IdCommentary can't be equal to 0", Data = null, Succes = true });
-                if ((await BsCommentary.GetById<DtoCommentary>(idCommentary)) == null)
+                if ((await BsCommentary.GetById(idCommentary)) == null)
                     return NotFound(new Response<string>() { Error = "The Commentary doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<DtoCommentary>() { Error = "", Data = await BsCommentary.Remove<DtoCommentary>(idCommentary), Succes = true });
+                return Ok(new Response<DtoCommentary>() { Error = "", Data = await BsCommentary.Remove(idCommentary), Succes = true });
             }
             catch (Exception e)
             {
@@ -191,13 +191,13 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<Commentary>), 200)]
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoCommentary>>> AddCommentary([FromBody] DtoCommentaryAdd commentary)
+        public async Task<ActionResult<Response<DtoCommentary>>> AddCommentary([FromBody] Commentary commentary)
         {
             try
             {
                 if (commentary == null)
                     return BadRequest(new Response<string>() { Error = "The Commentary can't be null", Succes = true });
-                return Ok(new Response<DtoCommentary>() { Error = "", Data = await BsCommentary.Add<DtoCommentary, DtoCommentaryAdd>(commentary), Succes = true });
+                return Ok(new Response<DtoCommentaryAdd>() { Error = "", Data = await BsCommentary.Add(commentary), Succes = true });
             }
             catch (Exception e)
             {

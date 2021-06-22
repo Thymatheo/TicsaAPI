@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.BLL.DTO.Clients;
 using TicsaAPI.DAL.Models;
-namespace TicsaAPI.Controllers
-{
+namespace TicsaAPI.Controllers {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
-    {
+    public class ClientController : ControllerBase {
 
         private IBsClient BsClient { get; set; }
-        public ClientController(IBsClient bsClient)
-        {
+        public ClientController(IBsClient bsClient) {
             BsClient = bsClient;
         }
 
@@ -31,14 +28,11 @@ namespace TicsaAPI.Controllers
         [Route("all")]
         [ProducesResponseType(typeof(Response<IEnumerable<DtoClient>>), 200)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<DtoClient>>>> GetAllClient()
-        {
-            try
-            {
-                return Ok(new Response<IEnumerable<DtoClient>>() { Error = "", Data = await BsClient.GetAll<DtoClient>(), Succes = true });
+        public async Task<ActionResult<Response<IEnumerable<DtoClient>>>> GetAllClient() {
+            try {
+                return Ok(new Response<IEnumerable<DtoClient>>() { Error = "", Data = await BsClient.GetAll(), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -58,18 +52,15 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoClient>>> GetClientById([FromRoute] int idClient)
-        {
-            try
-            {
+        public async Task<ActionResult<Response<DtoClient>>> GetClientById([FromRoute] int idClient) {
+            try {
                 if (idClient == 0)
                     return BadRequest(new Response<string>() { Error = "IdClient can't be equal to 0", Succes = true });
-                if ((await BsClient.GetById<DtoClient>(idClient)) == null)
+                if ((await BsClient.GetById(idClient)) == null)
                     return NotFound(new Response<string>() { Error = "The Client doesn't exist", Data = null, Succes = true });
-                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.GetById<DtoClient>(idClient), Succes = true });
+                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.GetById(idClient), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -90,20 +81,17 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoClient>>> UpdateClient([FromRoute] int idClient, [FromBody] DtoClientUpdate client)
-        {
-            try
-            {
+        public async Task<ActionResult<Response<DtoClient>>> UpdateClient([FromRoute] int idClient, [FromBody] DtoClientUpdate client) {
+            try {
                 if (idClient == 0)
                     return BadRequest(new Response<string>() { Error = "IdClient can't be equal to 0", Succes = true });
-                if ((await BsClient.GetById<DtoClient>(idClient)) == null)
+                if ((await BsClient.GetById(idClient)) == null)
                     return NotFound(new Response<string>() { Error = "The Client doesn't exist", Succes = true });
                 if (client == null)
                     return BadRequest(new Response<string>() { Error = "The Clientcan't be null", Succes = true });
-                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.Update<DtoClient, DtoClientUpdate>(idClient, client), Succes = true });
+                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.Update(idClient, client), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -123,18 +111,15 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoClient>>> RemoveClient([FromRoute] int idClient)
-        {
-            try
-            {
+        public async Task<ActionResult<Response<DtoClient>>> RemoveClient([FromRoute] int idClient) {
+            try {
                 if (idClient == 0)
                     return BadRequest(new Response<string>() { Error = "IdClient can't be equal to 0", Succes = true });
-                if ((await BsClient.GetById<DtoClient>(idClient)) == null)
-                    return NotFound(new Response<string>() { Error = "The Client doesn't exist",  Succes = true });
-                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.Remove<DtoClient>(idClient), Succes = true });
+                if ((await BsClient.GetById(idClient)) == null)
+                    return NotFound(new Response<string>() { Error = "The Client doesn't exist", Succes = true });
+                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.Remove(idClient), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -152,16 +137,13 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<DtoClient>), 200)]
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoClient>>> AddClient([FromBody] DtoClientAdd client)
-        {
-            try
-            {
+        public async Task<ActionResult<Response<DtoClient>>> AddClient([FromBody] Client client) {
+            try {
                 if (client == null)
-                    return BadRequest(new Response<string>() { Error = "The Clientcan't be null", Succes = true });
-                return Ok(new Response<DtoClient>() { Error = "", Data = await BsClient.Add<DtoClient, DtoClientAdd>(client), Succes = true });
+                    return BadRequest(new Response<string>() { Error = "The Client can't be null", Succes = true });
+                return Ok(new Response<DtoClientAdd>() { Error = "", Data = await BsClient.Add(client), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
