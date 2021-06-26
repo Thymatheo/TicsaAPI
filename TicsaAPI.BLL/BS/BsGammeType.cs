@@ -19,28 +19,35 @@ namespace TicsaAPI.BLL.BS {
             return result;
         }
 
-        public async Task<DtoGammeType> GetById(int id) =>
-            (await DpGammeType.GetById(id)).ToDto();
+        public async Task<DtoGammeType> GetById(int id) {
+            return (await DpGammeType.GetById(id)).ToDto();
+        }
 
-        public async Task<DtoGammeType> Update(int id, DtoGammeTypeUpdate entity) =>
-            (await DpGammeType.Update(UpdateData(await DpGammeType.GetById(id), entity))).ToDto();
+        public async Task<DtoGammeType> Update(int id, DtoGammeTypeUpdate entity) {
+            return (await DpGammeType.Update(UpdateData(await DpGammeType.GetById(id), entity))).ToDto();
+        }
 
         private GammeType UpdateData(GammeType target, DtoGammeTypeUpdate source) {
-            if (string.IsNullOrEmpty(source.Label))
-                if (source.Label != target.Label)
+            if (!string.IsNullOrEmpty(source.Label)) {
+                if (source.Label != target.Label) {
                     target.Label = source.Label;
+                }
+            }
+
             return target;
         }
 
-        public async Task<DtoGammeType> Remove(int id) =>
-            (await DpGammeType.Remove(await DpGammeType.GetById(id))).ToDto();
+        public async Task<DtoGammeType> Remove(int id) {
+            return (await DpGammeType.Remove(await DpGammeType.GetById(id))).ToDto();
+        }
 
+        public async Task<DtoGammeTypeAdd> Add(GammeType entity) {
+            return (await DpGammeType.Add(entity)).ToDtoAdd();
+        }
 
-        public async Task<DtoGammeTypeAdd> Add(GammeType entity) =>
-            (await DpGammeType.Add(entity)).ToDtoAdd();
-
-        public async Task AddRange(IEnumerable<GammeType> entityList) =>
+        public async Task AddRange(IEnumerable<GammeType> entityList) {
             await DpGammeType.AddRange(entityList);
+        }
 
         public async Task RemoveRange(IEnumerable<int> entityList) {
             List<GammeType> entityToRemove = (await DpGammeType.GetAll()).ToList();
@@ -49,8 +56,10 @@ namespace TicsaAPI.BLL.BS {
         public async Task UpdateRange(Dictionary<int, DtoGammeTypeUpdate> entityList) {
             List<GammeType> entityToUpdate = new List<GammeType>();
             IEnumerable<GammeType> entities = await DpGammeType.GetAll();
-            foreach (KeyValuePair<int, DtoGammeTypeUpdate> entity in entityList)
+            foreach (KeyValuePair<int, DtoGammeTypeUpdate> entity in entityList) {
                 entityToUpdate.Add(UpdateData(entities.Where(x => x.Id == entity.Key).FirstOrDefault(), entity.Value));
+            }
+
             await DpGammeType.UpdateRange(entityToUpdate);
         }
     }

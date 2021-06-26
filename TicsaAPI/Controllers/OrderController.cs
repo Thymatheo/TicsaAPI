@@ -9,19 +9,16 @@ using TicsaAPI.BLL.DTO.Clients;
 using TicsaAPI.BLL.DTO.Order;
 using TicsaAPI.DAL.Models;
 
-namespace TicsaAPI.Controllers
-{
+namespace TicsaAPI.Controllers {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
-    {
+    public class OrderController : ControllerBase {
 
         private IBsOrder BsOrder { get; set; }
         private IBsClient BsClient { get; set; }
 
-        public OrderController(IBsOrder bsOrder, IBsClient bsClient)
-        {
+        public OrderController(IBsOrder bsOrder, IBsClient bsClient) {
             BsOrder = bsOrder;
             BsClient = bsClient;
         }
@@ -36,14 +33,11 @@ namespace TicsaAPI.Controllers
         [Route("all")]
         [ProducesResponseType(typeof(Response<IEnumerable<DtoOrder>>), 200)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<DtoOrder>>>> GetAllOrder()
-        {
-            try
-            {
-                return Ok(new Response<IEnumerable<DtoOrder>>() { Error = "", Data = await BsOrder.GetAll<DtoOrder>(), Succes = true });
+        public async Task<ActionResult<Response<IEnumerable<DtoOrder>>>> GetAllOrder() {
+            try {
+                return Ok(new Response<IEnumerable<DtoOrder>>() { Error = "", Data = await BsOrder.GetAll(), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -63,19 +57,20 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<DtoOrder>>>> GetOrderById([FromRoute] int idOrder)
-        {
-            try
-            {
-                if (idOrder == 0)
+        public async Task<ActionResult<Response<IEnumerable<DtoOrder>>>> GetOrderById([FromRoute] int idOrder) {
+            try {
+                if (idOrder == 0) {
                     return BadRequest(new Response<string>() { Error = "IdOrder can't be equal to 0", Succes = true });
-                var result = await BsOrder.GetById<DtoOrder>(idOrder);
-                if (result == null)
+                }
+
+                var result = await BsOrder.GetById(idOrder);
+                if (result == null) {
                     return NotFound(new Response<string>() { Error = "The Order doesn't exist", Succes = true });
+                }
+
                 return Ok(new Response<DtoOrder>() { Error = "", Data = result, Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -95,18 +90,19 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<DtoOrder>>>> GetOrderByIdClient([FromRoute] int idClient)
-        {
-            try
-            {
-                if (idClient == 0)
+        public async Task<ActionResult<Response<IEnumerable<DtoOrder>>>> GetOrderByIdClient([FromRoute] int idClient) {
+            try {
+                if (idClient == 0) {
                     return BadRequest(new Response<string>() { Error = "IdClient can't be equal to 0", Succes = true });
-                if ((await BsClient.GetById<DtoClient>(idClient)) == null)
+                }
+
+                if ((await BsClient.GetById(idClient)) == null) {
                     return NotFound(new Response<string>() { Error = "The Client doesn't exist", Succes = true });
+                }
+
                 return Ok(new Response<IEnumerable<DtoOrder>>() { Error = "", Data = await BsOrder.GetByIdClient(idClient), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -127,20 +123,23 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoOrder>>> UpdateOrder([FromRoute] int idOrder, [FromBody] DtoOrderUpdate order)
-        {
-            try
-            {
-                if (idOrder == 0)
+        public async Task<ActionResult<Response<DtoOrder>>> UpdateOrder([FromRoute] int idOrder, [FromBody] DtoOrderUpdate order) {
+            try {
+                if (idOrder == 0) {
                     return BadRequest(new Response<string>() { Error = "IdOrder can't be equal to 0", Succes = true });
-                if ((await BsOrder.GetById<DtoOrder>(idOrder)) == null)
+                }
+
+                if ((await BsOrder.GetById(idOrder)) == null) {
                     return NotFound(new Response<string>() { Error = "The Order doesn't exist", Succes = true });
-                if (order == null)
+                }
+
+                if (order == null) {
                     return BadRequest(new Response<string>() { Error = "The Order can't be null", Succes = true });
-                return Ok(new Response<DtoOrder>() { Error = "", Data = await BsOrder.Update<DtoOrder, DtoOrderUpdate>(idOrder, order), Succes = true });
+                }
+
+                return Ok(new Response<DtoOrder>() { Error = "", Data = await BsOrder.Update(idOrder, order), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -160,18 +159,19 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoOrder>>> RemoveOrder([FromRoute] int idOrder)
-        {
-            try
-            {
-                if (idOrder == 0)
+        public async Task<ActionResult<Response<DtoOrder>>> RemoveOrder([FromRoute] int idOrder) {
+            try {
+                if (idOrder == 0) {
                     return BadRequest(new Response<string>() { Error = "IdOrder can't be equal to 0", Succes = true });
-                if ((await BsOrder.GetById<DtoOrder>(idOrder)) == null)
+                }
+
+                if ((await BsOrder.GetById(idOrder)) == null) {
                     return NotFound(new Response<string>() { Error = "The Order doesn't exist", Succes = true });
-                return Ok(new Response<DtoOrder>() { Error = "", Data = await BsOrder.Remove<DtoOrder>(idOrder), Succes = true });
+                }
+
+                return Ok(new Response<DtoOrder>() { Error = "", Data = await BsOrder.Remove(idOrder), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -189,16 +189,15 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<DtoOrder>), 200)]
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoOrder>>> AddOrder([FromBody] DtoOrderAdd order)
-        {
-            try
-            {
-                if (order == null)
+        public async Task<ActionResult<Response<DtoOrder>>> AddOrder([FromBody] Order order) {
+            try {
+                if (order == null) {
                     return BadRequest(new Response<string>() { Error = "The Order can't be null", Succes = true });
-                return Ok(new Response<DtoOrder>() { Error = "", Data = await BsOrder.Add<DtoOrder, DtoOrderAdd>(order), Succes = true });
+                }
+
+                return Ok(new Response<DtoOrderAdd>() { Error = "", Data = await BsOrder.Add(order), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }

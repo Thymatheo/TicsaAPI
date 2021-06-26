@@ -54,11 +54,15 @@ namespace TicsaAPI.Controllers {
         [ProducesResponseType(typeof(Response<string>), 500)]
         public async Task<ActionResult<Response<DtoGammeType>>> GetGammeTypeById([FromRoute] int idType) {
             try {
-                if (idType == 0)
+                if (idType == 0) {
                     return BadRequest(new Response<string>() { Error = "IdGammeType can't be equal to 0", Succes = true });
-                var result = await BsGammeType.GetById(idType);
-                if (result == null)
+                }
+
+                DtoGammeType? result = await BsGammeType.GetById(idType);
+                if (result == null) {
                     return NotFound(new Response<string>() { Error = "the GammeType doesn't exist", Succes = true });
+                }
+
                 return Ok(new Response<DtoGammeType>() { Error = "", Data = result, Succes = true });
             }
             catch (Exception e) {
@@ -84,12 +88,18 @@ namespace TicsaAPI.Controllers {
         [ProducesResponseType(typeof(Response<string>), 500)]
         public async Task<ActionResult<Response<DtoGammeType>>> UpdateGammeType([FromRoute] int idType, [FromBody] DtoGammeTypeUpdate type) {
             try {
-                if (idType == 0)
+                if (idType == 0) {
                     return BadRequest(new Response<string>() { Error = "IdGammeType can't be equal to 0", Succes = true });
-                if ((await BsGammeType.GetById(idType)) == null)
+                }
+
+                if ((await BsGammeType.GetById(idType)) == null) {
                     return NotFound(new Response<string>() { Error = "the GammeType doesn't exist", Succes = true });
-                if (type == null)
+                }
+
+                if (type == null) {
                     return BadRequest(new Response<string>() { Error = "The GammeType can't be null", Succes = true });
+                }
+
                 return Ok(new Response<DtoGammeType>() { Error = "", Data = await BsGammeType.Update(idType, type), Succes = true });
             }
             catch (Exception e) {
@@ -114,10 +124,14 @@ namespace TicsaAPI.Controllers {
         [ProducesResponseType(typeof(Response<string>), 500)]
         public async Task<ActionResult<Response<DtoGammeType>>> RemoveGammeType([FromRoute] int idType) {
             try {
-                if (idType == 0)
+                if (idType == 0) {
                     return BadRequest(new Response<string>() { Error = "IdGammeType can't be equal to 0", Data = null, Succes = true });
-                if ((await BsGammeType.GetById(idType)) == null)
+                }
+
+                if ((await BsGammeType.GetById(idType)) == null) {
                     return NotFound(new Response<string>() { Error = "the GammeType doesn't exist", Data = null, Succes = true });
+                }
+
                 return Ok(new Response<DtoGammeType>() { Error = "", Data = await BsGammeType.Remove(idType), Succes = true });
             }
             catch (Exception e) {
@@ -140,8 +154,10 @@ namespace TicsaAPI.Controllers {
         [ProducesResponseType(typeof(Response<string>), 500)]
         public async Task<ActionResult<Response<DtoGammeType>>> AddGammeType([FromBody] GammeType type) {
             try {
-                if (type == null)
+                if (type == null) {
                     return BadRequest(new Response<string>() { Error = "The GammeType can't be null", Succes = true });
+                }
+
                 return Ok(new Response<DtoGammeTypeAdd>() { Error = "", Data = await BsGammeType.Add(type), Succes = true });
             }
             catch (Exception e) {

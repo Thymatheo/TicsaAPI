@@ -5,12 +5,9 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace TicsaAPI.DAL.Models
-{
-    public partial class Order : BasicElement
-    {
-        public Order()
-        {
+namespace TicsaAPI.DAL.Models {
+    public partial class Order : BasicElement {
+        public Order() {
             OrderContent = new HashSet<OrderContent>();
         }
         public DateTime OrderDate { get; set; }

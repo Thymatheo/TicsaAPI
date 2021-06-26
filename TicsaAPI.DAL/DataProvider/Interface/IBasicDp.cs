@@ -2,10 +2,8 @@
 using System.Threading.Tasks;
 using TicsaAPI.DAL.Models;
 
-namespace TicsaAPI.DAL.DataProvider.Interface
-{
-    public interface IBasicDp<T> where T : BasicElement
-    {
+namespace TicsaAPI.DAL.DataProvider.Interface {
+    public interface IBasicDp<T> where T : BasicElement {
         Task<IEnumerable<T>> GetAll();
         Task<T> GetById(int id);
         Task<T> Remove(T entity);

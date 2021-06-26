@@ -1,18 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using TicsaAPI.DAL.Models;
+﻿using System.Collections.Generic;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace TicsaAPI.DAL.Models
-{
-    public partial class Gamme : BasicElement
-    {
-        public Gamme()
-        {
+namespace TicsaAPI.DAL.Models {
+    public partial class Gamme : BasicElement {
+        public Gamme() {
             OrderContent = new HashSet<OrderContent>();
         }
         public string Label { get; set; }

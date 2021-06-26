@@ -23,7 +23,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.ClientController.UpdateClient(System.Int32,TicsaAPI.DAL.Models.Client)">
+        <member name="M:TicsaAPI.Controllers.ClientController.UpdateClient(System.Int32,TicsaAPI.BLL.DTO.Clients.DtoClientUpdate)">
             <summary>
             Met a jour un Client
             </summary>
@@ -86,7 +86,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.CommentaryController.UpdateCommentary(System.Int32,TicsaAPI.DAL.Models.Commentary)">
+        <member name="M:TicsaAPI.Controllers.CommentaryController.UpdateCommentary(System.Int32,TicsaAPI.BLL.DTO.Commentary.DtoCommentaryUpdate)">
             <summary>
             Met a jour un Commentaire
             </summary>
@@ -160,7 +160,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeController.UpdateGamme(System.Int32,TicsaAPI.DAL.Models.Gamme)">
+        <member name="M:TicsaAPI.Controllers.GammeController.UpdateGamme(System.Int32,TicsaAPI.BLL.DTO.Gamme.DtoGammeUpdate)">
             <summary>
             Met a jour une Gamme
             </summary>
@@ -212,7 +212,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.GammeTypeController.UpdateGammeType(System.Int32,TicsaAPI.DAL.Models.GammeType)">
+        <member name="M:TicsaAPI.Controllers.GammeTypeController.UpdateGammeType(System.Int32,TicsaAPI.BLL.DTO.GammeType.DtoGammeTypeUpdate)">
             <summary>
             Met a jour un Type de Gamme
             </summary>
@@ -275,7 +275,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderContentController.UpdateOrderContent(System.Int32,TicsaAPI.DAL.Models.OrderContent)">
+        <member name="M:TicsaAPI.Controllers.OrderContentController.UpdateOrderContent(System.Int32,TicsaAPI.BLL.DTO.OrderContent.DtoOrderContentUpdate)">
             <summary>
             Met a jour un Contenu de Commande
             </summary>
@@ -338,7 +338,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.OrderController.UpdateOrder(System.Int32,TicsaAPI.DAL.Models.Order)">
+        <member name="M:TicsaAPI.Controllers.OrderController.UpdateOrder(System.Int32,TicsaAPI.BLL.DTO.Order.DtoOrderUpdate)">
             <summary>
             Met a jour une Commande
             </summary>
@@ -390,7 +390,7 @@
             <response code="500">InternalError / Erreur interne au serveur</response>
             <returns></returns>
         </member>
-        <member name="M:TicsaAPI.Controllers.ProducerController.UpdateProducer(System.Int32,TicsaAPI.DAL.Models.Producer)">
+        <member name="M:TicsaAPI.Controllers.ProducerController.UpdateProducer(System.Int32,TicsaAPI.BLL.DTO.Producer.DtoProducerUpdate)">
             <summary>
             Met a jour un Producteur
             </summary>

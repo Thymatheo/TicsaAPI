@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TicsaAPI.DAL.Models;
+﻿using TicsaAPI.DAL.Models;
 
-namespace TicsaAPI.BLL.DTO.Producer
-{
-    public class DtoProducer : BasicElement
-    {
+namespace TicsaAPI.BLL.DTO.Producer {
+    public class DtoProducer : BasicElement {
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string CompagnieName { get; set; }

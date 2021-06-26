@@ -1,23 +1,17 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using TicsaAPI.DAL.Models;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace TicsaAPI.DAL
-{
-    public partial class TicsaContext : DbContext
-    {
-        public TicsaContext()
-        {
+namespace TicsaAPI.DAL {
+    public partial class TicsaContext : DbContext {
+        public TicsaContext() {
         }
 
         public TicsaContext(DbContextOptions<TicsaContext> options)
-            : base(options)
-        {
+            : base(options) {
         }
 
         public virtual DbSet<Client> Client { get; set; }
@@ -28,10 +22,8 @@ namespace TicsaAPI.DAL
         public virtual DbSet<OrderContent> OrderContent { get; set; }
         public virtual DbSet<Producer> Producer { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Client>(entity =>
-            {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<Client>(entity => {
                 entity.Property(e => e.Address)
                     .IsRequired()
                     .HasColumnType("text");
@@ -64,8 +56,7 @@ namespace TicsaAPI.DAL
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Commentary>(entity =>
-            {
+            modelBuilder.Entity<Commentary>(entity => {
                 entity.HasNoKey();
 
                 entity.HasIndex(e => e.IdClient);
@@ -83,8 +74,7 @@ namespace TicsaAPI.DAL
                     .HasConstraintName("FK__Commentar__IdCli__3A81B327");
             });
 
-            modelBuilder.Entity<Gamme>(entity =>
-            {
+            modelBuilder.Entity<Gamme>(entity => {
                 entity.HasIndex(e => e.IdProducer);
 
                 entity.HasIndex(e => e.IdType);
@@ -113,16 +103,14 @@ namespace TicsaAPI.DAL
                     .HasConstraintName("FK__Gamme__IdType__2F10007B");
             });
 
-            modelBuilder.Entity<GammeType>(entity =>
-            {
+            modelBuilder.Entity<GammeType>(entity => {
                 entity.Property(e => e.Label)
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Order>(entity =>
-            {
+            modelBuilder.Entity<Order>(entity => {
                 entity.HasIndex(e => e.IdClient);
 
                 entity.Property(e => e.OrderDate).HasColumnType("date");
@@ -134,8 +122,7 @@ namespace TicsaAPI.DAL
                     .HasConstraintName("FK__Order__IdClient__34C8D9D1");
             });
 
-            modelBuilder.Entity<OrderContent>(entity =>
-            {
+            modelBuilder.Entity<OrderContent>(entity => {
                 entity.HasIndex(e => e.IdGamme);
 
                 entity.HasIndex(e => e.IdOrder);
@@ -153,8 +140,7 @@ namespace TicsaAPI.DAL
                     .HasConstraintName("FK__OrderCont__IdOrd__37A5467C");
             });
 
-            modelBuilder.Entity<Producer>(entity =>
-            {
+            modelBuilder.Entity<Producer>(entity => {
                 entity.Property(e => e.Address)
                     .HasColumnName("address")
                     .HasMaxLength(255)

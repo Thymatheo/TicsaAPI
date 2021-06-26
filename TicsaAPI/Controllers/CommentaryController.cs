@@ -3,27 +3,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
-using TicsaAPI.BLL.DTO.Clients;
 using TicsaAPI.BLL.DTO.Commentary;
 using TicsaAPI.DAL.Models;
 
-namespace TicsaAPI.Controllers
-{
+namespace TicsaAPI.Controllers {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class CommentaryController : ControllerBase
-    {
+    public class CommentaryController : ControllerBase {
 
 
         private IBsCommentary BsCommentary { get; set; }
         private IBsClient BsClient { get; set; }
 
-        public CommentaryController(IBsCommentary bsCommentary, IBsClient bsClient)
-        {
+        public CommentaryController(IBsCommentary bsCommentary, IBsClient bsClient) {
             BsCommentary = bsCommentary;
             BsClient = bsClient;
         }
@@ -38,14 +33,11 @@ namespace TicsaAPI.Controllers
         [Route("all")]
         [ProducesResponseType(typeof(Response<IEnumerable<DtoCommentary>>), 200)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<IEnumerable<DtoCommentary>>>> GetAllCommentary()
-        {
-            try
-            {
+        public async Task<ActionResult<Response<IEnumerable<DtoCommentary>>>> GetAllCommentary() {
+            try {
                 return Ok(new Response<IEnumerable<DtoCommentary>>() { Error = "", Data = await BsCommentary.GetAll(), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -65,19 +57,20 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoCommentary>>> GetCommentaryById([FromRoute] int idCommentary)
-        {
-            try
-            {
-                if (idCommentary == 0)
+        public async Task<ActionResult<Response<DtoCommentary>>> GetCommentaryById([FromRoute] int idCommentary) {
+            try {
+                if (idCommentary == 0) {
                     return BadRequest(new Response<string>() { Error = "IdCommentary can't be equal to 0", Succes = true });
-                var result = await BsCommentary.GetById(idCommentary);
-                if (result == null)
+                }
+
+                DtoCommentary? result = await BsCommentary.GetById(idCommentary);
+                if (result == null) {
                     return NotFound(new Response<string>() { Error = "The Commentary doesn't exist", Succes = true });
+                }
+
                 return Ok(new Response<DtoCommentary>() { Error = "", Data = result, Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -97,18 +90,19 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoCommentary>>> GetCommentaryByIdClient([FromRoute] int idClient)
-        {
-            try
-            {
-                if (idClient == 0)
+        public async Task<ActionResult<Response<DtoCommentary>>> GetCommentaryByIdClient([FromRoute] int idClient) {
+            try {
+                if (idClient == 0) {
                     return BadRequest(new Response<IEnumerable<string>>() { Error = "IdClient can't be equal to 0", Succes = true });
-                if ((await BsClient.GetById(idClient)) == null)
+                }
+
+                if ((await BsClient.GetById(idClient)) == null) {
                     return NotFound(new Response<IEnumerable<string>>() { Error = "The Client doesn't exist", Succes = true });
+                }
+
                 return Ok(new Response<IEnumerable<DtoCommentary>>() { Error = "", Data = await BsCommentary.GetByIdClient(idClient), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -129,20 +123,23 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoCommentary>>> UpdateCommentary([FromRoute] int idCommentary, [FromBody] DtoCommentaryUpdate commentary)
-        {
-            try
-            {
-                if (idCommentary == 0)
+        public async Task<ActionResult<Response<DtoCommentary>>> UpdateCommentary([FromRoute] int idCommentary, [FromBody] DtoCommentaryUpdate commentary) {
+            try {
+                if (idCommentary == 0) {
                     return BadRequest(new Response<string>() { Error = "IdCommentary can't be equal to 0", Succes = true });
-                if ((await BsCommentary.GetById(idCommentary)) == null)
+                }
+
+                if ((await BsCommentary.GetById(idCommentary)) == null) {
                     return NotFound(new Response<string>() { Error = "The Commentary doesn't exist", Succes = true });
-                if (commentary == null)
+                }
+
+                if (commentary == null) {
                     return BadRequest(new Response<string>() { Error = "The Commentary can't be null", Succes = true });
+                }
+
                 return Ok(new Response<DtoCommentary>() { Error = "", Data = await BsCommentary.Update(idCommentary, commentary), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -162,18 +159,19 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 404)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoCommentary>>> RemoveCommentary([FromRoute] int idCommentary)
-        {
-            try
-            {
-                if (idCommentary == 0)
+        public async Task<ActionResult<Response<DtoCommentary>>> RemoveCommentary([FromRoute] int idCommentary) {
+            try {
+                if (idCommentary == 0) {
                     return BadRequest(new Response<string>() { Error = "IdCommentary can't be equal to 0", Data = null, Succes = true });
-                if ((await BsCommentary.GetById(idCommentary)) == null)
+                }
+
+                if ((await BsCommentary.GetById(idCommentary)) == null) {
                     return NotFound(new Response<string>() { Error = "The Commentary doesn't exist", Data = null, Succes = true });
+                }
+
                 return Ok(new Response<DtoCommentary>() { Error = "", Data = await BsCommentary.Remove(idCommentary), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }
@@ -191,16 +189,15 @@ namespace TicsaAPI.Controllers
         [ProducesResponseType(typeof(Response<Commentary>), 200)]
         [ProducesResponseType(typeof(Response<string>), 400)]
         [ProducesResponseType(typeof(Response<string>), 500)]
-        public async Task<ActionResult<Response<DtoCommentary>>> AddCommentary([FromBody] Commentary commentary)
-        {
-            try
-            {
-                if (commentary == null)
+        public async Task<ActionResult<Response<DtoCommentary>>> AddCommentary([FromBody] Commentary commentary) {
+            try {
+                if (commentary == null) {
                     return BadRequest(new Response<string>() { Error = "The Commentary can't be null", Succes = true });
+                }
+
                 return Ok(new Response<DtoCommentaryAdd>() { Error = "", Data = await BsCommentary.Add(commentary), Succes = true });
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response<string>() { Error = e.Message, Data = e.StackTrace, Succes = false });
             }
         }

@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.BLL.DTO.Commentary;
@@ -23,34 +21,47 @@ namespace TicsaAPI.BLL.BS {
             return result;
         }
 
-        public async Task<DtoCommentary> GetById(int id) =>
-            (await DpCommentary.GetById(id)).ToDto();
+        public async Task<DtoCommentary> GetById(int id) {
+            return (await DpCommentary.GetById(id)).ToDto();
+        }
 
-        public async Task<DtoCommentary> Update(int id, DtoCommentaryUpdate entity) =>
-            (await DpCommentary.Update(UpdateData(await DpCommentary.GetById(id), entity))).ToDto();
+        public async Task<DtoCommentary> Update(int id, DtoCommentaryUpdate entity) {
+            return (await DpCommentary.Update(UpdateData(await DpCommentary.GetById(id), entity))).ToDto();
+        }
 
         private Commentary UpdateData(Commentary target, DtoCommentaryUpdate source) {
-            if (string.IsNullOrEmpty(source.CommentaryContent))
-                if (source.CommentaryContent != target.CommentaryContent)
+            if (!string.IsNullOrEmpty(source.CommentaryContent)) {
+                if (source.CommentaryContent != target.CommentaryContent) {
                     target.CommentaryContent = source.CommentaryContent;
-            if (source.CommentaryDate != null)
-                if (source.CommentaryDate != target.CommentaryDate)
+                }
+            }
+
+            if (source.CommentaryDate != null) {
+                if (source.CommentaryDate != target.CommentaryDate) {
                     target.CommentaryDate = (DateTime)source.CommentaryDate;
-            if (source.IdClient != null)
-                if (source.IdClient != target.IdClient)
+                }
+            }
+
+            if (source.IdClient != null) {
+                if (source.IdClient != target.IdClient) {
                     target.IdClient = (int)source.IdClient;
+                }
+            }
+
             return target;
         }
 
-        public async Task<DtoCommentary> Remove(int id) =>
-            (await DpCommentary.Remove(await DpCommentary.GetById(id))).ToDto();
+        public async Task<DtoCommentary> Remove(int id) {
+            return (await DpCommentary.Remove(await DpCommentary.GetById(id))).ToDto();
+        }
 
+        public async Task<DtoCommentaryAdd> Add(Commentary entity) {
+            return (await DpCommentary.Add(entity)).ToDtoAdd();
+        }
 
-        public async Task<DtoCommentaryAdd> Add(Commentary entity) =>
-            (await DpCommentary.Add(entity)).ToDtoAdd();
-
-        public async Task AddRange(IEnumerable<Commentary> entityList) =>
+        public async Task AddRange(IEnumerable<Commentary> entityList) {
             await DpCommentary.AddRange(entityList);
+        }
 
         public async Task RemoveRange(IEnumerable<int> entityList) {
             List<Commentary> entityToRemove = (await DpCommentary.GetAll()).ToList();
@@ -59,8 +70,10 @@ namespace TicsaAPI.BLL.BS {
         public async Task UpdateRange(Dictionary<int, DtoCommentaryUpdate> entityList) {
             List<Commentary> entityToUpdate = new List<Commentary>();
             IEnumerable<Commentary> entities = await DpCommentary.GetAll();
-            foreach (KeyValuePair<int, DtoCommentaryUpdate> entity in entityList)
+            foreach (KeyValuePair<int, DtoCommentaryUpdate> entity in entityList) {
                 entityToUpdate.Add(UpdateData(entities.Where(x => x.Id == entity.Key).FirstOrDefault(), entity.Value));
+            }
+
             await DpCommentary.UpdateRange(entityToUpdate);
         }
         public async Task<IEnumerable<DtoCommentary>> GetByIdClient(int idClient) {

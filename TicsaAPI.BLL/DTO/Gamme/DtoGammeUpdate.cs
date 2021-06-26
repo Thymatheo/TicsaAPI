@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TicsaAPI.DAL.Models;
+﻿using TicsaAPI.DAL.Models;
 
-namespace TicsaAPI.BLL.DTO.Gamme
-{
-    public class DtoGammeUpdate : BasicElement
-    {
+namespace TicsaAPI.BLL.DTO.Gamme {
+    public class DtoGammeUpdate : BasicElement {
         public string? Label { get; set; }
         public string? Description { get; set; }
         public double? Cost { get; set; }

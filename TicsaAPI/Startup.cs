@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,59 +13,49 @@ using System.Reflection;
 using TicsaAPI.BLL.BS;
 using TicsaAPI.BLL.BS.Interface;
 using TicsaAPI.Config;
+using TicsaAPI.DAL;
 using TicsaAPI.DAL.DataProvider;
 using TicsaAPI.DAL.DataProvider.Interface;
-using TicsaAPI.DAL.Models;
 using TicsaAPI.Securité;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using TicsaAPI.DAL;
 
 namespace TicsaAPI {
-    public class Startup
-    {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-        public Startup(IConfiguration configuration)
-        {
+    public class Startup {
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddCors(options =>
-            {
+        public void ConfigureServices(IServiceCollection services) {
+            services.AddCors(options => {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
+                                  builder => {
                                       builder.AllowAnyOrigin();
                                   });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddControllers().AddNewtonsoftJson(option =>
-            {
+            services.AddControllers().AddNewtonsoftJson(option => {
                 option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 option.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
-
-            services.AddDbContext<TicsaContext>(options =>
-                options.UseMySql(Configuration.GetConnectionString("TicsaContext"),
-                mysqloption => mysqloption.ServerVersion(new Version(10, 3, 27), ServerType.MariaDb)));
-            services.AddSwaggerGen(c =>
-            {
+            services.AddDbContext<TicsaContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("TicsaContext")));
+            //services.AddDbContext<TicsaContext>(options =>
+                //options.UseMySql(Configuration.GetConnectionString("TicsaContext"),
+                //mysqloption => mysqloption.ServerVersion(new Version(10, 3, 27), ServerType.MariaDb)));
+            services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo());
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                string? xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
+                string? xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-                var security = new Dictionary<string, IEnumerable<string>>
+                Dictionary<string, IEnumerable<string>>? security = new Dictionary<string, IEnumerable<string>>
                     {
                         {
                         "ApiKeyAuth", new string[] { }
                         }
                     };
-                c.AddSecurityDefinition("ApiKeyAuth", new OpenApiSecurityScheme
-                {
+                c.AddSecurityDefinition("ApiKeyAuth", new OpenApiSecurityScheme {
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Name = "X-Api-Key",
@@ -90,8 +81,7 @@ namespace TicsaAPI {
                 });
             });
             services.Configure<AppSettingsSection>(Configuration.GetSection("AppSettings"));
-            services.AddAuthentication(options =>
-            {
+            services.AddAuthentication(options => {
                 options.DefaultAuthenticateScheme = ApiKeyAuthentificationOptions.DefaultScheme;
                 options.DefaultChallengeScheme = ApiKeyAuthentificationOptions.DefaultScheme;
 
@@ -115,20 +105,16 @@ namespace TicsaAPI {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
+                app.UseSwaggerUI(c => {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticsa API");
                     c.RoutePrefix = "doc";
                 });
             }
-            else if(env.IsProduction())
-            {
+            else if (env.IsProduction()) {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -139,8 +125,7 @@ namespace TicsaAPI {
             app.UseAuthorization();
 
             app.UseHttpsRedirection();
-            app.UseEndpoints(routes =>
-            {
+            app.UseEndpoints(routes => {
                 routes.MapControllers();
             });
         }
