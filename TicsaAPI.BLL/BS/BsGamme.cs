@@ -117,25 +117,25 @@ namespace TicsaAPI.BLL.BS {
                 }
             }
 
-            if (source.IdProducer != null) {
+            if (source.IdProducer != 0) {
                 if (source.IdProducer != target.IdProducer) {
                     target.IdProducer = (int)source.IdProducer;
                 }
             }
 
-            if (source.IdType != null) {
+            if (source.IdType != 0) {
                 if (source.IdType != target.IdType) {
                     target.IdType = (int)source.IdType;
                 }
             }
 
-            if (source.Cost != null) {
+            if (source.Cost != 0) {
                 if (source.Cost != target.Cost) {
                     target = UpdateCost(target, new DtoCostHisto() { Date = DateTime.Now, Cost = (double)source.Cost });
                 }
             }
 
-            if (source.Stock != null) {
+            if (source.Stock != 0) {
                 if (source.Stock != target.Stock) {
                     target = UpdateStock(target, new DtoStockHisto() { Date = DateTime.Now, Stock = (int)source.Stock });
                 }
